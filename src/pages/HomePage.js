@@ -38,7 +38,7 @@ const HomePage = () => {
     setError(null);
 
     try {
-      const response = await fetch('https://backend-pearl-chi.vercel.app/api/chat', {
+      const response = await fetch('https://credolay-backend.vercel.app/api/chat', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -85,9 +85,11 @@ const HomePage = () => {
       <div className="welcome-section">
         <img src={heroImage} alt="Hero" className="hero-image" />
         <div className="welcome-text">
-          <p className="sub-text">
-            Your personal finance and credit management tool. Build better credit habits, save effectively, and explore loan and investment options.
-          </p>
+        <p className="sub-text">
+  Your personal finance and credit management tool.<br />
+  Build better credit habits, save effectively,<br />
+  and explore loan and investment options.
+</p>
         </div>
       </div>
       <div className="benefits-section">
