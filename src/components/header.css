@@ -104,12 +104,19 @@ nav {
 }
 
 @media (max-width: 768px) {
-  .nav-links {
-    flex-direction: column;
+  nav {
     position: absolute;
     top: 60px;
     right: 0;
-    background-color: #333;
+    background-color: #ffffff; /* Change background to white */
+    width: 100%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add shadow for better visibility */
+    display: none;
+    flex-direction: column;
+  }
+
+  .nav-links {
+    flex-direction: column;
     width: 100%;
     display: none;
   }
@@ -120,15 +127,21 @@ nav {
 
   .nav-links li {
     width: 100%;
-    text-align: right;
-    padding: 10px 20px;
+    text-align: center; /* Center align text */
+    padding: 10px 0; /* Adjust padding */
+    border-bottom: 1px solid #ddd; /* Add border between items */
+  }
+
+  .nav-links li:last-child {
+    border-bottom: none; /* Remove border from the last item */
   }
 
   .button-link {
-    color: #fff;
-    background-color: #333;
+    color: #333;
+    background-color: #fff;
     width: 100%;
-    text-align: right;
+    text-align: center;
+    padding: 10px 0; /* Adjust padding */
   }
 
   .button-link:hover {

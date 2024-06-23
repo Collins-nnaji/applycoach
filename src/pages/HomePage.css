@@ -250,7 +250,8 @@ button:hover:enabled {
   border-radius: 8px;
   cursor: pointer;
   transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
-  flex: 1 1 100%; /* Default to full width */
+  flex: 1 1 30%; /* Adjust to take up to 30% of the container */
+  max-width: 250px; /* Set a maximum width */
   text-align: center;
   margin: 10px;
   border: 2px solid transparent;
