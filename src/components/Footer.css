@@ -1,0 +1,61 @@
+.footer {
+  background-color: #f8f8f8; /* Adjust the background color as needed */
+  padding: 10px 20px; /* Reduce padding to make the footer smaller */
+  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between; /* Space out the elements */
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  flex-wrap: wrap; /* Allow wrapping to keep elements on one line */
+}
+
+.footer p {
+  margin: 0;
+  color: #333;
+  flex: 1 1 auto; /* Allow the text to take available space */
+  text-align: center; /* Center the footer text */
+}
+
+.social-media {
+  display: flex;
+  gap: 15px;
+  flex: 0 1 auto; /* Keep the social media icons from stretching */
+  justify-content: center;
+}
+
+.social-icon {
+  width: 32px; /* Increase size as needed */
+  height: 32px;
+}
+
+.social-media a {
+  text-decoration: none;
+  color: #000000; /* Match the color scheme */
+  font-weight: bold;
+}
+
+.social-media a:hover .social-icon {
+  filter: brightness(0.8);
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .footer-content {
+    flex-wrap: nowrap; /* Prevent wrapping */
+    justify-content: center; /* Center the content */
+  }
+
+  .footer p {
+    flex: 0 1 auto; /* Ensure the paragraph does not take extra space */
+    margin-right: 15px; /* Add margin to separate text and icons */
+  }
+
+  .social-media {
+    flex: 0 1 auto; /* Ensure social media icons do not stretch */
+  }
+}

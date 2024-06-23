@@ -1,0 +1,520 @@
+/* Import the Poppins font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: #f4f7fa;
+  color: #333;
+}
+
+.homepage {
+  padding: 20px;
+  text-align: center;
+  background-color: #fff; /* Set the entire background to white */
+}
+
+.welcome-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.hero-image {
+  width: 100%;
+  max-width: 800px;
+  margin-bottom: 20px;
+}
+
+.welcome-text {
+  margin-top: 20px;
+}
+
+.stylish-font {
+  font-size: 3.5rem;
+  background: linear-gradient(to right, #1ab188, #333);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+.sub-text {
+  font-size: 2rem; /* Increased size */
+  font-weight: 600; /* Made it bold */
+  background: linear-gradient(to right, #173d33, #1e1739);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  margin-top: 10px; /* Adjusted margin */
+  font-family: 'Poppins', sans-serif; /* Ensure the stylish font */
+  text-align: center;
+}
+
+.benefits-section {
+  margin: 40px 0;
+}
+
+.benefits-image {
+  width: 100%;
+  max-width: 800px;
+  margin: 20px 0;
+}
+
+/* Learning Path Section */
+.learning-path-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100vh;
+}
+
+.main-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.content-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  flex: 1;
+}
+
+.guided-questions-section {
+  width: 100%;
+  max-width: 800px;
+  margin: 20px auto;
+  background: #f9f9f9;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.guided-questions-section:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+}
+
+.guided-questions-section h2 {
+  margin-bottom: 20px;
+  font-size: 28px;
+  color: #333;
+  text-align: center;
+}
+
+.question {
+  margin-bottom: 20px;
+}
+
+.question label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 18px;
+  color: #555;
+}
+
+.question input,
+.question select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.question input:focus,
+.question select:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 8px rgba(0, 123, 255, 0.3);
+}
+
+.question input::placeholder {
+  color: #aaa;
+}
+
+button {
+  padding: 12px 24px;
+  background-color: #1ab188;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 18px;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+button:disabled {
+  background-color: #999;
+  cursor: not-allowed;
+}
+
+button:hover:enabled {
+  background-color: #148f6d;
+  transform: scale(1.05);
+}
+
+.gpt-response-section {
+  width: 100%;
+  max-width: 800px;
+  margin: 20px auto;
+  background: #fff;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  text-align: left;
+}
+
+.gpt-response-section h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.gpt-response-section p {
+  font-size: 16px;
+  color: #333;
+  margin-bottom: 20px;
+  white-space: pre-wrap; /* Preserve formatting */
+}
+
+.learning-plan-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  margin-top: 20px;
+  background-color: #fff;
+  border-radius: 15px;
+  width: 100%;
+  max-width: 800px;
+  margin: 20px auto;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.learning-plan-section:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+}
+
+.learning-plan-section h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.learning-plan-section a {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 18px;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.learning-plan-section a:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+}
+
+.error-message {
+  color: red;
+  margin-top: 20px;
+}
+
+/* Feature Buttons */
+.feature-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.feature-button-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 250px;
+  height: 150px;
+  padding: 20px;
+  background: linear-gradient(to right, #1ab188, #a333c8);
+  color: #fff;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  font-size: 1.5rem;
+  font-weight: bold;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.feature-button-card:hover,
+.feature-button-card.active {
+  background: linear-gradient(to right, #148f6d, #8250df);
+  transform: translateY(-5px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+}
+
+.auth-buttons {
+  display: flex;
+  gap: 20px;
+  margin-top: 20px;
+  justify-content: center;
+}
+
+.auth-buttons button {
+  padding: 12px 24px;
+  background-color: #1ab188;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 18px;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.auth-buttons button:hover {
+  background-color: #148f6d;
+  transform: scale(1.05);
+}
+
+/* Back Button */
+.back-button {
+  background-color: #1ab188;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 24px;
+  cursor: pointer;
+  font-size: 1rem;
+  margin-bottom: 20px;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.back-button:hover {
+  background-color: #148f6d;
+  transform: scale(1.05);
+}
+
+.user-info {
+  margin: 20px 0;
+  text-align: center;
+}
+
+.user-info label {
+  font-size: 18px;
+  color: #555;
+}
+
+.user-info input {
+  width: 100%;
+  max-width: 400px;
+  padding: 12px;
+  margin-top: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.user-info input:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 8px rgba(0, 123, 255, 0.3);
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .frames {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .learning-image {
+    max-width: 100%;
+  }
+
+  .get-started-button {
+    font-size: 1.2rem;
+    padding: 15px 30px;
+  }
+
+  .guided-questions-section {
+    padding: 15px;
+  }
+
+  .guided-questions-section h2 {
+    font-size: 22px;
+  }
+
+  .question label {
+    font-size: 15px;
+  }
+
+  .question input,
+  .question select {
+    font-size: 13px;
+  }
+
+  button {
+    font-size: 15px;
+  }
+
+  .gpt-response-section h2 {
+    font-size: 18px;
+  }
+
+  .gpt-response-section p {
+    font-size: 13px;
+  }
+
+  .learning-plan-section h2 {
+    font-size: 18px;
+  }
+
+  .learning-plan-section a {
+    font-size: 14px;
+    padding: 6px 12px;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .get-started-button {
+    font-size: 1.4rem;
+    padding: 18px 36px;
+  }
+
+  .guided-questions-section {
+    padding: 20px;
+  }
+
+  .guided-questions-section h2 {
+    font-size: 24px;
+  }
+
+  .question label {
+    font-size: 16px;
+  }
+
+  .question input,
+  .question select {
+    font-size: 14px;
+  }
+
+  button {
+    font-size: 16px;
+  }
+
+  .gpt-response-section h2 {
+    font-size: 20px;
+  }
+
+  .gpt-response-section p {
+    font-size: 14px;
+  }
+
+  .learning-plan-section h2 {
+    font-size: 20px;
+  }
+
+  .learning-plan-section a {
+    font-size: 16px;
+    padding: 8px 16px;
+  }
+}
+
+@media (min-width: 1025px) {
+  .get-started-button {
+    font-size: 1.5rem;
+    padding: 20px 40px;
+  }
+
+  .guided-questions-section {
+    padding: 30px;
+  }
+
+  .guided-questions-section h2 {
+    font-size: 28px;
+  }
+
+  .question label {
+    font-size: 18px;
+  }
+
+  .question input,
+  .question select {
+    font-size: 16px;
+  }
+
+  button {
+    font-size: 18px;
+  }
+
+  .gpt-response-section h2 {
+    font-size: 24px;
+  }
+
+  .gpt-response-section p {
+    font-size: 16px;
+  }
+
+  .learning-plan-section h2 {
+    font-size: 24px;
+  }
+
+  .learning-plan-section a {
+    font-size: 18px;
+    padding: 10px 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .guided-questions-section {
+    padding: 10px;
+  }
+
+  .guided-questions-section h2 {
+    font-size: 20px;
+  }
+
+  .question label {
+    font-size: 14px;
+  }
+
+  .question input,
+  .question select {
+    font-size: 12px;
+  }
+
+  button {
+    font-size: 14px;
+  }
+
+  .gpt-response-section h2 {
+    font-size: 16px;
+  }
+
+  .gpt-response-section p {
+    font-size: 12px;
+  }
+
+  .learning-plan-section h2 {
+    font-size: 16px;
+  }
+
+  .learning-plan-section a {
+    font-size: 12px;
+    padding: 5px 10px;
+  }
+}
