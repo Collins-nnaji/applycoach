@@ -1,0 +1,20 @@
+/* SurveyPage.css */
+
+.survey-page {
+  font-family: Arial, sans-serif;
+}
+
+.survey-content {
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.survey-content h2 {
+  margin-bottom: 20px;
+}
+
+.survey-content iframe {
+  border: none;
+}

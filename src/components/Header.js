@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import './header.css'; // Ensure the correct path to your CSS file
+import './header.css';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -19,9 +19,8 @@ const Header = () => {
         </div>
         <nav className={isMenuOpen ? 'open' : ''}>
           <ul className="nav-links">
-            <li><Link to="/">Home</Link></li>
-            <li><Link to="/login">Login</Link></li>
-            <li><Link to="/signup">Sign Up</Link></li>
+            <li><Link to="/" className="button-link">Home</Link></li>
+            <li><Link to="/survey" className="button-link">Survey</Link></li>
           </ul>
         </nav>
         <button className="menu-toggle" onClick={toggleMenu}>

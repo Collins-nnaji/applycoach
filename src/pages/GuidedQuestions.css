@@ -18,9 +18,11 @@ body {
   max-width: 800px;
   margin: 20px auto;
   background: #ffffff;
-  padding: 30px;
+  padding: 40px;
   border-radius: 15px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  border: 6px solid transparent; /* Set the initial border */
+  border-image: linear-gradient(45deg, #1ab188, #9b59b6) 1; /* Apply gradient border */
   transition: transform 0.2s, box-shadow 0.2s;
 }
 
@@ -44,7 +46,7 @@ body {
   display: block;
   margin-bottom: 8px;
   font-size: 18px;
-  color: #555;
+  color: #000000;
 }
 
 .question input,

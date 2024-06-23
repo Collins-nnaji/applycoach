@@ -238,34 +238,41 @@ button:hover:enabled {
 /* Feature Buttons */
 .feature-buttons {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 20px;
+  justify-content: space-around;
+  padding: 20px;
+  background-color: #fff;
 }
 
 .feature-button-card {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 250px;
-  height: 150px;
   padding: 20px;
   background: linear-gradient(to right, #1ab188, #a333c8);
-  color: #fff;
-  border-radius: 15px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
   cursor: pointer;
-  font-size: 1.5rem;
-  font-weight: bold;
-  transition: transform 0.2s, box-shadow 0.2s;
+  transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+  flex: 1;
+  text-align: center;
+  margin: 5px;
+  border: 2px solid transparent;
+  color: #fff;
 }
 
-.feature-button-card:hover,
-.feature-button-card.active {
-  background: linear-gradient(to right, #148f6d, #8250df);
-  transform: translateY(-5px);
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+.feature-button-card:hover {
+  background-color: #ddd;
+  color: #000;
 }
+
+.feature-button-card.active {
+  border: 4px solid #a333c8; /* Increase border thickness and change color */
+  transform: scale(1.1); /* Increase the transform scale */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Add box-shadow for more distinct effect */
+}
+
+.feature-button-card h3 {
+  margin: 0;
+  font-size: 1.2em;
+}
+
+
 
 .auth-buttons {
   display: flex;
@@ -307,32 +314,36 @@ button:hover:enabled {
   background-color: #148f6d;
   transform: scale(1.05);
 }
+/* Add this to your existing CSS file */
 
 .user-info {
-  margin: 20px 0;
+  margin-bottom: 20px;
   text-align: center;
 }
 
 .user-info label {
-  font-size: 18px;
-  color: #555;
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
 }
 
 .user-info input {
-  width: 100%;
-  max-width: 400px;
-  padding: 12px;
   margin-top: 10px;
+  padding: 10px;
+  font-size: 14px;
   border: 1px solid #ddd;
-  border-radius: 8px;
-  font-size: 16px;
+  border-radius: 5px;
+  width: 100%;
+  max-width: 300px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   transition: border-color 0.3s, box-shadow 0.3s;
 }
 
 .user-info input:focus {
-  border-color: #007bff;
-  box-shadow: 0 0 8px rgba(0, 123, 255, 0.3);
+  border-color: #1ab188;
+  box-shadow: 0 0 8px rgba(26, 177, 136, 0.3);
 }
+
 
 /* Responsive Styles */
 @media (max-width: 768px) {

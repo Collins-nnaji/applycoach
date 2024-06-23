@@ -13,7 +13,6 @@ const GuidedQuestions = ({ questions, responses, onResponseChange, onSubmit, but
 
   return (
     <div className="guided-questions-section">
-      <h2>Guided Questions</h2>
       {questions.map((question) => (
         <div key={question.id} className="question">
           <label>{question.text}</label>

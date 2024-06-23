@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import './SignupPage.css';
 
 const SignupPage = () => {
@@ -14,6 +15,11 @@ const SignupPage = () => {
   return (
     <div className="signup-page">
       <form onSubmit={handleSubmit} className="signup-form">
+        <div className="logo-container">
+          <Link to="/">
+            <img src={require('../assets/logo.png')} alt="Credolay Logo" />
+          </Link>
+        </div>
         <h2>Sign Up</h2>
         <label>Email:</label>
         <input
@@ -37,6 +43,7 @@ const SignupPage = () => {
           required
         />
         <button type="submit">Sign Up</button>
+        <p className="redirect-text">Already have an account? <Link to="/login">Login</Link></p>
       </form>
     </div>
   );
