@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import GuidedQuestions from './GuidedQuestions';
-import PDFGenerator from './PDFGenerator'; // Import PDFGenerator
+import PDFGenerator from './PDFGenerator';
 import { questions } from '../services/api';
 import './HomePage.css';
 import heroImage from '../assets/hero-image.jpg';
@@ -11,7 +11,7 @@ import benefitsImage from '../assets/benefits-image.png';
 const HomePage = () => {
   const [selectedFeature, setSelectedFeature] = useState(null);
   const [guidedResponses, setGuidedResponses] = useState({});
-  const [userName, setUserName] = useState(''); // State for user's name
+  const [userName, setUserName] = useState('');
   const [gptResponse, setGptResponse] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -30,7 +30,7 @@ const HomePage = () => {
         const questionText = questions[selectedFeature].find(q => q.id === parseInt(questionId))?.text || '';
         return `${questionText}\n${response}`;
       })
-      .join('\n\n'); // Add double newlines between each question-answer pair
+      .join('\n\n');
 
     const prompt = `Create a ${selectedFeature.replace(/([A-Z])/g, ' $1')} with these details:\n\n${formattedMessage}`;
 
@@ -38,6 +38,7 @@ const HomePage = () => {
     setError(null);
 
     try {
+      console.log('Sending request to backend with prompt:', prompt);
       const response = await fetch('https://credolay-backend.vercel.app/api/chat', {
         method: 'POST',
         headers: {
@@ -48,14 +49,16 @@ const HomePage = () => {
 
       if (response.ok) {
         const data = await response.json();
+        console.log('Received response from backend:', data);
         setGptResponse(data.response);
       } else {
-        console.error('Error in response from server:', response.statusText);
-        setError('Failed to generate the document.');
+        const errorText = await response.text();
+        console.error('Error in response from server:', response.statusText, errorText);
+        setError(`Failed to generate the document. Server responded with status: ${response.statusText}`);
       }
     } catch (error) {
       console.error('Error sending message:', error);
-      setError('Failed to generate the document.');
+      setError(`Failed to generate the document. Error: ${error.message}`);
     } finally {
       setLoading(false);
     }
@@ -67,7 +70,7 @@ const HomePage = () => {
         const questionText = questions[selectedFeature].find(q => q.id === parseInt(questionId))?.text || '';
         return `${questionText}\n${response}`;
       })
-      .join('\n\n'); // Add double newlines between each question-answer pair
+      .join('\n\n');
 
     const topic = selectedFeature.replace(/([A-Z])/g, ' $1').trim().replace(/^\w/, c => c.toUpperCase());
     const pdf = PDFGenerator(userName, formattedMessage, gptResponse, topic);
@@ -85,11 +88,11 @@ const HomePage = () => {
       <div className="welcome-section">
         <img src={heroImage} alt="Hero" className="hero-image" />
         <div className="welcome-text">
-        <p className="sub-text">
-  Your personal finance and credit management tool.<br />
-  Build better credit habits, save effectively,<br />
-  and explore loan and investment options.
-</p>
+          <p className="sub-text">
+            Your personal finance and credit management tool.<br />
+            Build better credit habits, save effectively,<br />
+            and explore loan and investment options.
+          </p>
         </div>
       </div>
       <div className="benefits-section">

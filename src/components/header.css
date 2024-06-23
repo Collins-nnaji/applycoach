@@ -108,11 +108,15 @@ nav {
     position: absolute;
     top: 60px;
     right: 0;
-    background-color: #ffffff; /* Change background to white */
+    background-color: #ffffff;
     width: 100%;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add shadow for better visibility */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     display: none;
     flex-direction: column;
+  }
+
+  nav.open {
+    display: flex;
   }
 
   .nav-links {
@@ -127,13 +131,13 @@ nav {
 
   .nav-links li {
     width: 100%;
-    text-align: center; /* Center align text */
-    padding: 10px 0; /* Adjust padding */
-    border-bottom: 1px solid #ddd; /* Add border between items */
+    text-align: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
   }
 
   .nav-links li:last-child {
-    border-bottom: none; /* Remove border from the last item */
+    border-bottom: none;
   }
 
   .button-link {
@@ -141,7 +145,7 @@ nav {
     background-color: #fff;
     width: 100%;
     text-align: center;
-    padding: 10px 0; /* Adjust padding */
+    padding: 10px 0;
   }
 
   .button-link:hover {
