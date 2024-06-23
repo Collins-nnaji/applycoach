@@ -1,9 +1,7 @@
-/* header.css */
-
 .header {
   background-color: #ffffff;
   padding: 10px 20px;
-  color: #fff;
+  color: #333;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -70,7 +68,7 @@ nav {
 .menu-icon {
   width: 25px;
   height: 3px;
-  background-color: #fff;
+  background-color: #333;
   position: relative;
   transition: all 0.3s;
 }
@@ -80,7 +78,7 @@ nav {
   content: '';
   width: 25px;
   height: 3px;
-  background-color: #fff;
+  background-color: #333;
   position: absolute;
   transition: all 0.3s;
 }
@@ -112,12 +110,30 @@ nav {
     top: 60px;
     right: 0;
     background-color: #333;
-    width: 200px;
+    width: 100%;
     display: none;
   }
 
   .nav-links.open {
     display: flex;
+  }
+
+  .nav-links li {
+    width: 100%;
+    text-align: right;
+    padding: 10px 20px;
+  }
+
+  .button-link {
+    color: #fff;
+    background-color: #333;
+    width: 100%;
+    text-align: right;
+  }
+
+  .button-link:hover {
+    background-color: #ff6347;
+    color: #fff;
   }
 
   .menu-toggle {

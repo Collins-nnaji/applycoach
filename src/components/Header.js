@@ -18,13 +18,13 @@ const Header = () => {
           </Link>
         </div>
         <nav className={isMenuOpen ? 'open' : ''}>
-          <ul className="nav-links">
+          <ul className={`nav-links ${isMenuOpen ? 'open' : ''}`}>
             <li><Link to="/" className="button-link">Home</Link></li>
             <li><Link to="/survey" className="button-link">Survey</Link></li>
           </ul>
         </nav>
         <button className="menu-toggle" onClick={toggleMenu}>
-          <span className="menu-icon"></span>
+          <span className={`menu-icon ${isMenuOpen ? 'open' : ''}`}></span>
         </button>
       </div>
     </header>
