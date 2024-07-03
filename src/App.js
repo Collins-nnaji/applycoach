@@ -1,20 +1,39 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import HomePage from './pages/HomePage';
-import SurveyPage from './pages/SurveyPage'; // Updated import for SurveyPage
-import './App.css';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Header from './components/Header';
+import Footer from './components/Footer';
+import Home from './pages/Home';
+import Analysis from './pages/Analysis';
+import Results from './pages/Results';
 
-const App = () => {
+const styles = {
+  app: {
+    display: 'flex',
+    flexDirection: 'column',
+    minHeight: '100vh',
+  },
+  main: {
+    flex: 1,
+    padding: '2rem',
+  },
+};
+
+function App() {
   return (
     <Router>
-      <div className="app">
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/survey" element={<SurveyPage />} /> {/* Updated path */}
-        </Routes>
+      <div style={styles.app}>
+        <Header />
+        <main style={styles.main}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/analysis" element={<Analysis />} />
+            <Route path="/results" element={<Results />} />
+          </Routes>
+        </main>
+        <Footer />
       </div>
     </Router>
   );
-};
+}
 
 export default App;

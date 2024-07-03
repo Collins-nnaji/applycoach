@@ -1,34 +1,77 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import './header.css';
+import logo from '../assets/logo.png'; // Adjust the path based on your directory structure
 
-const Header = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+const styles = {
+  header: {
+    backgroundColor: 'white', // White background
+    padding: '1rem 0',
+    color: 'black', // Black text color
+    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)', // Subtle shadow for distinction
+  },
+  container: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  logo: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+  logoImage: {
+    height: '40px',
+    marginRight: '10px',
+  },
+  navList: {
+    listStyleType: 'none',
+    display: 'flex',
+    gap: '1rem',
+  },
+  navLink: {
+    color: '#4B0082', // Dark purple color
+    textDecoration: 'none',
+    fontSize: '1.2rem', // Increase font size
+    transition: 'opacity 0.3s ease',
+  },
+  navLinkHover: {
+    opacity: '0.7',
+  },
+};
 
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
-
+function Header() {
   return (
-    <header className="header">
-      <div className="nav-container">
-        <div className="logo">
-          <Link to="/">
-            <img src={require('../assets/logo.png')} alt="Credolay Logo" />
-          </Link>
+    <header style={styles.header}>
+      <div className="container" style={styles.container}>
+        <div style={styles.logo}>
+          <img src={logo} alt="Credolay Logo" style={styles.logoImage} />
         </div>
-        <button className="menu-toggle" onClick={toggleMenu}>
-          <span className={`menu-icon ${isMenuOpen ? 'open' : ''}`}></span>
-        </button>
-        <nav className={isMenuOpen ? 'open' : ''}>
-          <ul className={`nav-links ${isMenuOpen ? 'open' : ''}`}>
-            <li><Link to="/" className="button-link">Home</Link></li>
-            <li><Link to="/survey" className="button-link">Survey</Link></li>
+        <nav>
+          <ul style={styles.navList}>
+            <li>
+              <Link
+                to="/"
+                style={styles.navLink}
+                onMouseOver={(e) => e.target.style = { ...styles.navLink, ...styles.navLinkHover }}
+                onMouseOut={(e) => e.target.style = styles.navLink}
+              >
+                Home
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/analysis"
+                style={styles.navLink}
+                onMouseOver={(e) => e.target.style = { ...styles.navLink, ...styles.navLinkHover }}
+                onMouseOut={(e) => e.target.style = styles.navLink}
+              >
+                Analysis
+              </Link>
+            </li>
           </ul>
         </nav>
       </div>
     </header>
   );
-};
+}
 
 export default Header;
