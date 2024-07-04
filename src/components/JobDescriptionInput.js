@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+
 
 const styles = {
   jobDescriptionInput: {
@@ -67,7 +67,7 @@ const styles = {
 function JobDescriptionInput() {
   const [jobDescription, setJobDescription] = useState('');
   const [inputMode, setInputMode] = useState('text');
-  const analysisStatus = useSelector((state) => state.analysis.loading);
+
 
   const handleChange = (e) => {
     setJobDescription(e.target.value);
