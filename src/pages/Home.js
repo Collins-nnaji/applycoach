@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import cvPic from '../assets/CVpic.jpg';  // Import the image
 
 const styles = {
   home: {
@@ -32,6 +33,12 @@ const styles = {
   startButtonHover: {
     backgroundColor: 'var(--hover-background)',
   },
+  // Add styling for the image
+  image: {
+    maxWidth: '100%',
+    height: 'auto',
+    margin: '30px 0',
+  },
 };
 
 function Home() {
@@ -39,9 +46,12 @@ function Home() {
     <div style={styles.home}>
       <h1 style={styles.title}>Welcome to Credolay</h1>
       <p style={styles.description}>
-        Credolay helps you analyze CVs and job descriptions to find the perfect match.
-        Upload your CV and start your journey to your dream job today!
+      Credolay helps you analyze CVs and job descriptions to find the perfect match. 
+        Upload your CV and start your journey to your dream job today! 
+        After the analysis, you can download a newly optimized CV tailored to your target job!
       </p>
+      {/* Add the image here */}
+      <img src={cvPic} alt="CV Analysis" style={styles.image} />
       <Link
         to="/analysis"
         style={styles.startButton}

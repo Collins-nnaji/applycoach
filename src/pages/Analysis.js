@@ -9,32 +9,36 @@ const styles = {
   analysis: {
     maxWidth: '800px',
     margin: '0 auto',
-    padding: '20px',
+    padding: '40px',
     background: 'var(--background-color)',
     color: 'var(--text-color)',
     minHeight: '100vh',
+    boxShadow: '0 0 20px rgba(0,0,0,0.1)',
+    borderRadius: '8px',
   },
   title: {
-    fontSize: '2rem',
-    marginBottom: '20px',
-    color: 'var(--primary-color)',
-  },
-  section: {
+    fontSize: '2.5rem',
     marginBottom: '30px',
+    color: 'var(--primary-color)',
+    textAlign: 'center',
   },
   analyzeButton: {
     backgroundColor: 'var(--button-background)',
     color: 'var(--button-text)',
-    padding: '10px 20px',
+    padding: '15px 30px',
     fontSize: '1.25rem',
-    border: '2px solid var(--button-background)',
+    border: 'none',
     borderRadius: '4px',
     cursor: 'pointer',
-    transition: 'background-color 0.3s ease',
+    transition: 'all 0.3s ease',
+    display: 'block',
+    width: '100%',
+    marginTop: '30px',
   },
   analyzeButtonHover: {
     backgroundColor: 'var(--hover-background)',
-    color: 'var(--button-text)',
+    transform: 'translateY(-2px)',
+    boxShadow: '0 4px 8px rgba(0,0,0,0.2)',
   },
 };
 
@@ -57,12 +61,8 @@ function Analysis() {
   return (
     <div style={styles.analysis}>
       <h1 style={styles.title}>CV and Job Description Analysis</h1>
-      <div style={styles.section}>
-        <CVUpload />
-      </div>
-      <div style={styles.section}>
-        <JobDescriptionInput />
-      </div>
+      <CVUpload />
+      <JobDescriptionInput />
       <button
         onClick={handleAnalyze}
         style={styles.analyzeButton}
