@@ -1,0 +1,86 @@
+:root {
+    --background-color: #ffffff;
+    --primary-color: #6a1b9a;
+    --primary-light: #a06ece;
+    --text-color: #333333;
+    --button-background: #6a1b9a;
+    --button-text: #ffffff;
+    --hover-background: #8e24aa;
+    --border-color: #dddddd;
+    --font-family: 'Roboto', sans-serif;
+  }
+  
+  .cvUpload {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    margin: 20px auto;
+    box-sizing: border-box;
+  }
+  
+  .title {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    color: var(--primary-color);
+    text-align: center;
+  }
+  
+  .inputWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: var(--text-color);
+    margin-bottom: 10px;
+    width: 100%;
+  }
+  
+  .button {
+    background-color: var(--button-background);
+    color: var(--button-text);
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%;
+    margin-top: 10px;
+  }
+  
+  .button:hover {
+    background-color: var(--hover-background);
+  }
+  
+  .button:disabled {
+    background-color: var(--button-background);
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+  
+  @media (min-width: 768px) {
+    .inputWrapper {
+      flex-direction: row;
+    }
+  
+    .input {
+      border-radius: 4px 0 0 4px;
+      margin-bottom: 0;
+      width: auto;
+    }
+  
+    .button {
+      border-radius: 0 4px 4px 0;
+      width: auto;
+    }
+  }
+  
