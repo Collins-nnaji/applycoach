@@ -1,76 +1,254 @@
 :root {
-    --background-color: #ffffff;
-    --primary-color: #6a1b9a;
-    --primary-light: #a06ece;
-    --text-color: #333333;
-    --button-background: #6a1b9a;
-    --button-text: #ffffff;
-    --hover-background: #8e24aa;
-    --border-color: #dddddd;
-    --font-family: 'Roboto', sans-serif;
+  --background-color: #ffffff;
+  --primary-color: #6a1b9a;
+  --primary-light: #a06ece;
+  --text-color: #333333;
+  --button-background: #6a1b9a;
+  --button-text: #ffffff;
+  --hover-background: #8e24aa;
+  --font-family: 'Roboto', sans-serif;
+  --card-background: #f5f5f5;
+  --progress-background: #e0e0e0;
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: var(--background-color);
+  margin: 0;
+  padding: 0;
+  color: var(--text-color);
+}
+
+.analysis-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 1rem;
+}
+
+.hero-section {
+  background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+  color: var(--button-text);
+  text-align: center;
+  padding: 4rem 2rem;
+  width: 100%;
+  margin-bottom: 2rem;
+}
+
+.hero-title {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  color: var(--button-text);  /* Ensure this is white */
+}
+
+.hero-subtitle {
+  font-size: 1.25rem;
+  opacity: 0.9;
+  color: var(--button-text);  /* Ensure this is white */
+}
+
+.card-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 2rem;
+  width: 100%;
+  max-width: 1200px;
+}
+
+.interactive-card {
+  background-color: var(--card-background);
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+  width: calc(50% - 1rem);
+  min-width: 300px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 1px solid var(--primary-light);
+}
+
+.interactive-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+.interactive-card.expanded {
+  width: 100%;
+}
+
+.card-title {
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+  font-weight: bold;
+}
+
+.card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.file-input,
+.job-description-input {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid var(--primary-light);
+  border-radius: 4px;
+  background-color: var(--background-color);
+}
+
+.job-description-input {
+  min-height: 150px;
+  resize: vertical;
+}
+
+.upload-button,
+.submit-button {
+  background-color: var(--button-background);
+  color: var(--button-text);
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-weight: bold;
+}
+
+.upload-button:hover,
+.submit-button:hover {
+  background-color: var(--hover-background);
+}
+
+.toggle-container {
+  display: flex;
+  gap: 1rem;
+}
+
+.toggle-button {
+  flex: 1;
+  padding: 0.5rem;
+  border: none;
+  background-color: var(--background-color);
+  color: var(--primary-color);
+  border: 1px solid var(--primary-color);
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.toggle-button.active {
+  background-color: var(--primary-color);
+  color: var(--button-text);
+}
+
+.progress-bar {
+  width: 100%;
+  max-width: 600px;
+  margin: 2rem 0;
+  position: relative;
+  height: 12px;
+  background-color: var(--progress-background);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.progress-bar-inner {
+  position: absolute;
+  height: 100%;
+  background-color: var(--primary-color);
+  transition: width 0.3s ease;
+}
+
+.progress-steps {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.progress-step {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: var(--progress-background);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  color: var(--text-color);
+  font-weight: bold;
+  border: 2px solid var(--primary-color);
+}
+
+.progress-step.completed {
+  background-color: var(--primary-color);
+  color: var(--button-text);
+}
+
+.progress-step.current {
+  background-color: var(--hover-background);
+  color: var(--button-text);
+}
+
+.floating-action-button {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  background-color: var(--button-background);
+  color: var(--button-text);
+  border: none;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.floating-action-button:hover {
+  background-color: var(--hover-background);
+  transform: scale(1.1);
+}
+
+.floating-action-button.disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+@media (max-width: 768px) {
+  .analysis-page {
+    padding: 1rem;
   }
-  
-  body {
-    background-color: var(--background-color);
-    font-family: var(--font-family);
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+
+  .hero-section {
+    padding: 2rem 1rem;
   }
-  
-  .analysis {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 40px 20px;
-    background: var(--background-color);
-    color: var(--text-color);
-    min-height: 100vh;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    display: flex;
+
+  .hero-title {
+    font-size: 2rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1rem;
+  }
+
+  .card-container {
     flex-direction: column;
-    align-items: center;
-    box-sizing: border-box;
   }
-  
-  .title {
-    font-size: 2.5rem;
-    margin-bottom: 30px;
-    color: var(--primary-color);
-    text-align: center;
+
+  .interactive-card {
+    width: 100%;
   }
-  
-  .analyzeButton {
-    background-color: var(--button-background);
-    color: var(--button-text);
-    padding: 15px 30px;
+
+  .floating-action-button {
+    bottom: 1rem;
+    right: 1rem;
+    width: 50px;
+    height: 50px;
     font-size: 1.25rem;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    width: 100%;
-    max-width: 400px;
-    margin-top: 30px;
-    box-sizing: border-box;
   }
-  
-  .analyzeButton:hover {
-    background-color: var(--hover-background);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  }
-  
-  .analyzeButton:disabled {
-    background-color: var(--button-background);
-    opacity: 0.6;
-    cursor: not-allowed;
-  }
-  
-  .cvUpload, .jobDescriptionInput {
-    width: 100%;
-    max-width: 600px;
-    margin-bottom: 20px;
-    box-sizing: border-box;
-  }
-  
+}

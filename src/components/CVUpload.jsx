@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { uploadCVAsync } from '../store/analysisSlice';
-import './CVUpload.css';
 
-function CVUpload() {
+
+function CVUpload({ onComplete }) {
   const [file, setFile] = useState(null);
+  const [isExpanded, setIsExpanded] = useState(false);
   const dispatch = useDispatch();
   const cvUploadStatus = useSelector((state) => state.analysis.loading);
 
@@ -14,27 +15,31 @@ function CVUpload() {
 
   const handleUpload = () => {
     if (file) {
-      dispatch(uploadCVAsync(file));
+      dispatch(uploadCVAsync(file)).then(() => {
+        onComplete();
+      });
     }
   };
 
   return (
-    <div className="cvUpload">
-      <h2 className="title">Upload Your CV</h2>
-      <div className="inputWrapper">
-        <input
-          type="file"
-          onChange={handleFileChange}
-          className="input"
-        />
-        <button
-          onClick={handleUpload}
-          className="button"
-          disabled={cvUploadStatus === 'loading'}
-        >
-          {cvUploadStatus === 'loading' ? 'Uploading...' : 'Upload CV'}
-        </button>
-      </div>
+    <div className={`interactive-card ${isExpanded ? 'expanded' : ''}`} onClick={() => setIsExpanded(!isExpanded)}>
+      <h2 className="card-title">Upload Your CV</h2>
+      {isExpanded && (
+        <div className="card-content">
+          <input
+            type="file"
+            onChange={handleFileChange}
+            className="file-input"
+          />
+          <button
+            onClick={handleUpload}
+            className="upload-button"
+            disabled={cvUploadStatus === 'loading'}
+          >
+            {cvUploadStatus === 'loading' ? 'Uploading...' : 'Upload CV'}
+          </button>
+        </div>
+      )}
     </div>
   );
 }
