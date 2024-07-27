@@ -5,7 +5,7 @@ import { getMatchResultsAsync } from '../store/analysisSlice';
 import CVUpload from '../components/CVUpload';
 import JobDescriptionInput from '../components/JobDescriptionInput';
 import ProgressBar from '../components/ProgressBar';
-import FloatingActionButton from '../components/FloatingActionButton';
+import { Button } from '@mui/material';
 import './Analysis.css';
 
 function Analysis() {
@@ -44,13 +44,17 @@ function Analysis() {
         <CVUpload onComplete={handleCVUploadComplete} />
         <JobDescriptionInput onComplete={handleJobDescriptionComplete} />
       </div>
-      {cv && jobDescription && (
-        <FloatingActionButton
+      <div className="analyze-button-container">
+        <Button
           onClick={handleAnalyze}
-          label={matchingStatus === 'loading' ? 'Analyzing...' : 'Analyze'}
+          variant="contained"
+          color="primary"
           disabled={matchingStatus === 'loading'}
-        />
-      )}
+          className="analyze-button"
+        >
+          {matchingStatus === 'loading' ? 'Analyzing...' : 'Analyze'}
+        </Button>
+      </div>
     </div>
   );
 }

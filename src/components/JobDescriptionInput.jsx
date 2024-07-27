@@ -1,71 +1,127 @@
 import React, { useState } from 'react';
-
+import { useDispatch, useSelector } from 'react-redux';
+import { analyzeJobDescriptionAsync } from '../store/analysisSlice';
+import {
+  Card,
+  CardContent,
+  Typography,
+  TextField,
+  Button,
+  IconButton,
+  Avatar,
+  CircularProgress,
+} from '@mui/material';
+import { Description, CheckCircle } from '@mui/icons-material';
+import './JobDescriptionInput.css';
 
 function JobDescriptionInput({ onComplete }) {
   const [jobDescription, setJobDescription] = useState('');
+  const [file, setFile] = useState(null);
   const [inputMode, setInputMode] = useState('text');
-  const [isExpanded, setIsExpanded] = useState(false);
+  const dispatch = useDispatch();
+  const jobUploadStatus = useSelector((state) => state.analysis.loading);
 
   const handleChange = (e) => {
     setJobDescription(e.target.value);
+    setFile(null);
   };
 
   const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        setJobDescription(e.target.result);
-      };
-      reader.readAsText(file);
+    const selectedFile = e.target.files[0];
+    if (selectedFile) {
+      setFile(selectedFile);
+      setJobDescription('');
     }
   };
 
   const handleSubmit = () => {
     if (jobDescription.trim()) {
-      onComplete();
+      dispatch(analyzeJobDescriptionAsync(jobDescription)).then(() => {
+        onComplete();
+      });
+    } else if (file) {
+      const formData = new FormData();
+      formData.append('jobDescription', file);
+      dispatch(analyzeJobDescriptionAsync(formData)).then(() => {
+        onComplete();
+      });
     }
   };
 
   return (
-    <div className={`interactive-card ${isExpanded ? 'expanded' : ''}`} onClick={() => setIsExpanded(!isExpanded)}>
-      <h2 className="card-title">Job Description</h2>
-      {isExpanded && (
-        <div className="card-content">
-          <div className="toggle-container">
-            <button
-              className={`toggle-button ${inputMode === 'text' ? 'active' : ''}`}
-              onClick={() => setInputMode('text')}
-            >
-              Enter Text
-            </button>
-            <button
-              className={`toggle-button ${inputMode === 'file' ? 'active' : ''}`}
-              onClick={() => setInputMode('file')}
-            >
-              Upload File
-            </button>
-          </div>
-          {inputMode === 'text' ? (
-            <textarea
-              value={jobDescription}
-              onChange={handleChange}
-              placeholder="Enter job description"
-              className="job-description-input"
-            />
-          ) : (
+    <Card className="job-description-card">
+      <CardContent>
+        <Typography variant="h5">Job Description</Typography>
+        <div className="toggle-container">
+          <Button
+            variant={inputMode === 'text' ? 'contained' : 'outlined'}
+            color="primary"
+            onClick={() => setInputMode('text')}
+            disabled={!!file}
+          >
+            Enter Text
+          </Button>
+          <Button
+            variant={inputMode === 'file' ? 'contained' : 'outlined'}
+            color="primary"
+            onClick={() => setInputMode('file')}
+            disabled={!!jobDescription}
+          >
+            Upload File
+          </Button>
+        </div>
+        {inputMode === 'text' ? (
+          <TextField
+            multiline
+            rows={15}
+            value={jobDescription}
+            onChange={handleChange}
+            placeholder="Enter job description"
+            variant="outlined"
+            fullWidth
+            className="job-description-input"
+            style={{ fontSize: '1.2rem' }}
+            disabled={!!file}
+          />
+        ) : (
+          <div className="file-input-container">
             <input
+              accept=".txt,.pdf,.doc,.docx"
+              className="file-input"
+              id="job-description-upload"
               type="file"
               onChange={handleFileChange}
-              className="file-input"
+              style={{ display: 'none' }}
             />
-          )}
-          <button onClick={handleSubmit} className="submit-button">
-            Submit
-          </button>
-        </div>
-      )}
-    </div>
+            <label htmlFor="job-description-upload">
+              <IconButton color="primary" aria-label="upload job description" component="span">
+                <Avatar variant="rounded" className="upload-avatar">
+                  {jobUploadStatus === 'loading' ? (
+                    <CircularProgress color="inherit" size={24} />
+                  ) : file ? (
+                    <CheckCircle fontSize="large" />
+                  ) : (
+                    <Description fontSize="large" />
+                  )}
+                </Avatar>
+              </IconButton>
+            </label>
+            {file && <span className="file-name">{file.name}</span>}
+          </div>
+        )}
+        {jobUploadStatus === 'loading' && <CircularProgress className="upload-progress" />}
+      </CardContent>
+      <CardContent>
+        <Button
+          onClick={handleSubmit}
+          variant="contained"
+          color="primary"
+          disabled={jobUploadStatus === 'loading'}
+        >
+          {jobUploadStatus === 'loading' ? 'Submitting...' : 'Submit Job Description'}
+        </Button>
+      </CardContent>
+    </Card>
   );
 }
 

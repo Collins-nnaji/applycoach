@@ -1,4 +1,5 @@
 import React from 'react';
+import './ProgressBar.css'; // Import the new CSS file
 
 function ProgressBar({ currentStep, totalSteps }) {
   const progress = (currentStep / totalSteps) * 100;

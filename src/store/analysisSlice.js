@@ -1,27 +1,38 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { uploadCV, analyzeJobDescription, getMatchResults } from '../services/api';
+import axios from 'axios';
+
+const apiBaseUrl = 'https://credolayfunctionapp.azurewebsites.net/api'; // Base URL for the backend
 
 export const uploadCVAsync = createAsyncThunk(
   'analysis/uploadCV',
   async (file) => {
-    const response = await uploadCV(file);
-    return response;
+    const formData = new FormData();
+    formData.append('file', file);
+
+    const response = await axios.post(`${apiBaseUrl}/UploadCV`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        'x-file-name': file.name
+      }
+    });
+
+    return response.data;
   }
 );
 
 export const analyzeJobDescriptionAsync = createAsyncThunk(
   'analysis/analyzeJobDescription',
   async (jobDescription) => {
-    const response = await analyzeJobDescription(jobDescription);
-    return response;
+    const response = await axios.post(`${apiBaseUrl}/AnalyzeJobDescription`, { description: jobDescription });
+    return response.data;
   }
 );
 
 export const getMatchResultsAsync = createAsyncThunk(
   'analysis/getMatchResults',
   async ({ cvId, jobDescriptionId }) => {
-    const response = await getMatchResults(cvId, jobDescriptionId);
-    return response;
+    const response = await axios.post(`${apiBaseUrl}/GetMatchResults`, { cvId, jobDescriptionId });
+    return response.data;
   }
 );
 

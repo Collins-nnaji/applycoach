@@ -1,46 +1,62 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { uploadCVAsync } from '../store/analysisSlice';
-
+import {
+  Card,
+  CardContent,
+  Typography,
+  IconButton,
+  Avatar,
+  CircularProgress,
+} from '@mui/material';
+import { Description, CheckCircle } from '@mui/icons-material';
+import './CVUpload.css';
 
 function CVUpload({ onComplete }) {
   const [file, setFile] = useState(null);
-  const [isExpanded, setIsExpanded] = useState(false);
   const dispatch = useDispatch();
   const cvUploadStatus = useSelector((state) => state.analysis.loading);
 
   const handleFileChange = (e) => {
-    setFile(e.target.files[0]);
-  };
-
-  const handleUpload = () => {
-    if (file) {
-      dispatch(uploadCVAsync(file)).then(() => {
+    const selectedFile = e.target.files[0];
+    if (selectedFile) {
+      setFile(selectedFile);
+      dispatch(uploadCVAsync(selectedFile)).then(() => {
         onComplete();
       });
     }
   };
 
   return (
-    <div className={`interactive-card ${isExpanded ? 'expanded' : ''}`} onClick={() => setIsExpanded(!isExpanded)}>
-      <h2 className="card-title">Upload Your CV</h2>
-      {isExpanded && (
-        <div className="card-content">
+    <Card className="cv-upload-card">
+      <CardContent>
+        <Typography variant="h5">Upload Your CV</Typography>
+        <div className="file-input-container">
           <input
+            accept=".pdf,.doc,.docx"
+            className="file-input"
+            id="cv-upload"
             type="file"
             onChange={handleFileChange}
-            className="file-input"
+            style={{ display: 'none' }}
           />
-          <button
-            onClick={handleUpload}
-            className="upload-button"
-            disabled={cvUploadStatus === 'loading'}
-          >
-            {cvUploadStatus === 'loading' ? 'Uploading...' : 'Upload CV'}
-          </button>
+          <label htmlFor="cv-upload">
+            <IconButton color="primary" aria-label="upload CV" component="span">
+              <Avatar variant="rounded" className="upload-avatar">
+                {cvUploadStatus === 'loading' ? (
+                  <CircularProgress color="inherit" size={24} />
+                ) : file ? (
+                  <CheckCircle fontSize="large" />
+                ) : (
+                  <Description fontSize="large" />
+                )}
+              </Avatar>
+            </IconButton>
+          </label>
         </div>
-      )}
-    </div>
+        {file && <span className="file-name">{file.name}</span>}
+      </CardContent>
+    </Card>
   );
 }
 
