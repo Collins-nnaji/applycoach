@@ -1,11 +1,12 @@
+/* src/pages/Home.css */
 :root {
   --background-color: #ffffff;
-  --primary-color: #6a1b9a;
-  --primary-light: #a06ece;
+  --primary-color: #0073e6;
+  --primary-light: #66b2ff;
   --text-color: #333333;
-  --button-background: #6a1b9a;
+  --button-background: #0073e6;
   --button-text: #ffffff;
-  --hover-background: #8e24aa;
+  --hover-background: #005bb5;
   --font-family: 'Roboto', sans-serif;
 }
 
@@ -105,16 +106,16 @@ body {
 
 @media (min-width: 768px) {
   .section {
-      flex-direction: row;
-      align-items: flex-start;
-      text-align: left;
+    flex-direction: row;
+    align-items: flex-start;
+    text-align: left;
   }
 
   .sectionText {
-      font-size: 2rem;
+    font-size: 2rem;
   }
 
   .image {
-      max-width: 50%;
+    max-width: 50%;
   }
 }

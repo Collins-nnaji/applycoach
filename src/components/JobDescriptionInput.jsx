@@ -1,6 +1,7 @@
+// src/components/JobDescriptionInput.js
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { analyzeJobDescriptionAsync } from '../store/analysisSlice';
+import { analyzeJobDescriptionAsync } from '../store/resumeSlice';
 import {
   Card,
   CardContent,
@@ -12,7 +13,7 @@ import {
   CircularProgress,
 } from '@mui/material';
 import { Description, CheckCircle } from '@mui/icons-material';
-import './JobDescriptionInput.css';
+import '../styles/JobDescriptionInput.css';
 
 function JobDescriptionInput({ onComplete }) {
   const [jobDescription, setJobDescription] = useState('');

@@ -1,32 +1,39 @@
-import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { getMatchResultsAsync } from '../store/analysisSlice';
-import './MatchResults.css'; // Import the new CSS file
+// src/components/MatchResults.js
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Typography, CircularProgress } from '@mui/material';
+import { getJobMatchesAsync } from '../store/resumeSlice';
 
 function MatchResults() {
-  const matchResults = useSelector((state) => state.analysis.matchResults);
   const dispatch = useDispatch();
+  const matchResults = useSelector((state) => state.resume.jobMatches);
+  const loading = useSelector((state) => state.resume.loading);
+  const analysis = useSelector((state) => state.resume.analysis);
 
-  React.useEffect(() => {
-    // Assuming you have a way to get cvId and jobDescriptionId
-    const cvId = "some-cv-id";
-    const jobDescriptionId = "some-job-description-id";
-    dispatch(getMatchResultsAsync({ cvId, jobDescriptionId }));
-  }, [dispatch]);
+  useEffect(() => {
+    if (analysis && analysis.skills.length > 0) {
+      dispatch(getJobMatchesAsync(analysis.skills));
+    }
+  }, [analysis, dispatch]);
 
-  if (!matchResults) {
-    return null;
+  if (loading) {
+    return <CircularProgress />;
+  }
+
+  if (!matchResults || matchResults.length === 0) {
+    return <Typography>No match results found.</Typography>;
   }
 
   return (
-    <div className="match-results">
-      <h2>Match Results</h2>
-      <p className="match-percentage">Match Percentage: {matchResults.percentage}%</p>
-      <ul className="match-details">
-        {matchResults.details.map((detail, index) => (
-          <li key={index} className="match-item">{detail}</li>
-        ))}
-      </ul>
+    <div>
+      <Typography variant="h6">Match Results</Typography>
+      {matchResults.map((job, index) => (
+        <div key={index}>
+          <Typography variant="body1">{job.title}</Typography>
+          <Typography variant="body2">{job.company}</Typography>
+          <Typography variant="body2">{job.location}</Typography>
+        </div>
+      ))}
     </div>
   );
 }

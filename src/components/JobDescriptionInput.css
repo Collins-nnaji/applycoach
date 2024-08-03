@@ -1,61 +1,61 @@
+/* src/styles/JobDescriptionInput.css */
 .job-description-card {
-    max-width: 800px;  /* Increased max-width */
-    margin: 20px auto;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 6px 20px rgba(106, 27, 154, 0.1);
-    transition: all 0.3s ease;
-    background-color: #ffffff;
-    border: 2px solid #a06ece; /* Use primary-light for distinct styling */
-  }
-  
-  .job-description-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 10px 30px rgba(106, 27, 154, 0.3);
-  }
-  
-  .toggle-container {
-    display: flex;
-    justify-content: center;
-    margin: 20px 0;
-  }
-  
-  .file-input-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 20px;
-    padding: 20px;
-    background-color: #f5f5f5;
-    border: 2px dashed #a06ece; /* Use primary-light for distinct styling */
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-  }
-  
-  .file-input-container:hover {
-    background-color: #eee;
-  }
-  
-  .upload-avatar {
-    background-color: #a06ece; /* Use primary-light for distinct styling */
-    width: 60px;
-    height: 60px;
-  }
-  
-  .file-name {
-    margin-left: 15px;
-    font-weight: 500;
-    color: var(--text-color);
-  }
-  
-  .job-description-input {
-    margin-top: 20px;
-    font-size: 1.2rem;
-  }
-  
-  .upload-progress {
-    margin-top: 15px;
-    color: #a06ece; /* Use primary-light for distinct styling */
-  }
-  
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(106, 27, 154, 0.1);
+  transition: all 0.3s ease;
+  background-color: #ffffff;
+  border: 2px solid #a06ece;
+}
+
+.job-description-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 30px rgba(106, 27, 154, 0.3);
+}
+
+.toggle-container {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.file-input-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+  padding: 20px;
+  background-color: #f5f5f5;
+  border: 2px dashed #a06ece;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.file-input-container:hover {
+  background-color: #eee;
+}
+
+.upload-avatar {
+  background-color: #a06ece;
+  width: 60px;
+  height: 60px;
+}
+
+.file-name {
+  margin-left: 15px;
+  font-weight: 500;
+  color: var(--text-color);
+}
+
+.job-description-input {
+  margin-top: 20px;
+  font-size: 1.2rem;
+}
+
+.upload-progress {
+  margin-top: 15px;
+  color: #a06ece;
+}

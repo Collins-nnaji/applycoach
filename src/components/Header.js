@@ -1,13 +1,14 @@
+// src/components/Header.js
 import React from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../assets/logo.png'; // Adjust the path based on your directory structure
 
 const styles = {
   header: {
-    backgroundColor: 'white', // White background
+    backgroundColor: 'white',
     padding: '1rem 0',
-    color: 'black', // Black text color
-    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)', // Subtle shadow for distinction
+    color: 'black',
+    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
   },
   container: {
     display: 'flex',
@@ -28,9 +29,9 @@ const styles = {
     gap: '1rem',
   },
   navLink: {
-    color: '#4B0082', // Dark purple color
+    color: '#4B0082',
     textDecoration: 'none',
-    fontSize: '1.2rem', // Increase font size
+    fontSize: '1.2rem',
     transition: 'opacity 0.3s ease',
   },
   navLinkHover: {
@@ -51,8 +52,8 @@ function Header() {
               <Link
                 to="/"
                 style={styles.navLink}
-                onMouseOver={(e) => e.target.style = { ...styles.navLink, ...styles.navLinkHover }}
-                onMouseOut={(e) => e.target.style = styles.navLink}
+                onMouseOver={(e) => (e.target.style = { ...styles.navLink, ...styles.navLinkHover })}
+                onMouseOut={(e) => (e.target.style = styles.navLink)}
               >
                 Home
               </Link>
@@ -61,8 +62,8 @@ function Header() {
               <Link
                 to="/analysis"
                 style={styles.navLink}
-                onMouseOver={(e) => e.target.style = { ...styles.navLink, ...styles.navLinkHover }}
-                onMouseOut={(e) => e.target.style = styles.navLink}
+                onMouseOver={(e) => (e.target.style = { ...styles.navLink, ...styles.navLinkHover })}
+                onMouseOut={(e) => (e.target.style = styles.navLink)}
               >
                 Analysis
               </Link>

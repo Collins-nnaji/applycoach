@@ -1,59 +1,85 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+// src/pages/Analysis.js
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getMatchResultsAsync } from '../store/analysisSlice';
+import { Typography, CircularProgress, Card, CardContent } from '@mui/material';
 import CVUpload from '../components/CVUpload';
-import JobDescriptionInput from '../components/JobDescriptionInput';
-import ProgressBar from '../components/ProgressBar';
-import { Button } from '@mui/material';
+import ProgressTracker from '../components/ProgressTracker';
+import JobList from '../components/JobList';
+import MatchResults from '../components/MatchResults';
+import { getJobMatchesAsync } from '../store/resumeSlice';
 import './Analysis.css';
 
 function Analysis() {
-  const navigate = useNavigate();
+  const [currentStep, setCurrentStep] = useState(1);
   const dispatch = useDispatch();
-  const [step, setStep] = useState(1);
-  const cv = useSelector((state) => state.analysis.cv);
-  const jobDescription = useSelector((state) => state.analysis.jobDescription);
-  const matchingStatus = useSelector((state) => state.analysis.loading);
+  const analysis = useSelector((state) => state.resume.analysis);
+  const jobMatches = useSelector((state) => state.resume.jobMatches);
+  const resumeUploadStatus = useSelector((state) => state.resume.loading);
 
-  const handleAnalyze = () => {
-    if (cv && jobDescription) {
-      dispatch(getMatchResultsAsync({ cvId: cv.id, jobDescriptionId: jobDescription.id }));
-      navigate('/results');
-    } else {
-      alert('Please complete both CV upload and job description before analyzing.');
+  useEffect(() => {
+    if (analysis && analysis.skills.length > 0) {
+      dispatch(getJobMatchesAsync(analysis.skills));
+      setCurrentStep(3);
     }
-  };
+  }, [analysis, dispatch]);
 
-  const handleCVUploadComplete = () => {
-    setStep(2);
-  };
-
-  const handleJobDescriptionComplete = () => {
-    setStep(3);
+  const handleUploadComplete = () => {
+    setCurrentStep(2);
   };
 
   return (
     <div className="analysis-page">
-      <div className="hero-section">
-        <h1 className="hero-title">CV Match</h1>
-        <p className="hero-subtitle">AI-Powered Job Fit Analysis</p>
+      <header className="hero-section">
+        <Typography variant="h1" className="hero-title">Resume Analysis</Typography>
+        <Typography variant="h2" className="hero-subtitle">AI-Powered Job Fit Analysis</Typography>
+      </header>
+      <div className="steps-summary">
+        <Card className="step-card">
+          <CardContent>
+            <Typography variant="h6">Step 1: Upload Resume</Typography>
+            <Typography>Upload your resume to begin the analysis.</Typography>
+          </CardContent>
+        </Card>
+        <Card className="step-card">
+          <CardContent>
+            <Typography variant="h6">Step 2: Analysis</Typography>
+            <Typography>Your resume will be analyzed to extract skills and summary.</Typography>
+          </CardContent>
+        </Card>
+        <Card className="step-card">
+          <CardContent>
+            <Typography variant="h6">Step 3: Job Matching</Typography>
+            <Typography>Get job matches based on the extracted skills.</Typography>
+          </CardContent>
+        </Card>
       </div>
-      <ProgressBar currentStep={step} totalSteps={3} />
-      <div className="card-container">
-        <CVUpload onComplete={handleCVUploadComplete} />
-        <JobDescriptionInput onComplete={handleJobDescriptionComplete} />
-      </div>
-      <div className="analyze-button-container">
-        <Button
-          onClick={handleAnalyze}
-          variant="contained"
-          color="primary"
-          disabled={matchingStatus === 'loading'}
-          className="analyze-button"
-        >
-          {matchingStatus === 'loading' ? 'Analyzing...' : 'Analyze'}
-        </Button>
+      <div className="content-section">
+        <CVUpload onUploadComplete={handleUploadComplete} />
+        <ProgressTracker currentStep={currentStep} totalSteps={3} />
+        {currentStep === 2 && resumeUploadStatus !== 'loading' && !analysis && (
+          <div className="analyzing-section">
+            <Typography variant="h6">Analyzing your resume...</Typography>
+            <CircularProgress />
+          </div>
+        )}
+        {currentStep === 3 && (
+          <div className="results-section">
+            {analysis && (
+              <div className="summary-section">
+                <Typography variant="h6">Resume Summary</Typography>
+                <Typography>{analysis.summary}</Typography>
+                <Typography variant="h6">Skills</Typography>
+                <ul>
+                  {analysis.skills.map((skill, index) => (
+                    <li key={index}>{skill}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+            <JobList jobs={jobMatches} />
+            <MatchResults />
+          </div>
+        )}
       </div>
     </div>
   );

@@ -1,4 +1,6 @@
+// src/components/FloatingActionButton.js
 import React from 'react';
+import '../styles/FloatingActionButton.css';
 
 function FloatingActionButton({ onClick, label, disabled }) {
   return (

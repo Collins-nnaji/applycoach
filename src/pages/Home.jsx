@@ -1,3 +1,4 @@
+// src/pages/Home.js
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './Home.css'; // Import the CSS file
@@ -7,20 +8,20 @@ import jobPic from '../assets/Jobpic.jpg'; // Import the Job image
 function Home() {
   return (
     <div className="home">
-      <h1 className="title">Analyze and Optimize Your CV</h1>
-      <p className="subtitle">Upload your CV and job description to get a match score and recommendations. Get an optimized CV and discover job opportunities tailored to your profile.</p>
+      <h1 className="title">Welcome to Credolay</h1>
+      <p className="subtitle">Your trusted partner for career growth and job placement. Let us help you find the perfect job and optimize your resume to stand out to employers.</p>
 
       <div className="section">
-        <img src={cvPic} alt="CV Analysis" className="image" />
+        <img src={cvPic} alt="Resume Analysis" className="image" />
         <p className="sectionText">
-          <b>Upload your CV</b> and job description for a detailed analysis and get a <b>personalized, optimized CV</b>.
+          <b>Upload your resume</b> for a detailed analysis and get personalized recommendations to <b>enhance your job applications</b>.
         </p>
       </div>
 
       <div className="section">
-        <img src={jobPic} alt="Job Descriptions" className="image" />
+        <img src={jobPic} alt="Job Listings" className="image" />
         <p className="sectionText">
-          <b>Receive job descriptions</b> that match your CV perfectly and <b>apply with confidence</b>.
+          <b>Explore job listings</b> tailored to your skills and preferences. <b>Apply confidently</b> and track your applications.
         </p>
       </div>
 
@@ -29,7 +30,7 @@ function Home() {
           to="/analysis"
           className="startButton"
         >
-          Start Analysis
+          Start Your Journey
         </Link>
       </div>
     </div>

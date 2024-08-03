@@ -1,3 +1,4 @@
+// src/components/Footer.js
 import React from 'react';
 
 const styles = {
@@ -7,9 +8,10 @@ const styles = {
     padding: '1rem 0',
     textAlign: 'center',
     boxShadow: '0 -2px 4px rgba(0, 0, 0, 0.1)', // Subtle shadow for distinction
-    position: 'fixed',
+    position: 'relative',
     width: '100%',
     bottom: 0,
+    marginTop: 'auto',
   },
   link: {
     color: '#4B0082', // Dark purple color for any links

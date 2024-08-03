@@ -1,10 +1,9 @@
+// src/store/index.js
 import { configureStore } from '@reduxjs/toolkit';
-import analysisReducer from './analysisSlice';
+import resumeReducer from './resumeSlice';
 
-const store = configureStore({
+export const store = configureStore({
   reducer: {
-    analysis: analysisReducer,
+    resume: resumeReducer,
   },
 });
-
-export default store;

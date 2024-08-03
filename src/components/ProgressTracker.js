@@ -1,11 +1,12 @@
+// src/components/ProgressTracker.js
 import React from 'react';
-import './ProgressBar.css'; // Import the new CSS file
+import './ProgressTracker.css';
 
-function ProgressBar({ currentStep, totalSteps }) {
+function ProgressTracker({ currentStep, totalSteps }) {
   const progress = (currentStep / totalSteps) * 100;
 
   return (
-    <div className="progress-bar">
+    <div className="progress-tracker">
       <div className="progress-bar-inner" style={{ width: `${progress}%` }}></div>
       <div className="progress-steps">
         {Array.from({ length: totalSteps }, (_, i) => (
@@ -21,4 +22,4 @@ function ProgressBar({ currentStep, totalSteps }) {
   );
 }
 
-export default ProgressBar;
+export default ProgressTracker;

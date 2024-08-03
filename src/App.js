@@ -1,9 +1,11 @@
+// src/App.js
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Home from './pages/Home';
 import Analysis from './pages/Analysis';
+import JobSearchPage from './pages/JobSearchPage';
 import Results from './pages/Results';
 
 const styles = {
@@ -27,6 +29,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/analysis" element={<Analysis />} />
+            <Route path="/job-search" element={<JobSearchPage />} />
             <Route path="/results" element={<Results />} />
           </Routes>
         </main>
