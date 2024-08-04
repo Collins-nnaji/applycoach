@@ -24,6 +24,18 @@ export const uploadResumeAsync = createAsyncThunk(
   }
 );
 
+export const getJobMatchesAsync = createAsyncThunk(
+  'resume/getJobMatches',
+  async (skills, { rejectWithValue }) => {
+    try {
+      const response = await axios.post('https://credolayfunctionapp.azurewebsites.net/api/getJobMatches', { skills });
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
 const resumeSlice = createSlice({
   name: 'resume',
   initialState: {
@@ -46,6 +58,18 @@ const resumeSlice = createSlice({
         state.jobMatches = action.payload.jobMatches;
       })
       .addCase(uploadResumeAsync.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+      .addCase(getJobMatchesAsync.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(getJobMatchesAsync.fulfilled, (state, action) => {
+        state.loading = false;
+        state.jobMatches = action.payload;
+      })
+      .addCase(getJobMatchesAsync.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       });

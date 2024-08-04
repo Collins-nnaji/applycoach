@@ -1,4 +1,3 @@
-// src/components/MatchResults.js
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Typography, CircularProgress } from '@mui/material';
