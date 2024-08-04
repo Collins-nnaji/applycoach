@@ -1,26 +1,24 @@
-/* src/components/JobList.css */
 .job-list-card {
-    max-width: 800px;
-    margin: 20px auto;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 6px 20px rgba(106, 27, 154, 0.1);
-    transition: all 0.3s ease;
-    background-color: #ffffff;
-    border: 2px solid var(--primary-color);
-  }
-  
-  .job-list-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 10px 30px rgba(106, 27, 154, 0.3);
-  }
-  
-  .job-list-item {
-    margin-bottom: 10px;
-  }
-  
-  .job-icon {
-    color: var(--primary-color);
-    margin-right: 10px;
-  }
-  
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(106, 27, 154, 0.1);
+  transition: all 0.3s ease;
+  background-color: #ffffff;
+  border: 2px solid var(--primary-color);
+}
+
+.job-list-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 30px rgba(106, 27, 154, 0.3);
+}
+
+.job-list-item {
+  margin-bottom: 10px;
+}
+
+.job-icon {
+  color: var(--primary-color);
+  margin-right: 10px;
+}

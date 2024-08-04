@@ -1,9 +1,9 @@
 // src/pages/Home.js
 import React from 'react';
 import { Link } from 'react-router-dom';
-import './Home.css'; // Import the CSS file
-import cvPic from '../assets/CVpic.jpg';  // Import the CV image
-import jobPic from '../assets/Jobpic.jpg'; // Import the Job image
+import './Home.css';
+import cvPic from '../assets/CVpic.jpg';
+import jobPic from '../assets/Jobpic.jpg';
 
 function Home() {
   return (

@@ -1,30 +1,36 @@
 // src/pages/Analysis.js
+
 import React, { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
 import { Typography, CircularProgress, Card, CardContent } from '@mui/material';
 import CVUpload from '../components/CVUpload';
 import ProgressTracker from '../components/ProgressTracker';
 import JobList from '../components/JobList';
 import MatchResults from '../components/MatchResults';
-import { getJobMatchesAsync } from '../store/resumeSlice';
 import './Analysis.css';
 
 function Analysis() {
   const [currentStep, setCurrentStep] = useState(1);
-  const dispatch = useDispatch();
-  const analysis = useSelector((state) => state.resume.analysis);
-  const jobMatches = useSelector((state) => state.resume.jobMatches);
-  const resumeUploadStatus = useSelector((state) => state.resume.loading);
+  const [analysis, setAnalysis] = useState(null);
+  const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    if (analysis && analysis.skills.length > 0) {
-      dispatch(getJobMatchesAsync(analysis.skills));
-      setCurrentStep(3);
-    }
-  }, [analysis, dispatch]);
-
-  const handleUploadComplete = () => {
+  const handleUploadComplete = (uploadResponse) => {
     setCurrentStep(2);
+    setLoading(true);
+    // Simulate polling or a delay for analysis completion
+    setTimeout(() => {
+      // Simulate fetching the analysis results
+      const analysisResults = {
+        summary: "Experienced Full-Stack Developer with expertise in React and Node.js.",
+        skills: ["Python", "React", "Node.js"],
+        jobMatches: [
+          { id: 1, title: 'Software Engineer', company: 'Company A', location: 'New York, NY' },
+          { id: 2, title: 'Frontend Developer', company: 'Company B', location: 'San Francisco, CA' },
+        ],
+      };
+      setAnalysis(analysisResults);
+      setCurrentStep(3);
+      setLoading(false);
+    }, 5000); // Simulate a delay for the analysis to complete
   };
 
   return (
@@ -56,28 +62,26 @@ function Analysis() {
       <div className="content-section">
         <CVUpload onUploadComplete={handleUploadComplete} />
         <ProgressTracker currentStep={currentStep} totalSteps={3} />
-        {currentStep === 2 && resumeUploadStatus !== 'loading' && !analysis && (
+        {currentStep === 2 && loading && (
           <div className="analyzing-section">
             <Typography variant="h6">Analyzing your resume...</Typography>
             <CircularProgress />
           </div>
         )}
-        {currentStep === 3 && (
+        {currentStep === 3 && analysis && (
           <div className="results-section">
-            {analysis && (
-              <div className="summary-section">
-                <Typography variant="h6">Resume Summary</Typography>
-                <Typography>{analysis.summary}</Typography>
-                <Typography variant="h6">Skills</Typography>
-                <ul>
-                  {analysis.skills.map((skill, index) => (
-                    <li key={index}>{skill}</li>
-                  ))}
-                </ul>
-              </div>
-            )}
-            <JobList jobs={jobMatches} />
-            <MatchResults />
+            <div className="summary-section">
+              <Typography variant="h6">Resume Summary</Typography>
+              <Typography>{analysis.summary}</Typography>
+              <Typography variant="h6">Skills</Typography>
+              <ul>
+                {analysis.skills.map((skill, index) => (
+                  <li key={index}>{skill}</li>
+                ))}
+              </ul>
+            </div>
+            <JobList jobs={analysis.jobMatches} />
+            <MatchResults results={analysis.jobMatches} />
           </div>
         )}
       </div>

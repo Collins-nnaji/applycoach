@@ -1,4 +1,3 @@
-// src/components/ProgressTracker.js
 import React from 'react';
 import './ProgressTracker.css';
 

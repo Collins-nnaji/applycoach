@@ -1,4 +1,3 @@
-// src/components/CVUpload.js
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { uploadResumeAsync } from '../store/resumeSlice';
@@ -17,20 +16,21 @@ import './CVUpload.css';
 function CVUpload({ onUploadComplete }) {
   const [file, setFile] = useState(null);
   const dispatch = useDispatch();
-  const resumeUploadStatus = useSelector((state) => state.resume.loading);
-  const uploadProgress = useSelector((state) => state.resume.uploadProgress);
-  const error = useSelector((state) => state.resume.error);
+  const { loading, error } = useSelector((state) => state.resume);
 
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
     if (selectedFile) {
       setFile(selectedFile);
-      dispatch(uploadResumeAsync(selectedFile)).then(() => {
-        if (onUploadComplete) {
-          onUploadComplete();
+    }
+  };
+
+  const handleUpload = () => {
+    if (file) {
+      dispatch(uploadResumeAsync(file)).then((response) => {
+        if (response.meta.requestStatus === 'fulfilled' && onUploadComplete) {
+          onUploadComplete(response.payload);
         }
-      }).catch((err) => {
-        console.error("Upload failed", err);
       });
     }
   };
@@ -51,7 +51,7 @@ function CVUpload({ onUploadComplete }) {
           <label htmlFor="resume-upload">
             <IconButton color="primary" aria-label="upload resume" component="span">
               <Avatar variant="rounded" className="upload-avatar">
-                {resumeUploadStatus === 'loading' ? (
+                {loading ? (
                   <CircularProgress color="inherit" size={24} />
                 ) : file ? (
                   <CheckCircle fontSize="large" />
@@ -62,10 +62,13 @@ function CVUpload({ onUploadComplete }) {
             </IconButton>
           </label>
         </div>
-        {resumeUploadStatus === 'loading' && (
-          <LinearProgress variant="determinate" value={uploadProgress} />
-        )}
+        {loading && <LinearProgress />}
         {file && <span className="file-name">{file.name}</span>}
+      </CardContent>
+      <CardContent>
+        <IconButton onClick={handleUpload} disabled={loading}>
+          {loading ? 'Uploading...' : 'Upload'}
+        </IconButton>
       </CardContent>
       {error && (
         <CardContent>

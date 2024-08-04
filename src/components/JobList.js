@@ -1,4 +1,3 @@
-// src/components/JobList.js
 import React from 'react';
 import {
   Card,
