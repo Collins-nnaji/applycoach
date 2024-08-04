@@ -7,7 +7,7 @@ export const uploadResumeAsync = createAsyncThunk(
     try {
       const formData = new FormData();
       formData.append('file', file);
-      const response = await axios.post('https://credolayfunctionapp.azurewebsites.net/api/upload', formData, {
+      const response = await axios.post('https://credolayfunctionapp.azurewebsites.net/api/BlobTrigger1', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         },
