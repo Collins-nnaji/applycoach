@@ -1,120 +1,44 @@
-/* src/pages/Analysis.css */
 :root {
   --background-color: #f8f9fa;
-  --primary-color: #6a1b9a;
-  --primary-light: #9c27b0;
-  --primary-lighter: #e1bee7;
+  --primary-color: #6a0dad; /* Dark Purple */
+  --primary-light: #d1b3ff; /* Light Purple */
   --text-color: #333333;
-  --button-background: #6a1b9a;
-  --button-text: #ffffff;
-  --hover-background: #8e24aa;
   --font-family: 'Roboto', sans-serif;
-  --header-font-family: 'Montserrat', sans-serif;
-  --card-background: #ffffff;
-  --progress-background: #e0e0e0;
 }
 
 body {
-  font-family: var(--font-family);
   background-color: var(--background-color);
+  font-family: var(--font-family);
   margin: 0;
   padding: 0;
-  color: var(--text-color);
+  line-height: 1.6;
 }
 
-.analysis-page {
-  min-height: 100vh;
+.analysis {
   display: flex;
   flex-direction: column;
-  align-items: center;
-}
-
-.hero-section {
-  background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
-  color: white;
-  text-align: center;
-  padding: 2rem 1rem;
-  width: 100%;
-}
-
-.hero-title {
-  font-size: 2.5rem;
-  margin-bottom: 0.5rem;
-  font-family: var(--header-font-family);
-}
-
-.hero-subtitle {
-  font-size: 1.25rem;
-  opacity: 0.9;
-  font-family: var(--header-font-family);
+  min-height: 100vh;
 }
 
 .main-content {
-  width: 100%;
+  padding: 60px 20px;
   max-width: 1200px;
-  padding: 2rem 1rem;
-}
-
-.steps-summary {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 2rem;
-}
-
-.step-card {
+  margin: 0 auto;
   flex: 1;
-  margin: 0 0.5rem;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  background-color: var(--card-background);
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 90%;
 }
 
-.step-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
-}
-
-.step-card .MuiCardContent-root {
-  padding: 1.5rem;
-}
-
-.step-card h6 {
+h1 {
+  font-size: 2.5rem;
   color: var(--primary-color);
-  font-size: 1.2rem;
-  margin-bottom: 0.5rem;
-  font-weight: 600;
+  margin-bottom: 20px;
 }
 
-.step-card p {
-  color: var(--text-color);
-  font-size: 0.9rem;
-  line-height: 1.4;
-}
-
-.content-section {
-  background-color: var(--card-background);
+pre {
+  background-color: #eaeaea;
+  padding: 20px;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 2rem;
-}
-
-.analyzing-section, .results-section, .summary-section {
-  margin-top: 2rem;
-  text-align: center;
-}
-
-.analyzing-section .MuiCircularProgress-root {
-  color: var(--primary-color);
-}
-
-@media (max-width: 768px) {
-  .steps-summary {
-    flex-direction: column;
-  }
-
-  .step-card {
-    margin: 0.5rem 0;
-  }
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-wrap: break-word;
 }

@@ -1,0 +1,108 @@
+:root {
+  --background-color: #f8f9fa;
+  --primary-color: #6a0dad; /* Dark Purple */
+  --primary-light: #d1b3ff; /* Light Purple */
+  --text-color: #333333;
+  --button-background: #6a0dad;
+  --button-text: #ffffff;
+  --hover-background: #4b0082; /* Darker Purple */
+  --font-family: 'Roboto', sans-serif;
+}
+
+body {
+  background-color: var(--background-color);
+  font-family: var(--font-family);
+  margin: 0;
+  padding: 0;
+  line-height: 1.6;
+}
+
+.analyze-cv {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main-content {
+  padding: 60px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  flex: 1;
+}
+
+.feature-section {
+  margin-bottom: 80px;
+}
+
+.feature-content {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+.feature-image {
+  width: 50%;
+  max-width: 500px;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.feature-image:hover {
+  transform: scale(1.05);
+}
+
+.feature-text {
+  flex: 1;
+}
+
+.feature-text h2 {
+  font-size: 2.5rem;
+  color: var(--primary-color);
+  margin-bottom: 20px;
+}
+
+.feature-text p {
+  font-size: 1.2rem;
+  color: var(--text-color);
+}
+
+input[type="file"] {
+  margin-top: 20px;
+}
+
+button {
+  background-color: var(--button-background);
+  color: var(--button-text);
+  padding: 10px 20px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 20px;
+}
+
+button:hover {
+  background-color: var(--hover-background);
+}
+
+@media (max-width: 768px) {
+  .feature-content {
+    flex-direction: column;
+  }
+
+  .feature-image {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .feature-text h2 {
+    font-size: 2rem;
+  }
+
+  .feature-text p {
+    font-size: 1rem;
+  }
+}

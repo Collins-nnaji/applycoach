@@ -1,42 +1,22 @@
-// src/App.js
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Header from './components/Header';
-import Footer from './components/Footer';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
+import AnalyzeCV from './pages/AnalyzeCV';
 import Analysis from './pages/Analysis';
-import JobSearchPage from './pages/JobSearchPage';
-import Results from './pages/Results';
+import Error from './pages/Error';
+import './App.css';
 
-const styles = {
-  app: {
-    display: 'flex',
-    flexDirection: 'column',
-    minHeight: '100vh',
-  },
-  main: {
-    flex: 1,
-    padding: '2rem',
-  },
-};
-
-function App() {
-  return (
-    <Router>
-      <div style={styles.app}>
-        <Header />
-        <main style={styles.main}>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/analysis" element={<Analysis />} />
-            <Route path="/job-search" element={<JobSearchPage />} />
-            <Route path="/results" element={<Results />} />
-          </Routes>
-        </main>
-        <Footer />
-      </div>
-    </Router>
-  );
-}
+const App = () => (
+  <Router>
+    <div className="App">
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/analyze-cv" element={<AnalyzeCV />} />
+        <Route path="/analysis" element={<Analysis />} />
+        <Route path="/error" element={<Error />} />
+      </Routes>
+    </div>
+  </Router>
+);
 
 export default App;
