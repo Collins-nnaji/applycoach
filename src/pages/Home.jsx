@@ -82,7 +82,7 @@ function Home() {
   <div className="testimonials">
     <div className="testimonial">
       <p>"Credolay helped me revamp my CV and LinkedIn profile, and I got multiple callbacks within a week!"</p>
-      <p>- John Doe</p>
+      <p>- John Dickson</p>
     </div>
     <div className="testimonial">
       <p>"The team at Credolay is professional and knowledgeable. They improved my online presence significantly."</p>
