@@ -117,6 +117,8 @@ body {
   text-align: center;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   margin: 20px;
+  flex: 1 1 calc(33.333% - 40px);
+  box-sizing: border-box;
 }
 
 .package h3 {
@@ -164,6 +166,7 @@ body {
   font-size: 1.2rem;
   color: var(--text-color);
 }
+
 .testimonials-section {
   text-align: center;
   margin-bottom: 80px;
@@ -223,9 +226,11 @@ body {
 
   .packages {
     flex-direction: column;
+    gap: 20px;
   }
 
   .package {
     width: 100%;
+    margin: 0 auto 20px auto;
   }
 }
