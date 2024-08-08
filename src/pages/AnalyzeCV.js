@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { uploadResumeToBlob, analyzeResume } from '../api';
+import { useDispatch, useSelector } from 'react-redux';
+import { uploadResumeAsync } from '../api/resumeSlice';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import LoadingSpinner from '../components/LoadingSpinner';
@@ -9,27 +10,28 @@ import cvPic from '../assets/CVpic.jpg';
 
 function AnalyzeCV() {
   const [file, setFile] = useState(null);
-  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { loading, error } = useSelector((state) => state.resume);
 
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
   };
 
-  const handleUpload = async () => {
-    if (!file) return;
-    setLoading(true);
-    try {
-      const blobUrl = await uploadResumeToBlob(file);
-      const analysisResponse = await analyzeResume(blobUrl);
-      localStorage.setItem('analysisResults', JSON.stringify(analysisResponse));
-      navigate('/analysis');
-    } catch (error) {
-      console.error(error);
-      navigate('/error');
-    } finally {
-      setLoading(false);
+  const handleUpload = () => {
+    if (!file) {
+      alert('Please select a file to upload');
+      return;
     }
+    dispatch(uploadResumeAsync(file))
+      .unwrap()
+      .then(() => {
+        navigate('/analysis');
+      })
+      .catch((err) => {
+        console.error('Upload and analysis failed:', err);
+        navigate('/error');
+      });
   };
 
   return (
@@ -45,8 +47,11 @@ function AnalyzeCV() {
                 <strong>Upload your resume</strong> for a detailed analysis and get personalized recommendations to <strong>enhance your job applications</strong>.
               </p>
               <input type="file" onChange={handleFileChange} />
-              <button onClick={handleUpload} disabled={loading}>Upload and Analyze</button>
+              <button onClick={handleUpload} disabled={loading}>
+                Upload and Analyze
+              </button>
               {loading && <LoadingSpinner />}
+              {error && <p className="error">An error occurred: {error}</p>}
             </div>
           </div>
         </section>

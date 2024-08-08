@@ -70,6 +70,11 @@ body {
 
 input[type="file"] {
   margin-top: 20px;
+  padding: 10px;
+  width: 100%;
+  max-width: 300px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 
 button {
@@ -88,7 +93,31 @@ button:hover {
   background-color: var(--hover-background);
 }
 
+@media (max-width: 1024px) {
+  .feature-content {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .feature-image {
+    width: 80%;
+    margin-bottom: 20px;
+  }
+
+  .feature-text h2 {
+    font-size: 2.2rem;
+  }
+
+  .feature-text p {
+    font-size: 1.1rem;
+  }
+}
+
 @media (max-width: 768px) {
+  .main-content {
+    padding: 40px 15px;
+  }
+
   .feature-content {
     flex-direction: column;
   }
@@ -104,5 +133,37 @@ button:hover {
 
   .feature-text p {
     font-size: 1rem;
+  }
+  
+  button {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  input[type="file"] {
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .main-content {
+    padding: 30px 10px;
+  }
+
+  .feature-text h2 {
+    font-size: 1.8rem;
+  }
+
+  .feature-text p {
+    font-size: 0.9rem;
+  }
+
+  input[type="file"] {
+    font-size: 0.9rem;
+  }
+
+  button {
+    font-size: 0.9rem;
   }
 }

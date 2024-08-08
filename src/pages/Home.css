@@ -113,11 +113,11 @@ body {
   border: 1px solid var(--primary-color);
   border-radius: 8px;
   padding: 20px;
-  width: 300px;
+  width: 100%;
+  max-width: 300px;
   text-align: center;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   margin: 20px;
-  flex: 1 1 calc(33.333% - 40px);
   box-sizing: border-box;
 }
 
@@ -164,7 +164,7 @@ body {
 
 .contact-us p {
   font-size: 1.2rem;
-  color: var(--text-color);
+  color: var (--text-color);
 }
 
 .testimonials-section {
@@ -183,7 +183,8 @@ body {
   border: 1px solid var(--primary-color);
   border-radius: 8px;
   padding: 20px;
-  width: 300px;
+  width: 100%;
+  max-width: 300px;
   text-align: center;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   margin: 20px;
@@ -192,6 +193,145 @@ body {
 .testimonial p {
   font-size: 1.2rem;
   color: var(--text-color);
+}
+
+.resources-section, .faq-section, .job-search-section {
+  margin-bottom: 80px;
+  text-align: center;
+}
+
+.resources {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.resource {
+  background-color: white;
+  border: 1px solid var(--primary-color);
+  border-radius: 8px;
+  padding: 20px;
+  width: 100%;
+  max-width: 250px;
+  text-align: center;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.resource:hover {
+  transform: scale(1.05);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+}
+
+.resource-image {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
+
+.resource-title {
+  font-size: 1.2rem;
+  color: var(--primary-color);
+  margin-bottom: 15px;
+}
+
+.job-search {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.job-search .input-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  max-width: 400px;
+  margin-bottom: 15px;
+}
+
+.input-group label {
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: var(--primary-color);
+}
+
+.input-group input {
+  padding: 10px;
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.job-results {
+  margin-top: 20px;
+  text-align: left;
+  width: 100%;
+  max-width: 800px;
+}
+
+.job-result {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.job-result h3 {
+  margin: 0 0 10px 0;
+}
+
+.job-result a {
+  color: var(--primary-color);
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.job-result a:hover {
+  text-decoration: underline;
+}
+
+.error {
+  color: red;
+  margin-top: 20px;
+}
+
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.faq-item {
+  width: 100%;
+  max-width: 800px;
+  text-align: left;
+  padding: 20px;
+  border: 1px solid var(--primary-color);
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.faq-item:hover {
+  background-color: #f0f0f0;
+}
+
+.faq-item p {
+  margin: 0;
+  overflow: hidden;
+  height: 0;
+  transition: height 0.3s ease;
+}
+
+.faq-item p.open {
+  height: auto;
 }
 
 @media (max-width: 768px) {
@@ -232,5 +372,9 @@ body {
   .package {
     width: 100%;
     margin: 0 auto 20px auto;
+  }
+
+  .job-search .input-group {
+    max-width: 100%;
   }
 }

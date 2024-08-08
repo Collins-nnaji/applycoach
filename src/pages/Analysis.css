@@ -28,10 +28,46 @@ body {
   width: 90%;
 }
 
-h1 {
+h2 {
   font-size: 2.5rem;
   color: var(--primary-color);
   margin-bottom: 20px;
+}
+
+.analysis-results {
+  margin-bottom: 40px;
+}
+
+.extracted-info, .recommendations {
+  margin-bottom: 40px;
+}
+
+.info-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.info-item {
+  flex: 1 1 calc(50% - 30px);
+  background: #f8f9fa;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.recommendations-list {
+  list-style-type: disc;
+  padding-left: 20px;
+}
+
+.recommendations-list li {
+  margin-bottom: 10px;
+}
+
+.error {
+  color: red;
+  margin-top: 20px;
 }
 
 pre {
@@ -41,4 +77,18 @@ pre {
   overflow-x: auto;
   white-space: pre-wrap;
   word-wrap: break-word;
+}
+
+@media (max-width: 768px) {
+  .info-item {
+    flex: 1 1 100%;
+  }
+
+  .main-content {
+    padding: 30px 10px;
+  }
+
+  h2 {
+    font-size: 2rem;
+  }
 }
