@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { analyzeResume } from '../api/gptService';
 import Header from '../components/Header';
 import LoadingSpinner from '../components/LoadingSpinner';
+import mammoth from 'mammoth'; // Ensure this import is correct and installed
+import pdfParse from 'pdf-parse'; // Import for PDF parsing
 import './AnalyzeCV.css';
 import cvPic from '../assets/CVpic.jpg';
 
@@ -13,7 +15,7 @@ function AnalyzeCV() {
     const [result, setResult] = useState(null);
     const [error, setError] = useState(null);
 
-    const handleFileChange = (e) => {
+    const handleFileChange = async (e) => {
         const selectedFile = e.target.files[0];
         if (selectedFile && isValidFileType(selectedFile)) {
             setFile(selectedFile);
@@ -85,15 +87,11 @@ function AnalyzeCV() {
                                 {result && (
                                     <div className="results">
                                         <h3>Job Fit and Skill Gap Analysis</h3>
-                                        <p>{result['Job Fit and Skill Gap']}</p>
+                                        <p>{result.jobFitAndSkillGap}</p>
                                         <h3>Recommendations</h3>
-                                        <p>{result.Recommendations}</p>
+                                        <p>{result.recommendations}</p>
                                         <h3>Suggested Job Titles</h3>
-                                        <ul>
-                                            {result['Suggested Job Titles']?.split('\n').map((title, index) => (
-                                                <li key={index}>{title}</li>
-                                            ))}
-                                        </ul>
+                                        <p>{result.suggestedJobTitles}</p>
                                     </div>
                                 )}
                             </div>
