@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { analyzeResume } from '../api/gptService';
 import Header from '../components/Header';
 import LoadingSpinner from '../components/LoadingSpinner';
+import pdfParse from 'pdf-parse';
+import mammoth from 'mammoth';
 import './AnalyzeCV.css';
 import cvPic from '../assets/CVpic.jpg';
 
@@ -13,7 +15,7 @@ function AnalyzeCV() {
     const [result, setResult] = useState(null);
     const [error, setError] = useState(null);
 
-    const handleFileChange = (e) => {
+    const handleFileChange = async (e) => {
         const selectedFile = e.target.files[0];
         if (selectedFile && isValidFileType(selectedFile)) {
             setFile(selectedFile);
@@ -31,6 +33,18 @@ function AnalyzeCV() {
         return allowedTypes.includes(file.type);
     };
 
+    const extractTextFromFile = async (file) => {
+        if (file.type === 'application/pdf') {
+            const data = await pdfParse(file);
+            return data.text;
+        } else if (file.type === 'application/msword' || file.type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document') {
+            const data = await mammoth.extractRawText({ arrayBuffer: file });
+            return data.value;
+        } else {
+            throw new Error('Unsupported file type');
+        }
+    };
+
     const handleSubmit = async () => {
         if (!file || !jobDescription) {
             setError('Please upload a resume and provide a job description.');
@@ -41,11 +55,9 @@ function AnalyzeCV() {
         setError(null);
 
         try {
-            const formData = new FormData();
-            formData.append('resume', file);
-            formData.append('jobDescription', jobDescription);
+            const resumeText = await extractTextFromFile(file);
 
-            const response = await analyzeResume(formData);
+            const response = await analyzeResume({ resumeText, jobDescription });
             setResult(response);
         } catch (err) {
             console.error('Error analyzing resume:', err);
