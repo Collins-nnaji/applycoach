@@ -9,18 +9,25 @@
   --font-family: 'Roboto', sans-serif;
 }
 
-body {
-  background-color: var(--background-color);
-  font-family: var(--font-family);
+html, body {
   margin: 0;
   padding: 0;
-  line-height: 1.6;
+  height: 100%;
+  font-family: var(--font-family);
+  background-color: var(--background-color);
 }
 
-.analyze-cv {
+.analyze-cv-wrapper {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+}
+
+.analyze-cv {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .main-content {
@@ -31,7 +38,7 @@ body {
 }
 
 .feature-section {
-  margin-bottom: 80px;
+  width: 100%;
 }
 
 .feature-content {
@@ -91,6 +98,11 @@ button {
 
 button:hover {
   background-color: var(--hover-background);
+}
+
+.error {
+  color: red;
+  margin-top: 20px;
 }
 
 @media (max-width: 1024px) {

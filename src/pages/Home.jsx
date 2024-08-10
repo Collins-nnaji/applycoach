@@ -131,19 +131,19 @@ function Home() {
           <div className="packages">
             <div className="package">
               <h3>Basic Package</h3>
-              <p>CV Optimization with guaranteed job callbacks</p>
+              <p>Resume Enhancement with a Focus on Securing Job Interviews</p>
               <p>£50</p>
               <a href="https://buy.stripe.com/cN29CF7aMdJQ30AcMS" className="button">Choose Basic</a>
             </div>
             <div className="package">
               <h3>Standard Package</h3>
-              <p>Resume + LinkedIn Optimization</p>
+              <p>Comprehensive Resume and LinkedIn Profile Optimization</p>
               <p>£150</p>
               <a href="https://buy.stripe.com/bIYaGJ52EcFMdFe007" className="button">Choose Standard</a>
             </div>
             <div className="package">
               <h3>Premium Package</h3>
-              <p>Resume + LinkedIn + 2 Articles + 5 LinkedIn Posts</p>
+              <p>Resume, LinkedIn, and Targeted Content (2 Articles + 5 LinkedIn Posts)</p>
               <p>£300</p>
               <a href="https://buy.stripe.com/6oEcORcv6bBIcBaaEM" className="button">Choose Premium</a>
             </div>

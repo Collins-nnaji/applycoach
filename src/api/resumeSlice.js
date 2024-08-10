@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { uploadResumeToBlob, analyzeResume } from '../api/azureService';
+import { uploadResumeToBlob, analyzeResume } from './azureService';
 
 export const uploadResumeAsync = createAsyncThunk(
   'resume/uploadResume',

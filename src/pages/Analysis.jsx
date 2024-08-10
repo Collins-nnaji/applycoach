@@ -1,8 +1,24 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import Header from '../components/Header';
-import Footer from '../components/Footer';
 import './Analysis.css';
+
+const AnalysisResults = ({ analysis }) => {
+  if (!analysis) return <p>No analysis results available.</p>;
+
+  return (
+    <div>
+      <h3>Resume Analysis</h3>
+      <ul>
+        {Object.entries(analysis).map(([key, value]) => (
+          <li key={key}>
+            <strong>{key}:</strong> {value.content || value.value || ''}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+};
 
 function Analysis() {
   const { analysis } = useSelector((state) => state.resume);
@@ -12,30 +28,10 @@ function Analysis() {
       <Header />
       <main className="main-content">
         <section className="analysis-results">
-          <h2>CV Analysis Results</h2>
-          {analysis ? (
-            <div>
-              <h3>Extracted Information</h3>
-              <div className="info-items">
-                {Object.entries(analysis.extractedData).map(([key, value]) => (
-                  <div key={key} className="info-item">
-                    <strong>{key}:</strong> {value}
-                  </div>
-                ))}
-              </div>
-              <h3>Recommendations</h3>
-              <ul className="recommendations-list">
-                {analysis.recommendations.map((rec, index) => (
-                  <li key={index}>{rec}</li>
-                ))}
-              </ul>
-            </div>
-          ) : (
-            <p>No analysis results available.</p>
-          )}
+          <h2>Analysis Results</h2>
+          <AnalysisResults analysis={analysis} />
         </section>
       </main>
-      <Footer />
     </div>
   );
 }
