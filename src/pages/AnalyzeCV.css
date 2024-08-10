@@ -6,6 +6,8 @@
   --button-background: #6a0dad;
   --button-text: #ffffff;
   --hover-background: #4b0082; /* Darker Purple */
+  --input-border: #ccc;
+  --input-border-focus: #6a0dad;
   --font-family: 'Roboto', sans-serif;
 }
 
@@ -28,13 +30,17 @@ html, body {
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 20px;
 }
 
 .main-content {
-  padding: 60px 20px;
+  padding: 40px 20px;
   max-width: 1200px;
   margin: 0 auto;
   flex: 1;
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 }
 
 .feature-section {
@@ -45,13 +51,15 @@ html, body {
   display: flex;
   align-items: center;
   gap: 40px;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
 
 .feature-image {
-  width: 50%;
+  width: 45%;
   max-width: 500px;
   height: auto;
-  border-radius: 8px;
+  border-radius: 15px;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease;
 }
@@ -62,6 +70,8 @@ html, body {
 
 .feature-text {
   flex: 1;
+  max-width: 500px;
+  margin-top: 20px;
 }
 
 .feature-text h2 {
@@ -73,27 +83,73 @@ html, body {
 .feature-text p {
   font-size: 1.2rem;
   color: var(--text-color);
+  margin-bottom: 20px;
 }
 
+/* Custom file input */
 input[type="file"] {
-  margin-top: 20px;
-  padding: 10px;
-  width: 100%;
-  max-width: 300px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  display: none;
 }
 
+.file-label {
+  display: inline-block;
+  padding: 12px 20px;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--button-text);
+  background-color: var(--button-background);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+  margin-bottom: 20px;
+  min-width: 200px; /* Ensure minimum width for label */
+}
+.file-label:after {
+  content: attr(data-file-name);
+  display: block;
+  font-size: 0.9rem;
+  color: var(--text-color);
+  margin-top: 5px;
+}
+.file-label:hover {
+  background-color: var(--hover-background);
+}
+
+/* Textarea styling */
+textarea {
+  width: 100%;
+  max-width: 500px;
+  padding: 15px;
+  font-size: 1rem;
+  border: 1px solid var(--input-border);
+  border-radius: 8px;
+  transition: border-color 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  resize: vertical;
+  margin-bottom: 20px;
+}
+
+textarea:focus {
+  outline: none;
+  border-color: var(--input-border-focus);
+  box-shadow: 0 0 0 4px rgba(106, 13, 173, 0.1);
+}
+
+/* Submit button styling */
 button {
   background-color: var(--button-background);
   color: var(--button-text);
-  padding: 10px 20px;
+  padding: 12px 25px;
   font-size: 1rem;
   border: none;
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.3s ease;
   margin-top: 20px;
+  text-align: center;
+  width: 100%;
+  max-width: 500px;
 }
 
 button:hover {
@@ -105,77 +161,91 @@ button:hover {
   margin-top: 20px;
 }
 
+.results {
+  margin-top: 30px;
+  background-color: #f0f0f0;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.results h3 {
+  margin-top: 0;
+  color: var(--primary-color);
+}
+
+.results p {
+  color: var(--text-color);
+}
+
+/* Responsive styling */
 @media (max-width: 1024px) {
   .feature-content {
-    flex-direction: column;
-    text-align: center;
+      flex-direction: column;
+      text-align: center;
   }
 
   .feature-image {
-    width: 80%;
-    margin-bottom: 20px;
+      width: 80%;
+      margin-bottom: 20px;
   }
 
   .feature-text h2 {
-    font-size: 2.2rem;
+      font-size: 2.2rem;
   }
 
   .feature-text p {
-    font-size: 1.1rem;
+      font-size: 1.1rem;
   }
 }
 
 @media (max-width: 768px) {
   .main-content {
-    padding: 40px 15px;
-  }
-
-  .feature-content {
-    flex-direction: column;
+      padding: 30px 15px;
   }
 
   .feature-image {
-    width: 100%;
-    margin-bottom: 20px;
+      width: 100%;
+      margin-bottom: 20px;
   }
 
   .feature-text h2 {
-    font-size: 2rem;
+      font-size: 2rem;
   }
 
   .feature-text p {
-    font-size: 1rem;
-  }
-  
-  button {
-    width: 100%;
-    max-width: 300px;
+      font-size: 1rem;
   }
 
-  input[type="file"] {
-    width: 100%;
-    max-width: 100%;
+  button {
+      width: 100%;
+      max-width: 100%;
+  }
+
+  textarea {
+      width: 100%;
+      max-width: 100%;
   }
 }
 
 @media (max-width: 480px) {
   .main-content {
-    padding: 30px 10px;
+      padding: 20px 10px;
   }
 
   .feature-text h2 {
-    font-size: 1.8rem;
+      font-size: 1.8rem;
   }
 
   .feature-text p {
-    font-size: 0.9rem;
+      font-size: 0.9rem;
   }
 
-  input[type="file"] {
-    font-size: 0.9rem;
+  textarea {
+      font-size: 0.9rem;
   }
 
   button {
-    font-size: 0.9rem;
+      font-size: 0.9rem;
   }
 }
