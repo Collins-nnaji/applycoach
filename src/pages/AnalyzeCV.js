@@ -37,7 +37,13 @@ function AnalyzeCV() {
             setResult(response);
         } catch (err) {
             console.error('Error analyzing resume:', err);
-            setError(`An error occurred while analyzing the resume: ${err.message}`);
+            if (err.response) {
+                setError(`Error: ${err.response.status} - ${err.response.data.error || err.response.data}`);
+            } else if (err.request) {
+                setError('No response received from the server. Please try again later.');
+            } else {
+                setError(`An unexpected error occurred: ${err.message}`);
+            }
         } finally {
             setLoading(false);
         }

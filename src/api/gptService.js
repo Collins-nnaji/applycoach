@@ -1,7 +1,6 @@
 import axios from 'axios';
 
-// Replace with your Vercel backend URL
-const API_URL = 'https://credolay-backend.vercel.app';
+const API_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000';
 
 export const analyzeResume = async (formData) => {
     try {
@@ -11,6 +10,6 @@ export const analyzeResume = async (formData) => {
         return response.data;
     } catch (error) {
         console.error('Error analyzing resume:', error);
-        throw new Error(error.response ? error.response.data.error : 'An unexpected error occurred.');
+        throw new Error(error.response?.data?.error || 'An unexpected error occurred.');
     }
 };
