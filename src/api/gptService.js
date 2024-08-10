@@ -8,10 +8,23 @@ export const analyzeResume = async (formData) => {
             headers: {
                 'Content-Type': 'multipart/form-data',
             },
+            timeout: 30000,
         });
         return response.data;
     } catch (error) {
-        console.error('Error analyzing resume:', error);
-        throw new Error('An unexpected error occurred.');
+        if (error.response) {
+            // Server responded with a status other than 2xx
+            console.error('Backend error:', error.response.data);
+            throw new Error(error.response.data.error || 'Server error occurred.');
+        } else if (error.request) {
+            // Request was made but no response received
+            console.error('No response from server:', error.request);
+            throw new Error('No response from the server. Please try again later.');
+        } else {
+            // Something else caused the error
+            console.error('Error setting up request:', error.message);
+            throw new Error('An error occurred while setting up the request.');
+        }
     }
 };
+
