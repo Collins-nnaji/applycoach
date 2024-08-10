@@ -83,7 +83,7 @@ function AnalyzeCV() {
                                 {loading && <LoadingSpinner />}
                                 {error && <p className="error">{error}</p>}
                                 {result && (
-                                    <div className="results">
+                                    <div className={`results ${result ? 'show' : ''}`}>
                                         <h3>Job Fit and Skill Gap Analysis</h3>
                                         <p>{result['Job Fit and Skill Gap']}</p>
                                         <h3>Recommendations</h3>
