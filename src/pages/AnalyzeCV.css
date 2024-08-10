@@ -53,6 +53,7 @@ html, body {
   flex-direction: column;
   align-items: center;
   gap: 40px;
+  min-height: 300px; /* Ensures minimum height to prevent shifting */
 }
 
 .feature-image {
@@ -72,7 +73,6 @@ html, body {
   width: 100%;
   max-width: 500px;
 }
-
 
 .feature-text h2 {
   font-size: 2.5rem;
@@ -105,6 +105,7 @@ input[type="file"] {
   margin-bottom: 20px;
   min-width: 200px; /* Ensure minimum width for label */
 }
+
 .file-label:after {
   content: attr(data-file-name);
   display: block;
@@ -112,6 +113,7 @@ input[type="file"] {
   color: var(--text-color);
   margin-top: 5px;
 }
+
 .file-label:hover {
   background-color: var(--hover-background);
 }
@@ -167,6 +169,14 @@ button:hover {
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.results.show {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .results h3 {
@@ -181,74 +191,79 @@ button:hover {
 /* Responsive styling */
 @media (min-width: 1024px) {
   .feature-content {
-      flex-direction: row;
-      justify-content: space-between;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
   }
 
   .feature-image {
-      width: 45%;
+    width: 45%;
+    flex-shrink: 0;
   }
 
-  .feature-text h2 {
-      font-size: 2.2rem;
+  .feature-text {
+    flex-grow: 1;
   }
 
-  .feature-text p {
-      font-size: 1.1rem;
+  .results {
+    margin-top: 0;
+    margin-left: 20px;
+    flex-grow: 1;
+    flex-shrink: 1;
   }
 }
 
 @media (max-width: 768px) {
   .main-content {
-      padding: 30px 15px;
+    padding: 30px 15px;
   }
 
   .feature-image {
-      width: 100%;
-      margin-bottom: 20px;
+    width: 100%;
+    margin-bottom: 20px;
   }
 
   .feature-text h2 {
-      font-size: 2rem;
+    font-size: 2rem;
   }
 
   .feature-text p {
-      font-size: 1rem;
+    font-size: 1rem;
   }
 
   button {
-      width: 100%;
-      max-width: 100%;
+    width: 100%;
+    max-width: 100%;
   }
 
   textarea {
-      width: 100%;
-      max-width: 100%;
+    width: 100%;
+    max-width: 100%;
   }
 }
 
 @media (max-width: 480px) {
   .main-content {
-      padding: 20px 10px;
+    padding: 20px 10px;
   }
 
   .feature-text h2 {
-      font-size: 1.8rem;
+    font-size: 1.8rem;
   }
 
   .feature-text p {
-      font-size: 0.9rem;
+    font-size: 0.9rem;
   }
 
   textarea {
-      font-size: 0.9rem;
-      width: 100%; /* Ensure textarea doesn't overflow */
-      max-width: 100%;
+    font-size: 0.9rem;
+    width: 100%; /* Ensure textarea doesn't overflow */
+    max-width: 100%;
   }
 
   button {
-      font-size: 0.9rem;
-      width: 100%; /* Ensure button doesn't overflow */
-      max-width: 100%;
+    font-size: 0.9rem;
+    width: 100%; /* Ensure button doesn't overflow */
+    max-width: 100%;
   }
 }
