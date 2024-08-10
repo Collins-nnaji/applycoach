@@ -1,17 +1,17 @@
 import axios from 'axios';
 
-const API_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000';
+const functionUrl = "https://credolayfunction.azurewebsites.net/api/analyzeResumeFunction?code=B4WZp2hI4hZVZjYP1tGUVzDYRSXFr4Chz0uv3cS9FhfuAzFulTnb9Q%3D%3D";
 
 export const analyzeResume = async (formData) => {
     try {
-        const response = await axios.post(`${API_URL}/api/analyze-resume`, formData, {
+        const response = await axios.post(functionUrl, formData, {
             headers: {
                 'Content-Type': 'multipart/form-data',
             },
         });
         return response.data;
     } catch (error) {
-        console.error('Error analyzing resume:', error);
-        throw new Error('An unexpected error occurred.');
+        console.error('Error calling the Azure Function:', error);
+        throw error;
     }
 };
