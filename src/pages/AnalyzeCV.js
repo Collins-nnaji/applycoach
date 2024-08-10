@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { analyzeResume } from '../api/gptService';
+import { analyzeResume } from '../api/gptService'; // Import the service
 import Header from '../components/Header';
 import LoadingSpinner from '../components/LoadingSpinner';
 import './AnalyzeCV.css';
