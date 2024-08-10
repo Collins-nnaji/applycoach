@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { analyzeResume } from '../api/gptService';
 import Header from '../components/Header';
 import LoadingSpinner from '../components/LoadingSpinner';
-import mammoth from 'mammoth';
 import './AnalyzeCV.css';
 import cvPic from '../assets/CVpic.jpg';
 
@@ -14,31 +13,22 @@ function AnalyzeCV() {
     const [result, setResult] = useState(null);
     const [error, setError] = useState(null);
 
-    const handleFileChange = async (e) => {
+    const handleFileChange = (e) => {
         const selectedFile = e.target.files[0];
         if (selectedFile && isValidFileType(selectedFile)) {
             setFile(selectedFile);
             setFileName(selectedFile.name);
             setError(null);
         } else {
-            setError('Please upload a valid resume file (DOC, DOCX)');
+            setError('Please upload a valid resume file (PDF, DOC, DOCX)');
             setFile(null);
             setFileName('');
         }
     };
 
     const isValidFileType = (file) => {
-        const allowedTypes = ['application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
+        const allowedTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
         return allowedTypes.includes(file.type);
-    };
-
-    const extractTextFromFile = async (file) => {
-        if (file.type === 'application/msword' || file.type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document') {
-            const data = await mammoth.extractRawText({ arrayBuffer: file });
-            return data.value;
-        } else {
-            throw new Error('Unsupported file type');
-        }
     };
 
     const handleSubmit = async () => {
@@ -51,9 +41,11 @@ function AnalyzeCV() {
         setError(null);
 
         try {
-            const resumeText = await extractTextFromFile(file);
+            const formData = new FormData();
+            formData.append('resume', file);
+            formData.append('jobDescription', jobDescription);
 
-            const response = await analyzeResume({ resumeText, jobDescription });
+            const response = await analyzeResume(formData);
             setResult(response);
         } catch (err) {
             console.error('Error analyzing resume:', err);
@@ -77,8 +69,8 @@ function AnalyzeCV() {
                                     Upload your resume and job description for a detailed analysis including job fit assessment and skill gap identification. Get personalized recommendations to enhance your job applications.
                                 </p>
                                 <label className="file-label">
-                                    {fileName ? `Selected: ${fileName}` : 'Upload Resume (DOC, DOCX)'}
-                                    <input type="file" onChange={handleFileChange} accept=".doc,.docx" />
+                                    {fileName ? `Selected: ${fileName}` : 'Upload Resume (PDF, DOC, DOCX)'}
+                                    <input type="file" onChange={handleFileChange} accept=".pdf,.doc,.docx" />
                                 </label>
                                 <textarea
                                     placeholder="Enter the job description or title here..."
@@ -93,11 +85,15 @@ function AnalyzeCV() {
                                 {result && (
                                     <div className="results">
                                         <h3>Job Fit and Skill Gap Analysis</h3>
-                                        <p>{result.jobFitAndSkillGap}</p>
+                                        <p>{result['Job Fit and Skill Gap']}</p>
                                         <h3>Recommendations</h3>
-                                        <p>{result.recommendations}</p>
+                                        <p>{result.Recommendations}</p>
                                         <h3>Suggested Job Titles</h3>
-                                        <p>{result.suggestedJobTitles}</p>
+                                        <ul>
+                                            {result['Suggested Job Titles']?.split('\n').map((title, index) => (
+                                                <li key={index}>{title}</li>
+                                            ))}
+                                        </ul>
                                     </div>
                                 )}
                             </div>
