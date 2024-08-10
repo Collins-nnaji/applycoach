@@ -7,7 +7,7 @@ import cvPic from '../assets/CVpic.jpg';
 
 function AnalyzeCV() {
     const [file, setFile] = useState(null);
-    const [fileName, setFileName] = useState(''); // Track the name of the selected file
+    const [fileName, setFileName] = useState('');
     const [jobDescription, setJobDescription] = useState('');
     const [loading, setLoading] = useState(false);
     const [result, setResult] = useState(null);
@@ -15,13 +15,25 @@ function AnalyzeCV() {
 
     const handleFileChange = (e) => {
         const selectedFile = e.target.files[0];
-        setFile(selectedFile);
-        setFileName(selectedFile ? selectedFile.name : ''); // Update file name display
+        if (selectedFile && isValidFileType(selectedFile)) {
+            setFile(selectedFile);
+            setFileName(selectedFile.name);
+            setError(null);
+        } else {
+            setError('Please upload a valid resume file (PDF, DOC, DOCX)');
+            setFile(null);
+            setFileName('');
+        }
+    };
+
+    const isValidFileType = (file) => {
+        const allowedTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
+        return allowedTypes.includes(file.type);
     };
 
     const handleSubmit = async () => {
         if (!file || !jobDescription) {
-            alert('Please upload a resume and provide a job description.');
+            setError('Please upload a resume and provide a job description.');
             return;
         }
 
@@ -37,13 +49,7 @@ function AnalyzeCV() {
             setResult(response);
         } catch (err) {
             console.error('Error analyzing resume:', err);
-            if (err.response) {
-                setError(`Error: ${err.response.status} - ${err.response.data.error || err.response.data}`);
-            } else if (err.request) {
-                setError('No response received from the server. Please try again later.');
-            } else {
-                setError(`An unexpected error occurred: ${err.message}`);
-            }
+            setError('An error occurred while analyzing the resume. Please try again later.');
         } finally {
             setLoading(false);
         }
@@ -63,8 +69,8 @@ function AnalyzeCV() {
                                     Upload your resume and job description for a detailed analysis including job fit assessment and skill gap identification. Get personalized recommendations to enhance your job applications.
                                 </p>
                                 <label className="file-label">
-                                    {fileName ? `Selected: ${fileName}` : 'Upload Resume'}
-                                    <input type="file" onChange={handleFileChange} />
+                                    {fileName ? `Selected: ${fileName}` : 'Upload Resume (PDF, DOC, DOCX)'}
+                                    <input type="file" onChange={handleFileChange} accept=".pdf,.doc,.docx" />
                                 </label>
                                 <textarea
                                     placeholder="Enter the job description or title here..."

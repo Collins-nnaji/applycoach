@@ -49,14 +49,13 @@ html, body {
 
 .feature-content {
   display: flex;
+  flex-direction: column;
   align-items: center;
   gap: 40px;
-  flex-wrap: wrap;
-  justify-content: space-between;
 }
 
 .feature-image {
-  width: 45%;
+  width: 100%;
   max-width: 500px;
   height: auto;
   border-radius: 15px;
@@ -69,10 +68,10 @@ html, body {
 }
 
 .feature-text {
-  flex: 1;
+  width: 100%;
   max-width: 500px;
-  margin-top: 20px;
 }
+
 
 .feature-text h2 {
   font-size: 2.5rem;
@@ -179,15 +178,14 @@ button:hover {
 }
 
 /* Responsive styling */
-@media (max-width: 1024px) {
+@media (min-width: 1024px) {
   .feature-content {
-      flex-direction: column;
-      text-align: center;
+      flex-direction: row;
+      justify-content: space-between;
   }
 
   .feature-image {
-      width: 80%;
-      margin-bottom: 20px;
+      width: 45%;
   }
 
   .feature-text h2 {
