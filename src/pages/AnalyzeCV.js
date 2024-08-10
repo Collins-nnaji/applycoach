@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { analyzeResume } from '../api/gptService';
 import Header from '../components/Header';
 import LoadingSpinner from '../components/LoadingSpinner';
-import pdfParse from 'pdf-parse';
 import mammoth from 'mammoth';
 import './AnalyzeCV.css';
 import cvPic from '../assets/CVpic.jpg';
@@ -22,22 +21,19 @@ function AnalyzeCV() {
             setFileName(selectedFile.name);
             setError(null);
         } else {
-            setError('Please upload a valid resume file (PDF, DOC, DOCX)');
+            setError('Please upload a valid resume file (DOC, DOCX)');
             setFile(null);
             setFileName('');
         }
     };
 
     const isValidFileType = (file) => {
-        const allowedTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
+        const allowedTypes = ['application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
         return allowedTypes.includes(file.type);
     };
 
     const extractTextFromFile = async (file) => {
-        if (file.type === 'application/pdf') {
-            const data = await pdfParse(file);
-            return data.text;
-        } else if (file.type === 'application/msword' || file.type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document') {
+        if (file.type === 'application/msword' || file.type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document') {
             const data = await mammoth.extractRawText({ arrayBuffer: file });
             return data.value;
         } else {
@@ -81,8 +77,8 @@ function AnalyzeCV() {
                                     Upload your resume and job description for a detailed analysis including job fit assessment and skill gap identification. Get personalized recommendations to enhance your job applications.
                                 </p>
                                 <label className="file-label">
-                                    {fileName ? `Selected: ${fileName}` : 'Upload Resume (PDF, DOC, DOCX)'}
-                                    <input type="file" onChange={handleFileChange} accept=".pdf,.doc,.docx" />
+                                    {fileName ? `Selected: ${fileName}` : 'Upload Resume (DOC, DOCX)'}
+                                    <input type="file" onChange={handleFileChange} accept=".doc,.docx" />
                                 </label>
                                 <textarea
                                     placeholder="Enter the job description or title here..."
