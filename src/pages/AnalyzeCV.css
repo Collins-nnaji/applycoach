@@ -41,39 +41,41 @@ html, body {
   background-color: white;
   border-radius: 15px;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-  box-sizing: border-box; /* Ensures padding doesn't cause overflow */
+  box-sizing: border-box;
 }
 
-.feature-section {
+.feature-section, .job-search-section {
   width: 100%;
+  margin-bottom: 40px;
 }
 
-.feature-content {
+.feature-content, .job-search {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center; /* Center content horizontally */
   gap: 40px;
-  min-height: 300px; /* Ensures minimum height to prevent shifting */
 }
 
-.feature-text {
+.feature-text, .job-search .input-group {
   width: 100%;
-  max-width: 500px;
+  max-width: 600px;
+  text-align: center; /* Center the text content */
 }
 
-.feature-text h2 {
+.feature-text h2, .job-search-section h2 {
   font-size: 2.5rem;
   color: var(--primary-color);
   margin-bottom: 20px;
+  text-align: center;
 }
 
-.feature-text p {
+.feature-text p, .job-search .input-group label {
   font-size: 1.2rem;
   color: var(--text-color);
   margin-bottom: 20px;
 }
 
-/* Textarea styling */
 textarea {
   width: 100%;
   padding: 15px;
@@ -84,7 +86,7 @@ textarea {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   resize: vertical;
   margin-bottom: 20px;
-  box-sizing: border-box; /* Ensures padding doesn't cause overflow */
+  box-sizing: border-box;
 }
 
 textarea:focus {
@@ -93,7 +95,6 @@ textarea:focus {
   box-shadow: 0 0 0 4px rgba(106, 13, 173, 0.1);
 }
 
-/* Submit button styling */
 button {
   background-color: var(--button-background);
   color: var(--button-text);
@@ -106,7 +107,7 @@ button {
   margin-top: 20px;
   text-align: center;
   width: 100%;
-  max-width: 500px;
+  max-width: 600px;
 }
 
 button:hover {
@@ -144,57 +145,37 @@ button:hover {
 }
 
 /* Job Search section styling */
-.job-search-section {
-  text-align: center;
-  margin-top: 50px;
+.job-search-section h2 {
+  margin-top: 0;
 }
 
-.job-search {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 20px;
-}
-
-.job-search .input-group {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  width: 100%;
-  max-width: 400px;
-  margin-bottom: 15px;
-}
-
-.input-group label {
-  margin-bottom: 5px;
-  font-weight: bold;
-  color: var(--primary-color);
-}
-
-.input-group input {
+.job-search .input-group input {
   padding: 10px;
   width: 100%;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  border: 1px solid var(--input-border);
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .job-results {
   margin-top: 20px;
-  text-align: left;
   width: 100%;
-  max-width: 800px;
+  max-width: 600px;
+  text-align: left;
 }
 
 .job-result {
-  border: 1px solid #ccc;
+  background-color: white;
+  border: 1px solid var(--input-border);
   border-radius: 8px;
-  padding: 20px;
-  margin-bottom: 20px;
+  padding: 15px;
+  margin-bottom: 15px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .job-result h3 {
   margin: 0 0 10px 0;
+  color: var(--primary-color);
 }
 
 .job-result a {
@@ -209,14 +190,13 @@ button:hover {
 
 /* Responsive styling */
 @media (min-width: 1024px) {
-  .feature-content {
+  .feature-content, .job-search {
     flex-direction: row;
     justify-content: space-between;
-    align-items: flex-start;
   }
 
-  .feature-text {
-    flex-grow: 1;
+  .feature-text, .job-search .input-group {
+    max-width: 48%;
   }
 
   .results {
@@ -232,11 +212,11 @@ button:hover {
     padding: 30px 15px;
   }
 
-  .feature-text h2 {
+  .feature-text h2, .job-search-section h2 {
     font-size: 2rem;
   }
 
-  .feature-text p {
+  .feature-text p, .job-search .input-group label {
     font-size: 1rem;
   }
 
@@ -245,7 +225,7 @@ button:hover {
     max-width: 100%;
   }
 
-  textarea {
+  textarea, .job-search .input-group input {
     width: 100%;
     max-width: 100%;
   }
@@ -256,23 +236,19 @@ button:hover {
     padding: 20px 10px;
   }
 
-  .feature-text h2 {
+  .feature-text h2, .job-search-section h2 {
     font-size: 1.8rem;
   }
 
-  .feature-text p {
+  .feature-text p, .job-search .input-group label {
     font-size: 0.9rem;
   }
 
-  textarea {
+  textarea, .job-search .input-group input {
     font-size: 0.9rem;
-    width: 100%; /* Ensure textarea doesn't overflow */
-    max-width: 100%;
   }
 
   button {
     font-size: 0.9rem;
-    width: 100%; /* Ensure button doesn't overflow */
-    max-width: 100%;
   }
 }
