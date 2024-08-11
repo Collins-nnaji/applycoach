@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import './Home.css';
-import jobPic from '../assets/Jobpic.jpg';
 import linkedinPic from '../assets/Linkedinpic.jpg';
 import onlinePresencePic from '../assets/OnlinePresencepic.jpg';
 import resourcePic from '../assets/Resourcepic.jpg';
@@ -42,10 +41,6 @@ function Home() {
     }
   ]);
 
-  const [jobResults, setJobResults] = useState([]);
-  const [loading, setLoading] = useState(false); // Loading state to show a spinner
-  const [error, setError] = useState(null); // Error state to display any errors
-
   const toggleFAQ = index => {
     setFaq(faq.map((faq, i) => {
       if (i === index) {
@@ -55,28 +50,6 @@ function Home() {
       }
       return faq;
     }));
-  };
-
-  const handleJobSearch = (e) => {
-    e.preventDefault();
-    const skills = e.target.skills.value;
-    const preferences = e.target.preferences.value;
-    const location = e.target.location.value;
-
-    setLoading(true); // Start loading
-    setError(null); // Clear any previous errors
-
-    // Fetch job results from an API
-    fetch(`https://api.example.com/jobs?skills=${skills}&preferences=${preferences}&location=${location}`)
-      .then(response => response.json())
-      .then(data => {
-        setJobResults(data.jobs);
-        setLoading(false); // Stop loading
-      })
-      .catch(err => {
-        setError("Failed to fetch jobs. Please try again later.");
-        setLoading(false); // Stop loading
-      });
   };
 
   return (
@@ -109,18 +82,6 @@ function Home() {
               <h2>Enhance Your Online Presence</h2>
               <p>
                 Our team will improve your online visibility and reputation across various platforms. We ensure your online presence is professional and appealing to potential employers.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        <section className="feature-section reverse">
-          <div className="feature-content">
-            <img src={jobPic} alt="Job Listings" className="feature-image" />
-            <div className="feature-text">
-              <h2>Find Your Dream Job</h2>
-              <p>
-                We provide tailored job listings based on your skills and preferences. With our support, you can confidently apply to jobs and track your applications with ease.
               </p>
             </div>
           </div>
@@ -165,41 +126,6 @@ function Home() {
               <p>"Thanks to Credolay, I found my dream job in no time. Highly recommended!"</p>
               <p>- Mark Johnson</p>
             </div>
-          </div>
-        </section>
-
-        <section className="job-search-section">
-          <h2>Find Your Perfect Job</h2>
-          <form className="job-search" onSubmit={handleJobSearch}>
-            <div className="input-group">
-              <label htmlFor="skills">Skills</label>
-              <input type="text" id="skills" name="skills" placeholder="Enter your skills" required />
-            </div>
-            <div className="input-group">
-              <label htmlFor="preferences">Job Preferences</label>
-              <input type="text" id="preferences" name="preferences" placeholder="Enter your preferences" required />
-            </div>
-            <div className="input-group">
-              <label htmlFor="location">Location</label>
-              <input type="text" id="location" name="location" placeholder="Enter your location" required />
-            </div>
-            <button className="button" type="submit">Search Jobs</button>
-          </form>
-          {loading && <p>Loading jobs...</p>} {/* Show loading indicator */}
-          {error && <p className="error">{error}</p>} {/* Show error message */}
-          <div className="job-results">
-            {jobResults.length > 0 ? (
-              jobResults.map((job, index) => (
-                <div key={index} className="job-result">
-                  <h3>{job.title}</h3>
-                  <p>{job.company}</p>
-                  <p>{job.location}</p>
-                  <a href={job.link} target="_blank" rel="noopener noreferrer">Apply Now</a>
-                </div>
-              ))
-            ) : (
-              !loading && !error && <p>No jobs found. Try different search criteria.</p>
-            )}
           </div>
         </section>
 
