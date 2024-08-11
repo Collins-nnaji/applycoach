@@ -86,38 +86,6 @@ html, body {
   margin-bottom: 20px;
 }
 
-/* Custom file input */
-input[type="file"] {
-  display: none;
-}
-
-.file-label {
-  display: inline-block;
-  padding: 12px 20px;
-  font-size: 1rem;
-  font-weight: 500;
-  color: var(--button-text);
-  background-color: var(--button-background);
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  text-align: center;
-  margin-bottom: 20px;
-  min-width: 200px; /* Ensure minimum width for label */
-}
-
-.file-label:after {
-  content: attr(data-file-name);
-  display: block;
-  font-size: 0.9rem;
-  color: var(--text-color);
-  margin-top: 5px;
-}
-
-.file-label:hover {
-  background-color: var(--hover-background);
-}
-
 /* Textarea styling */
 textarea {
   width: 100%;

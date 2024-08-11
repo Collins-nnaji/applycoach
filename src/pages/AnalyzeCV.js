@@ -1,39 +1,19 @@
 import React, { useState } from 'react';
-import { analyzeResume } from '../api/gptService'; // Import the service
+import { analyzeResume } from '../api/gptService';
 import Header from '../components/Header';
 import LoadingSpinner from '../components/LoadingSpinner';
 import './AnalyzeCV.css';
-import cvPic from '../assets/CVpic.jpg';
 
 function AnalyzeCV() {
-    const [file, setFile] = useState(null);
-    const [fileName, setFileName] = useState('');
+    const [resumeText, setResumeText] = useState('');
     const [jobDescription, setJobDescription] = useState('');
     const [loading, setLoading] = useState(false);
     const [result, setResult] = useState(null);
     const [error, setError] = useState(null);
 
-    const handleFileChange = (e) => {
-        const selectedFile = e.target.files[0];
-        if (selectedFile && isValidFileType(selectedFile)) {
-            setFile(selectedFile);
-            setFileName(selectedFile.name);
-            setError(null);
-        } else {
-            setError('Please upload a valid resume file (PDF, DOC, DOCX)');
-            setFile(null);
-            setFileName('');
-        }
-    };
-
-    const isValidFileType = (file) => {
-        const allowedTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
-        return allowedTypes.includes(file.type);
-    };
-
     const handleSubmit = async () => {
-        if (!file || !jobDescription) {
-            setError('Please upload a resume and provide a job description.');
+        if (!resumeText || !jobDescription) {
+            setError('Please enter your resume text and provide a job description.');
             return;
         }
 
@@ -41,11 +21,12 @@ function AnalyzeCV() {
         setError(null);
 
         try {
-            const formData = new FormData();
-            formData.append('resume', file);
-            formData.append('jobDescription', jobDescription);
+            const data = {
+                resumeText: resumeText,
+                jobDescription: jobDescription,
+            };
 
-            const response = await analyzeResume(formData);
+            const response = await analyzeResume(data);
             setResult(response);
         } catch (err) {
             console.error('Error analyzing resume:', err);
@@ -62,23 +43,25 @@ function AnalyzeCV() {
                 <main className="main-content">
                     <section className="feature-section">
                         <div className="feature-content">
-                            <img src={cvPic} alt="Resume Analysis" className="feature-image" />
                             <div className="feature-text">
                                 <h2>Analyze Your CV</h2>
                                 <p>
-                                    Upload your resume and job description for a detailed analysis including job fit assessment and skill gap identification. Get personalized recommendations to enhance your job applications.
+                                    Paste your resume text and job description for a detailed analysis including job fit assessment and skill gap identification. Get personalized recommendations to enhance your job applications.
                                 </p>
-                                <label className="file-label">
-                                    {fileName ? `Selected: ${fileName}` : 'Upload Resume (PDF, DOC, DOCX)'}
-                                    <input type="file" onChange={handleFileChange} accept=".pdf,.doc,.docx" />
-                                </label>
+                                <textarea
+                                    placeholder="Paste your resume text here..."
+                                    value={resumeText}
+                                    onChange={(e) => setResumeText(e.target.value)}
+                                    rows={10}
+                                />
                                 <textarea
                                     placeholder="Enter the job description or title here..."
                                     value={jobDescription}
                                     onChange={(e) => setJobDescription(e.target.value)}
+                                    rows={5}
                                 />
                                 <button onClick={handleSubmit} disabled={loading}>
-                                    {loading ? 'Analyzing...' : (fileName ? 'Analyze' : 'Upload and Analyze')}
+                                    {loading ? 'Analyzing...' : 'Analyze'}
                                 </button>
                                 {loading && <LoadingSpinner />}
                                 {error && <p className="error">{error}</p>}

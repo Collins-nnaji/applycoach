@@ -1,13 +1,12 @@
 import axios from 'axios';
 
-const API_URL = process.env.REACT_APP_BACKEND_API_URL + '/analyze-pdf';
+const API_URL = process.env.REACT_APP_BACKEND_API_URL + '/analyze-text';
 
-
-export const analyzeResume = async (formData) => {
+export const analyzeResume = async (data) => {
     try {
-        const response = await axios.post(API_URL, formData, {
+        const response = await axios.post(API_URL, data, {
             headers: {
-                'Content-Type': 'multipart/form-data',
+                'Content-Type': 'application/json',
             },
         });
         return response.data;
