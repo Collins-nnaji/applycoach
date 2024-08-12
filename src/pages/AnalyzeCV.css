@@ -139,8 +139,6 @@ button:hover {
 
 .results p {
   color: var(--text-color);
-  white-space: pre-wrap; /* Preserve formatting */
-  overflow-wrap: break-word;
 }
 
 /* Job Search section styling */
