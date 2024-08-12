@@ -11,26 +11,35 @@ function AnalyzeCV() {
     const [result, setResult] = useState(null);
     const [error, setError] = useState(null);
     const [jobResults, setJobResults] = useState([]);
-    const [jobError, setJobError] = useState(null); // Separate error state for job search
-    const [jobLoading, setJobLoading] = useState(false); // Separate loading state for job search
+    const [jobError, setJobError] = useState(null);
+    const [jobLoading, setJobLoading] = useState(false);
 
     const handleSubmit = async () => {
         if (!resumeText || !jobDescription) {
             setError('Please enter your resume text and provide a job description.');
             return;
         }
-    
+
         setLoading(true);
         setError(null);
-    
+
         try {
             const data = {
                 resumeText: resumeText,
                 jobDescription: jobDescription,
             };
-    
+
             const response = await analyzeResume(data);
-            setResult(response);
+
+            if (response) {
+                // Split the response into sections
+                const sections = response.split('\n\n');
+                setResult({
+                    jobFit: sections[0],
+                    recommendations: sections[1],
+                    jobTitles: sections[2]
+                });
+            }
         } catch (err) {
             console.error('Error analyzing resume:', err);
             setError('An error occurred while analyzing the resume. Please try again later.');
@@ -49,7 +58,6 @@ function AnalyzeCV() {
         setJobError(null);
 
         try {
-            // Replace with your actual API endpoint
             const response = await fetch(`https://api.example.com/jobs?skills=${skills}&preferences=${preferences}&location=${location}`);
             const data = await response.json();
 
@@ -98,12 +106,12 @@ function AnalyzeCV() {
                                 {result && (
                                     <div className={`results ${result ? 'show' : ''}`}>
                                         <h3>Job Fit and Skill Gap Analysis</h3>
-                                        <p>{result['Job Fit and Skill Gap']}</p>
+                                        <p>{result.jobFit}</p>
                                         <h3>Recommendations</h3>
-                                        <p>{result.Recommendations}</p>
+                                        <p>{result.recommendations}</p>
                                         <h3>Suggested Job Titles</h3>
                                         <ul>
-                                            {result['Suggested Job Titles']?.split('\n').map((title, index) => (
+                                            {result.jobTitles?.split('\n').map((title, index) => (
                                                 <li key={index}>{title}</li>
                                             ))}
                                         </ul>
@@ -130,8 +138,8 @@ function AnalyzeCV() {
                             </div>
                             <button className="button" type="submit">Search Jobs</button>
                         </form>
-                        {jobLoading && <p>Loading jobs...</p>} {/* Show loading indicator */}
-                        {jobError && <p className="error">{jobError}</p>} {/* Show error message */}
+                        {jobLoading && <p>Loading jobs...</p>}
+                        {jobError && <p className="error">{jobError}</p>}
                         <div className="job-results">
                             {jobResults.length > 0 ? (
                                 jobResults.map((job, index) => (
