@@ -19,16 +19,16 @@ function AnalyzeCV() {
             setError('Please enter your resume text and provide a job description.');
             return;
         }
-
+    
         setLoading(true);
         setError(null);
-
+    
         try {
             const data = {
                 resumeText: resumeText,
                 jobDescription: jobDescription,
             };
-
+    
             const response = await analyzeResume(data);
             setResult(response);
         } catch (err) {

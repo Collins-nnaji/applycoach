@@ -1,6 +1,7 @@
+// api/gptService.js
 import axios from 'axios';
 
-const API_URL = process.env.REACT_APP_BACKEND_API_URL + '/analyze-text';
+const API_URL = process.env.REACT_APP_BACKEND_API_URL + '/api/analyze';
 
 export const analyzeResume = async (data) => {
     try {
