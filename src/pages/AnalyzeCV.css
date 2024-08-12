@@ -36,6 +36,7 @@ html, body {
 .main-content {
   padding: 40px 20px;
   max-width: 1200px;
+  width: 100%;
   margin: 0 auto;
   flex: 1;
   background-color: white;
@@ -47,30 +48,24 @@ html, body {
 .feature-section, .job-search-section {
   width: 100%;
   margin-bottom: 40px;
-}
-
-.feature-content, .job-search {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center; /* Center content horizontally */
-  gap: 40px;
+  text-align: center;
 }
 
-.feature-text, .job-search .input-group {
+.feature-content, .job-search {
+  max-width: 800px;
   width: 100%;
-  max-width: 600px;
-  text-align: center; /* Center the text content */
 }
 
 .feature-text h2, .job-search-section h2 {
   font-size: 2.5rem;
   color: var(--primary-color);
   margin-bottom: 20px;
-  text-align: center;
 }
 
-.feature-text p, .job-search .input-group label {
+.feature-text p {
   font-size: 1.2rem;
   color: var(--text-color);
   margin-bottom: 20px;
@@ -82,7 +77,7 @@ textarea {
   font-size: 1rem;
   border: 1px solid var(--input-border);
   border-radius: 8px;
-  transition: border-color 0.3s ease;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   resize: vertical;
   margin-bottom: 20px;
@@ -107,11 +102,13 @@ button {
   margin-top: 20px;
   text-align: center;
   width: 100%;
-  max-width: 600px;
+  max-width: 300px;
 }
 
 button:hover {
   background-color: var(--hover-background);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .error {
@@ -145,22 +142,34 @@ button:hover {
 }
 
 /* Job Search section styling */
-.job-search-section h2 {
-  margin-top: 0;
+.job-search .input-group {
+  margin-bottom: 15px;
+}
+
+.job-search .input-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
 }
 
 .job-search .input-group input {
-  padding: 10px;
   width: 100%;
+  padding: 10px;
   border: 1px solid var(--input-border);
   border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  font-size: 1rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.job-search .input-group input:focus {
+  outline: none;
+  border-color: var(--input-border-focus);
+  box-shadow: 0 0 0 4px rgba(106, 13, 173, 0.1);
 }
 
 .job-results {
   margin-top: 20px;
   width: 100%;
-  max-width: 600px;
   text-align: left;
 }
 
@@ -189,24 +198,6 @@ button:hover {
 }
 
 /* Responsive styling */
-@media (min-width: 1024px) {
-  .feature-content, .job-search {
-    flex-direction: row;
-    justify-content: space-between;
-  }
-
-  .feature-text, .job-search .input-group {
-    max-width: 48%;
-  }
-
-  .results {
-    margin-top: 0;
-    margin-left: 20px;
-    flex-grow: 1;
-    flex-shrink: 1;
-  }
-}
-
 @media (max-width: 768px) {
   .main-content {
     padding: 30px 15px;
@@ -216,17 +207,15 @@ button:hover {
     font-size: 2rem;
   }
 
-  .feature-text p, .job-search .input-group label {
+  .feature-text p {
     font-size: 1rem;
   }
 
-  button {
-    width: 100%;
-    max-width: 100%;
+  textarea, .job-search .input-group input {
+    font-size: 0.9rem;
   }
 
-  textarea, .job-search .input-group input {
-    width: 100%;
+  button {
     max-width: 100%;
   }
 }
@@ -240,7 +229,7 @@ button:hover {
     font-size: 1.8rem;
   }
 
-  .feature-text p, .job-search .input-group label {
+  .feature-text p {
     font-size: 0.9rem;
   }
 
@@ -250,5 +239,6 @@ button:hover {
 
   button {
     font-size: 0.9rem;
+    padding: 10px 20px;
   }
 }
