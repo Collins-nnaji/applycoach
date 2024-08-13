@@ -1,4 +1,3 @@
-// AnalyzeCV.js
 import React, { useState } from 'react';
 import { analyzeResume } from '../api/gptService';
 import Header from '../components/Header';
