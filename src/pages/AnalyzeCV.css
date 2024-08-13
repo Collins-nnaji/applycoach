@@ -15,6 +15,7 @@
 }
 
 
+
 html, body {
   margin: 0;
   padding: 0;
@@ -145,84 +146,6 @@ button:hover {
   color: var(--text-color);
 }
 
-/* Job Search section styling */
-.job-search .input-group {
-  margin-bottom: 15px;
-}
-
-.job-search .input-group label {
-  display: block;
-  margin-bottom: 5px;
-  font-weight: bold;
-}
-
-.job-search .input-group input {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid var(--input-border);
-  border-radius: 8px;
-  font-size: 1rem;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-.job-search .input-group input:focus {
-  outline: none;
-  border-color: var(--input-border-focus);
-  box-shadow: 0 0 0 4px rgba(106, 13, 173, 0.1);
-}
-
-.job-results {
-  margin-top: 20px;
-  width: 100%;
-  text-align: left;
-}
-
-.job-result {
-  background-color: white;
-  border: 1px solid var(--input-border);
-  border-radius: 8px;
-  padding: 15px;
-  margin-bottom: 15px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.job-result h3 {
-  margin: 0 0 10px 0;
-  color: var(--primary-color);
-}
-
-.job-result a {
-  color: var(--primary-color);
-  text-decoration: none;
-  font-weight: bold;
-}
-
-.job-result a:hover {
-  text-decoration: underline;
-}
-
-/* Responsive styling */
-@media (max-width: 768px) {
-  .main-content {
-    padding: 30px 15px;
-  }
-
-  .feature-text h2, .job-search-section h2 {
-    font-size: 2rem;
-  }
-
-  .feature-text p {
-    font-size: 1rem;
-  }
-
-  textarea, .job-search .input-group input {
-    font-size: 0.9rem;
-  }
-
-  button {
-    max-width: 100%;
-  }
-}
 
 .results {
   margin-top: 30px;
@@ -344,13 +267,37 @@ button:hover {
   border-bottom: 1px solid #e0e0e0;
 }
 
-
-
 @media (max-width: 768px) {
   .insights-results {
     flex-direction: column;
   }
 }
+
+
+
+/* Responsive styling */
+@media (max-width: 768px) {
+  .main-content {
+    padding: 30px 15px;
+  }
+
+  .feature-text h2, .job-search-section h2 {
+    font-size: 2rem;
+  }
+
+  .feature-text p {
+    font-size: 1rem;
+  }
+
+  textarea, .job-search .input-group input {
+    font-size: 0.9rem;
+  }
+
+  button {
+    max-width: 100%;
+  }
+}
+
 @media (max-width: 480px) {
   .main-content {
     padding: 20px 10px;
