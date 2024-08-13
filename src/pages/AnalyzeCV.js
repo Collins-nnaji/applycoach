@@ -1,3 +1,4 @@
+// AnalyzeCV.js
 import React, { useState } from 'react';
 import { analyzeResume } from '../api/gptService';
 import Header from '../components/Header';
@@ -10,9 +11,8 @@ function AnalyzeCV() {
     const [loading, setLoading] = useState(false);
     const [result, setResult] = useState(null);
     const [error, setError] = useState(null);
-    const [jobResults, setJobResults] = useState([]);
-    const [jobError, setJobError] = useState(null); // Separate error state for job search
-    const [jobLoading, setJobLoading] = useState(false); // Separate loading state for job search
+    const [careerInsights, setCareerInsights] = useState(null);
+    const [insightsLoading, setInsightsLoading] = useState(false);
 
     const handleSubmit = async () => {
         if (!resumeText || !jobDescription) {
@@ -39,30 +39,27 @@ function AnalyzeCV() {
         }
     };
 
-    const handleJobSearch = async (e) => {
-        e.preventDefault();
-        const skills = e.target.skills.value;
-        const preferences = e.target.preferences.value;
-        const location = e.target.location.value;
-
-        setJobLoading(true);
-        setJobError(null);
+    const generateCareerInsights = async () => {
+        setInsightsLoading(true);
+        setCareerInsights(null);
 
         try {
-            // Replace with your actual API endpoint
-            const response = await fetch(`https://api.example.com/jobs?skills=${skills}&preferences=${preferences}&location=${location}`);
-            const data = await response.json();
-
-            if (response.ok) {
-                setJobResults(data.jobs);
-            } else {
-                throw new Error(data.message || 'Failed to fetch jobs');
-            }
+            // Simulating an API call for career insights
+            await new Promise(resolve => setTimeout(resolve, 2000));
+            setCareerInsights({
+                trendingSkills: ['Data Science', 'Machine Learning', 'Cloud Computing'],
+                growingSectors: ['Healthcare Tech', 'Renewable Energy', 'Cybersecurity'],
+                salaryTrends: {
+                    entry: '$50,000 - $70,000',
+                    mid: '$70,000 - $100,000',
+                    senior: '$100,000+'
+                }
+            });
         } catch (err) {
-            console.error('Error fetching jobs:', err);
-            setJobError('Failed to fetch jobs. Please try again later.');
+            console.error('Error generating career insights:', err);
+            setError('Failed to generate career insights. Please try again later.');
         } finally {
-            setJobLoading(false);
+            setInsightsLoading(false);
         }
     };
 
@@ -76,7 +73,7 @@ function AnalyzeCV() {
                             <div className="feature-text">
                                 <h2>Analyze Your CV</h2>
                                 <p>
-                                    Paste your resume text and job description for a detailed analysis including job fit assessment and skill gap identification. Get personalized recommendations to enhance your job applications.
+                                    Paste your resume text and job description for a detailed analysis including job fit assessment, skill gap identification, and personalized recommendations.
                                 </p>
                                 <textarea
                                     placeholder="Paste your resume text here..."
@@ -85,7 +82,7 @@ function AnalyzeCV() {
                                     rows={10}
                                 />
                                 <textarea
-                                    placeholder="Enter the job description or title here..."
+                                    placeholder="Enter the job description here..."
                                     value={jobDescription}
                                     onChange={(e) => setJobDescription(e.target.value)}
                                     rows={5}
@@ -97,55 +94,85 @@ function AnalyzeCV() {
                                 {error && <p className="error">{error}</p>}
                                 {result && (
                                     <div className={`results ${result ? 'show' : ''}`}>
-                                        <h3>Job Fit and Skill Gap Analysis</h3>
-                                        <p>{result['Job Fit and Skill Gap']}</p>
-                                        <h3>Recommendations</h3>
-                                        <p>{result.Recommendations}</p>
-                                        <h3>Suggested Job Titles</h3>
-                                        <ul>
-                                            {result['Suggested Job Titles']?.split('\n').map((title, index) => (
-                                                <li key={index}>{title}</li>
-                                            ))}
-                                        </ul>
+                                        <div className="result-section">
+                                            <h3>Job Match Score</h3>
+                                            <div className="match-score">
+                                                <span className="percentage">{result.matchScore}%</span>
+                                                <div className="progress-bar">
+                                                    <div className="progress" style={{width: `${result.matchScore}%`}}></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="result-section">
+                                            <h3>Skills Analysis</h3>
+                                            <ul className="skills-list">
+                                                {result.skills.map((skill, index) => (
+                                                    <li key={index} className={skill.match ? 'match' : 'gap'}>
+                                                        {skill.name}
+                                                        <span className={`status ${skill.match ? 'match' : 'gap'}`}>
+                                                            {skill.match ? 'Match' : 'Gap'}
+                                                        </span>
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </div>
+                                        <div className="result-section">
+                                            <h3>Recommendations</h3>
+                                            <ul className="recommendations-list">
+                                                {result.recommendations.map((rec, index) => (
+                                                    <li key={index}>{rec}</li>
+                                                ))}
+                                            </ul>
+                                        </div>
+                                        <div className="result-section">
+                                            <h3>Suggested Job Titles</h3>
+                                            <ul className="job-titles-list">
+                                                {result.suggestedJobTitles.map((title, index) => (
+                                                    <li key={index}>{title}</li>
+                                                ))}
+                                            </ul>
+                                        </div>
                                     </div>
                                 )}
                             </div>
                         </div>
                     </section>
 
-                    <section className="job-search-section">
-                        <h2>Find Your Perfect Job</h2>
-                        <form className="job-search" onSubmit={handleJobSearch}>
-                            <div className="input-group">
-                                <label htmlFor="skills">Skills</label>
-                                <input type="text" id="skills" name="skills" placeholder="Enter your skills" required />
+                    <section className="career-insights-section">
+                        <h2>Career Insights</h2>
+                        <p>Get valuable insights into current job market trends, in-demand skills, and salary expectations.</p>
+                        <button onClick={generateCareerInsights} disabled={insightsLoading}>
+                            {insightsLoading ? 'Generating Insights...' : 'Generate Career Insights'}
+                        </button>
+                        {insightsLoading && <LoadingSpinner />}
+                        {careerInsights && (
+                            <div className="insights-results">
+                                <div className="insight-card">
+                                    <h3>Trending Skills</h3>
+                                    <ul>
+                                        {careerInsights.trendingSkills.map((skill, index) => (
+                                            <li key={index}>{skill}</li>
+                                        ))}
+                                    </ul>
+                                </div>
+                                <div className="insight-card">
+                                    <h3>Growing Sectors</h3>
+                                    <ul>
+                                        {careerInsights.growingSectors.map((sector, index) => (
+                                            <li key={index}>{sector}</li>
+                                        ))}
+                                    </ul>
+                                </div>
+                                <div className="insight-card">
+                                    <h3>Salary Trends</h3>
+                                    <ul>
+                                        <li>Entry Level: {careerInsights.salaryTrends.entry}</li>
+                                        <li>Mid-Career: {careerInsights.salaryTrends.mid}</li>
+                                        <li>Senior Level: {careerInsights.salaryTrends.senior}</li>
+                                    </ul>
+                                </div>
                             </div>
-                            <div className="input-group">
-                                <label htmlFor="preferences">Job Preferences</label>
-                                <input type="text" id="preferences" name="preferences" placeholder="Enter your preferences" required />
-                            </div>
-                            <div className="input-group">
-                                <label htmlFor="location">Location</label>
-                                <input type="text" id="location" name="location" placeholder="Enter your location" required />
-                            </div>
-                            <button className="button" type="submit">Search Jobs</button>
-                        </form>
-                        {jobLoading && <p>Loading jobs...</p>} {/* Show loading indicator */}
-                        {jobError && <p className="error">{jobError}</p>} {/* Show error message */}
-                        <div className="job-results">
-                            {jobResults.length > 0 ? (
-                                jobResults.map((job, index) => (
-                                    <div key={index} className="job-result">
-                                        <h3>{job.title}</h3>
-                                        <p>{job.company}</p>
-                                        <p>{job.location}</p>
-                                        <a href={job.link} target="_blank" rel="noopener noreferrer">Apply Now</a>
-                                    </div>
-                                ))
-                            ) : (
-                                !jobLoading && !jobError && <p>No jobs found. Try different search criteria.</p>
-                            )}
-                        </div>
+                        )}
                     </section>
                 </main>
             </div>
