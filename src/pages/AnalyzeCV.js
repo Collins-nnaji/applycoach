@@ -32,11 +32,12 @@ function AnalyzeCV() {
             setResult(response);
         } catch (err) {
             console.error('Error analyzing resume:', err);
-            setError('An error occurred while analyzing the resume. Please try again later.');
+            setError(`An error occurred while analyzing the resume: ${err.message}`);
         } finally {
             setLoading(false);
         }
     };
+
 
     const generateCareerInsights = async () => {
         setInsightsLoading(true);
