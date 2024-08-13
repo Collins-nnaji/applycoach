@@ -1,9 +1,8 @@
+// AnalyzeCV.js
 import React, { useState } from 'react';
-import { analyzeResume, rewriteCV } from '../api/gptService';
+import { analyzeResume } from '../api/gptService';
 import Header from '../components/Header';
 import LoadingSpinner from '../components/LoadingSpinner';
-import { Document, Packer, Paragraph, TextRun } from 'docx';
-import { saveAs } from 'file-saver';
 import './AnalyzeCV.css';
 
 function AnalyzeCV() {
@@ -12,8 +11,8 @@ function AnalyzeCV() {
     const [loading, setLoading] = useState(false);
     const [result, setResult] = useState(null);
     const [error, setError] = useState(null);
-    const [rewrittenCV, setRewrittenCV] = useState(null);
-    const [rewriteLoading, setRewriteLoading] = useState(false);
+    const [careerInsights, setCareerInsights] = useState(null);
+    const [insightsLoading, setInsightsLoading] = useState(false);
 
     const handleSubmit = async () => {
         if (!resumeText || !jobDescription) {
@@ -40,50 +39,28 @@ function AnalyzeCV() {
         }
     };
 
-    const handleRewriteCV = async () => {
-        if (!result || !result.suggestedJobTitles) {
-            setError('Please analyze your CV first to get suggested job titles.');
-            return;
-        }
-
-        setRewriteLoading(true);
-        setError(null);
+    const generateCareerInsights = async () => {
+        setInsightsLoading(true);
+        setCareerInsights(null);
 
         try {
-            const data = {
-                resumeText: resumeText,
-                suggestedJobTitles: result.suggestedJobTitles,
-            };
-
-            const response = await rewriteCV(data);
-            setRewrittenCV(response.rewrittenCV);
+            // Simulating an API call for career insights
+            await new Promise(resolve => setTimeout(resolve, 2000));
+            setCareerInsights({
+                trendingSkills: ['Data Science', 'Machine Learning', 'Cloud Computing'],
+                growingSectors: ['Healthcare Tech', 'Renewable Energy', 'Cybersecurity'],
+                salaryTrends: {
+                    entry: '$50,000 - $70,000',
+                    mid: '$70,000 - $100,000',
+                    senior: '$100,000+'
+                }
+            });
         } catch (err) {
-            console.error('Error rewriting CV:', err);
-            setError('An error occurred while rewriting the CV. Please try again later.');
+            console.error('Error generating career insights:', err);
+            setError('Failed to generate career insights. Please try again later.');
         } finally {
-            setRewriteLoading(false);
+            setInsightsLoading(false);
         }
-    };
-
-    const downloadRewrittenCV = () => {
-        if (!rewrittenCV) return;
-
-        const doc = new Document({
-            sections: [{
-                properties: {},
-                children: [
-                    new Paragraph({
-                        children: [
-                            new TextRun(rewrittenCV)
-                        ],
-                    }),
-                ],
-            }],
-        });
-
-        Packer.toBlob(doc).then(blob => {
-            saveAs(blob, "RewrittenCV.docx");
-        });
     };
 
     return (
@@ -161,20 +138,39 @@ function AnalyzeCV() {
                         </div>
                     </section>
 
-                    <section className="rewrite-cv-section">
-                        <h2>Enhance Your CV</h2>
-                        <p>
-                            Rewrite your CV to highlight your skills and experiences that align with the suggested job titles.
-                            The enhanced CV will be tailored to improve your chances of landing these roles.
-                        </p>
-                        <button onClick={handleRewriteCV} disabled={rewriteLoading || !result}>
-                            {rewriteLoading ? 'Rewriting CV...' : 'Rewrite My CV'}
+                    <section className="career-insights-section">
+                        <h2>Career Insights</h2>
+                        <p>Get valuable insights into current job market trends, in-demand skills, and salary expectations.</p>
+                        <button onClick={generateCareerInsights} disabled={insightsLoading}>
+                            {insightsLoading ? 'Generating Insights...' : 'Generate Career Insights'}
                         </button>
-                        {rewriteLoading && <LoadingSpinner />}
-                        {rewrittenCV && (
-                            <div className="rewritten-cv-download">
-                                <p>Your CV has been rewritten and enhanced! Click below to download.</p>
-                                <button onClick={downloadRewrittenCV}>Download Rewritten CV</button>
+                        {insightsLoading && <LoadingSpinner />}
+                        {careerInsights && (
+                            <div className="insights-results">
+                                <div className="insight-card">
+                                    <h3>Trending Skills</h3>
+                                    <ul>
+                                        {careerInsights.trendingSkills.map((skill, index) => (
+                                            <li key={index}>{skill}</li>
+                                        ))}
+                                    </ul>
+                                </div>
+                                <div className="insight-card">
+                                    <h3>Growing Sectors</h3>
+                                    <ul>
+                                        {careerInsights.growingSectors.map((sector, index) => (
+                                            <li key={index}>{sector}</li>
+                                        ))}
+                                    </ul>
+                                </div>
+                                <div className="insight-card">
+                                    <h3>Salary Trends</h3>
+                                    <ul>
+                                        <li>Entry Level: {careerInsights.salaryTrends.entry}</li>
+                                        <li>Mid-Career: {careerInsights.salaryTrends.mid}</li>
+                                        <li>Senior Level: {careerInsights.salaryTrends.senior}</li>
+                                    </ul>
+                                </div>
                             </div>
                         )}
                     </section>
