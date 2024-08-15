@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { analyzeResume, optimizeResume } from '../api/gptService';
-import Header from '../components/Header';
 import { AlertCircle, CheckCircle, XCircle } from 'lucide-react';
+import { analyzeCV, optimizeCV } from '../api/cvApiService';
 import './AnalyzeCV.css';
 
 function AnalyzeCV() {
@@ -25,12 +24,9 @@ function AnalyzeCV() {
         setOptimizedResume(null);
     
         try {
-            const data = { resumeText, jobDescription };
-            console.log('Sending analyze request');
-            const response = await analyzeResume(data);
-            console.log('Received analyze response', response);
-            if (response && response.matchScore !== undefined) {
-                setResult(response);
+            const data = await analyzeCV(resumeText, jobDescription);
+            if (data && data.matchScore !== undefined) {
+                setResult(data);
             } else {
                 throw new Error('Invalid response from server');
             }
@@ -52,12 +48,9 @@ function AnalyzeCV() {
         setError(null);
 
         try {
-            const data = { resumeText, jobDescription, analysis: result };
-            console.log('Sending optimize request');
-            const response = await optimizeResume(data);
-            console.log('Received optimize response', response);
-            if (response && response.optimizedResume) {
-                setOptimizedResume(response.optimizedResume);
+            const data = await optimizeCV(resumeText, jobDescription, result);
+            if (data && data.optimizedResume) {
+                setOptimizedResume(data.optimizedResume);
             } else {
                 throw new Error('Invalid response from server');
             }
@@ -71,7 +64,6 @@ function AnalyzeCV() {
 
     return (
         <div className="analyze-cv-wrapper">
-            <Header />
             <div className="analyze-cv">
                 <main className="main-content">
                     <section className="input-section">
