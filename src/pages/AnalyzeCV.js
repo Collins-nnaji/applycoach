@@ -26,7 +26,9 @@ function AnalyzeCV() {
     
         try {
             const data = { resumeText, jobDescription };
+            console.log('Sending analyze request');
             const response = await analyzeResume(data);
+            console.log('Received analyze response', response);
             if (response && response.matchScore !== undefined) {
                 setResult(response);
             } else {
@@ -51,7 +53,9 @@ function AnalyzeCV() {
 
         try {
             const data = { resumeText, jobDescription, analysis: result };
+            console.log('Sending optimize request');
             const response = await optimizeResume(data);
+            console.log('Received optimize response', response);
             if (response && response.optimizedResume) {
                 setOptimizedResume(response.optimizedResume);
             } else {
