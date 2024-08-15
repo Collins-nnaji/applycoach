@@ -1,9 +1,36 @@
 import React, { useState } from 'react';
 import { AlertCircle, CheckCircle, XCircle } from 'lucide-react';
-import { analyzeCV, optimizeCV } from '../api/cvApiService';
 import './AnalyzeCV.css';
 
-function AnalyzeCV() {
+const API_URL = process.env.REACT_APP_BACKEND_API_URL || 'http://localhost:5000';
+
+async function handleResponse(response) {
+    if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.error || 'An error occurred');
+    }
+    return response.json();
+}
+
+async function analyzeCV(resumeText, jobDescription) {
+    const response = await fetch(`${API_URL}/api/analyze`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ resumeText, jobDescription }),
+    });
+    return handleResponse(response);
+}
+
+async function optimizeCV(resumeText, jobDescription, analysis) {
+    const response = await fetch(`${API_URL}/api/optimize`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ resumeText, jobDescription, analysis }),
+    });
+    return handleResponse(response);
+}
+
+export default function AnalyzeCV() {
     const [resumeText, setResumeText] = useState('');
     const [jobDescription, setJobDescription] = useState('');
     const [loading, setLoading] = useState(false);
@@ -159,5 +186,3 @@ function AnalyzeCV() {
         </div>
     );
 }
-
-export default AnalyzeCV;

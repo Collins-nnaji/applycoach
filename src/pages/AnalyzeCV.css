@@ -17,6 +17,8 @@ body {
   background-color: var(--background-color);
   color: var(--text-color);
   line-height: 1.6;
+  margin: 0;
+  padding: 0;
 }
 
 .analyze-cv-wrapper {
@@ -44,6 +46,22 @@ h2, h3, h4 {
   margin-bottom: 1rem;
 }
 
+h2 {
+  font-size: 2.5rem;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+h3 {
+  font-size: 2rem;
+  border-bottom: 2px solid var(--primary-color);
+  padding-bottom: 0.5rem;
+}
+
+h4 {
+  font-size: 1.5rem;
+}
+
 .input-section, .results-section, .optimized-resume-section {
   margin-bottom: 2rem;
 }
@@ -62,6 +80,7 @@ textarea {
   font-size: 1rem;
   resize: vertical;
   transition: var(--transition);
+  min-height: 150px;
 }
 
 textarea:focus {
@@ -78,6 +97,8 @@ textarea:focus {
   border-radius: var(--border-radius);
   cursor: pointer;
   transition: var(--transition);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .primary-button {
@@ -92,6 +113,11 @@ textarea:focus {
 
 .primary-button:hover, .secondary-button:hover {
   filter: brightness(1.1);
+  transform: translateY(-2px);
+}
+
+.primary-button:active, .secondary-button:active {
+  transform: translateY(0);
 }
 
 .primary-button:disabled, .secondary-button:disabled {
@@ -107,10 +133,12 @@ textarea:focus {
   padding: 1rem;
   border-radius: var(--border-radius);
   margin-bottom: 1rem;
+  font-weight: bold;
 }
 
 .error-message svg {
   margin-right: 0.5rem;
+  flex-shrink: 0;
 }
 
 .result-card {
@@ -119,6 +147,12 @@ textarea:focus {
   box-shadow: var(--box-shadow);
   padding: 1.5rem;
   margin-bottom: 1.5rem;
+  transition: var(--transition);
+}
+
+.result-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
 .match-score .score-display {
@@ -155,8 +189,14 @@ textarea:focus {
 .skills-list li, .recommendations-list li, .job-titles-list li {
   display: flex;
   align-items: center;
-  padding: 0.5rem 0;
+  padding: 0.75rem 0;
   border-bottom: 1px solid #eee;
+  transition: var(--transition);
+}
+
+.skills-list li:hover, .recommendations-list li:hover, .job-titles-list li:hover {
+  background-color: #f9f9f9;
+  padding-left: 0.5rem;
 }
 
 .skills-list li:last-child, .recommendations-list li:last-child, .job-titles-list li:last-child {
@@ -165,6 +205,7 @@ textarea:focus {
 
 .skills-list li svg {
   margin-right: 0.5rem;
+  flex-shrink: 0;
 }
 
 .skills-list li.match svg {
@@ -185,6 +226,7 @@ textarea:focus {
   line-height: 1.4;
   max-height: 400px;
   overflow-y: auto;
+  border: 1px solid #e0e0e0;
 }
 
 @media (max-width: 768px) {
@@ -202,5 +244,39 @@ textarea:focus {
 
   .percentage {
     font-size: 2rem;
+  }
+
+  h2 {
+    font-size: 2rem;
+  }
+
+  h3 {
+    font-size: 1.75rem;
+  }
+
+  h4 {
+    font-size: 1.25rem;
+  }
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+  }
+}
+
+/* Print styles */
+@media print {
+  .analyze-cv-wrapper {
+    display: block;
+  }
+
+  .main-content {
+    box-shadow: none;
+  }
+
+  .primary-button, .secondary-button {
+    display: none;
   }
 }
