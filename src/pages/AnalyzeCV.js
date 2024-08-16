@@ -1,8 +1,34 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import './AnalyzeCV.css';
 
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+// Import the API service functions
+const API_URL = process.env.REACT_APP_BACKEND_API_URL || 'http://localhost:5000';
+
+async function handleResponse(response) {
+    if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.error || 'An error occurred');
+    }
+    return response.json();
+}
+
+async function analyzeCV(resumeText, jobDescription) {
+    const response = await fetch(`${API_URL}/api/analyze`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ resumeText, jobDescription }),
+    });
+    return handleResponse(response);
+}
+
+async function optimizeCV(resumeText, jobDescription, analysis) {
+    const response = await fetch(`${API_URL}/api/optimize`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ resumeText, jobDescription, analysis }),
+    });
+    return handleResponse(response);
+}
 
 const AnalyzeCV = () => {
   const [resumeText, setResumeText] = useState('');
@@ -25,11 +51,11 @@ const AnalyzeCV = () => {
     setOptimizedResume(null);
 
     try {
-      const response = await axios.post(`${API_URL}/api/analyze`, { resumeText, jobDescription });
-      setResult(response.data);
+      const data = await analyzeCV(resumeText, jobDescription);
+      setResult(data);
     } catch (err) {
       console.error('Error analyzing CV:', err);
-      setError('An error occurred while analyzing the CV. Please try again.');
+      setError(err.message || 'An error occurred while analyzing the CV. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -45,11 +71,11 @@ const AnalyzeCV = () => {
     setError(null);
 
     try {
-      const response = await axios.post(`${API_URL}/api/optimize`, { resumeText, jobDescription, analysis: result });
-      setOptimizedResume(response.data.optimizedResume);
+      const data = await optimizeCV(resumeText, jobDescription, result);
+      setOptimizedResume(data.optimizedResume);
     } catch (err) {
       console.error('Error optimizing CV:', err);
-      setError('An error occurred while optimizing the CV. Please try again.');
+      setError(err.message || 'An error occurred while optimizing the CV. Please try again.');
     } finally {
       setOptimizing(false);
     }
