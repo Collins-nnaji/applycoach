@@ -203,20 +203,26 @@ textarea:focus {
   border-bottom: none;
 }
 
-.skills-list li svg {
+.skills-list li::before {
   margin-right: 0.5rem;
   flex-shrink: 0;
 }
 
-.skills-list li.match svg {
+.skills-list li.match::before {
+  content: '✓';
   color: var(--success-color);
 }
 
-.skills-list li.gap svg {
+.skills-list li.gap::before {
+  content: '✗';
   color: var(--warning-color);
 }
 
-.optimized-resume-content {
+.skills-list li span {
+  flex-grow: 1;
+}
+
+.optimized-cv-content {
   background-color: #f8f8f8;
   border-radius: var(--border-radius);
   padding: 1.5rem;
