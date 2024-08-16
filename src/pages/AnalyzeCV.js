@@ -1,34 +1,7 @@
 import React, { useState } from 'react';
 import './AnalyzeCV.css';
 
-// Import the API service functions
-const API_URL = process.env.REACT_APP_BACKEND_API_URL || 'http://localhost:5000';
-
-async function handleResponse(response) {
-    if (!response.ok) {
-        const errorData = await response.json().catch(() => ({}));
-        throw new Error(errorData.error || 'An error occurred');
-    }
-    return response.json();
-}
-
-async function analyzeCV(resumeText, jobDescription) {
-    const response = await fetch(`${API_URL}/api/analyze`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ resumeText, jobDescription }),
-    });
-    return handleResponse(response);
-}
-
-async function optimizeCV(resumeText, jobDescription, analysis) {
-    const response = await fetch(`${API_URL}/api/optimize`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ resumeText, jobDescription, analysis }),
-    });
-    return handleResponse(response);
-}
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 
 const AnalyzeCV = () => {
   const [resumeText, setResumeText] = useState('');
@@ -51,7 +24,18 @@ const AnalyzeCV = () => {
     setOptimizedResume(null);
 
     try {
-      const data = await analyzeCV(resumeText, jobDescription);
+      const response = await fetch(`${API_URL}/api/analyze`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ resumeText, jobDescription }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'An error occurred during analysis.');
+      }
+
+      const data = await response.json();
       setResult(data);
     } catch (err) {
       console.error('Error analyzing CV:', err);
@@ -71,7 +55,18 @@ const AnalyzeCV = () => {
     setError(null);
 
     try {
-      const data = await optimizeCV(resumeText, jobDescription, result);
+      const response = await fetch(`${API_URL}/api/optimize`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ resumeText, jobDescription, analysis: result }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'An error occurred during optimization.');
+      }
+
+      const data = await response.json();
       setOptimizedResume(data.optimizedResume);
     } catch (err) {
       console.error('Error optimizing CV:', err);
