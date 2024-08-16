@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './AnalyzeCV.css';
 
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+const API_URL = 'https://credolaygptbackend.azurewebsites.net';
 
 const AnalyzeCV = () => {
   const [resumeText, setResumeText] = useState('');
@@ -26,20 +26,22 @@ const AnalyzeCV = () => {
     try {
       const response = await fetch(`${API_URL}/api/analyze`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+          'Content-Type': 'application/json',
+          'Origin': window.location.origin
+        },
         body: JSON.stringify({ resumeText, jobDescription }),
       });
 
       if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || 'An error occurred during analysis.');
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
 
       const data = await response.json();
       setResult(data);
     } catch (err) {
       console.error('Error analyzing CV:', err);
-      setError(err.message || 'An error occurred while analyzing the CV. Please try again.');
+      setError('An error occurred while analyzing the CV. Please try again later.');
     } finally {
       setLoading(false);
     }
@@ -57,20 +59,22 @@ const AnalyzeCV = () => {
     try {
       const response = await fetch(`${API_URL}/api/optimize`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+          'Content-Type': 'application/json',
+          'Origin': window.location.origin
+        },
         body: JSON.stringify({ resumeText, jobDescription, analysis: result }),
       });
 
       if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || 'An error occurred during optimization.');
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
 
       const data = await response.json();
       setOptimizedResume(data.optimizedResume);
     } catch (err) {
       console.error('Error optimizing CV:', err);
-      setError(err.message || 'An error occurred while optimizing the CV. Please try again.');
+      setError('An error occurred while optimizing the CV. Please try again later.');
     } finally {
       setOptimizing(false);
     }
