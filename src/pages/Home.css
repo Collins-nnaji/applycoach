@@ -1,12 +1,15 @@
 :root {
   --background-color: #f8f9fa;
-  --primary-color: #6a0dad; /* Dark Purple */
-  --primary-light: #d1b3ff; /* Light Purple */
+  --primary-color: #6a0dad;
+  --primary-light: #d1b3ff;
   --text-color: #333333;
   --button-background: #6a0dad;
   --button-text: #ffffff;
-  --hover-background: #4b0082; /* Darker Purple */
+  --hover-background: #4b0082;
   --font-family: 'Roboto', sans-serif;
+  --card-background: #ffffff;
+  --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --transition: all 0.3s ease;
 }
 
 body {
@@ -15,14 +18,13 @@ body {
   margin: 0;
   padding: 0;
   line-height: 1.6;
+  color: var(--text-color);
 }
 
 .home {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  position: relative;
-  padding-bottom: 100px; /* Adjust based on footer height */
 }
 
 .hero {
@@ -38,7 +40,7 @@ body {
   font-weight: 700;
   letter-spacing: 1.5px;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-  color: white;
+  color: var(--background-color);
 }
 
 .subtitle {
@@ -46,7 +48,7 @@ body {
   max-width: 800px;
   margin: 0 auto;
   font-weight: 300;
-  color: rgba(255, 255, 255, 0.9);
+  color: var(--background-color);
 }
 
 .main-content {
@@ -74,8 +76,8 @@ body {
   max-width: 500px;
   height: auto;
   border-radius: 8px;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease;
+  box-shadow: var(--card-shadow);
+  transition: var(--transition);
 }
 
 .feature-image:hover {
@@ -94,134 +96,133 @@ body {
 
 .feature-text p {
   font-size: 1.2rem;
-  color: var(--text-color);
-}
-
-.packages-section {
-  text-align: center;
-  margin-bottom: 80px;
-}
-
-.packages {
-  display: flex;
-  justify-content: center;
-  gap: 40px;
-  flex-wrap: wrap;
-}
-
-.package {
-  border: 1px solid var(--primary-color);
-  border-radius: 8px;
-  padding: 20px;
-  width: 100%;
-  max-width: 300px;
-  text-align: center;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  margin: 20px;
-  box-sizing: border-box;
-}
-
-.package h3 {
-  font-size: 1.5rem;
-  margin-bottom: 20px;
-}
-
-.package p {
-  font-size: 1.2rem;
-  margin-bottom: 20px;
 }
 
 .button {
   display: inline-block;
   background-color: var(--button-background);
   color: var(--button-text);
-  padding: 10px 20px;
+  padding: 12px 24px;
   font-size: 1rem;
   text-decoration: none;
   border-radius: 8px;
-  transition: all 0.3s ease;
+  transition: var(--transition);
   font-weight: 500;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
 }
 
 .button:hover {
   background-color: var(--hover-background);
+  transform: translateY(-2px);
 }
 
-.contact-us {
+.packages-section {
   text-align: center;
   margin-bottom: 80px;
+  background-color: var(--card-background);
+  padding: 40px;
+  border-radius: 8px;
+  box-shadow: var(--card-shadow);
 }
 
-.contact-us a {
-  color: var(--primary-color);
-  text-decoration: none;
-}
-
-.contact-us a:hover {
-  text-decoration: underline;
-}
-
-.contact-us p {
-  font-size: 1.2rem;
-  color: var (--text-color);
-}
-
-.testimonials-section {
-  text-align: center;
-  margin-bottom: 80px;
-}
-
-.testimonials {
+.packages {
   display: flex;
   justify-content: center;
-  gap: 40px;
+  gap: 30px;
   flex-wrap: wrap;
 }
 
-.testimonial {
+.package {
   border: 1px solid var(--primary-color);
   border-radius: 8px;
-  padding: 20px;
+  padding: 30px;
   width: 100%;
   max-width: 300px;
-  text-align: center;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  margin: 20px;
+  text-align: left;
+  box-shadow: var(--card-shadow);
+  transition: var(--transition);
 }
 
-.testimonial p {
-  font-size: 1.2rem;
-  color: var(--text-color);
+.package:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
-.resources-section, .faq-section, .job-search-section {
+.package.featured {
+  border: 2px solid var(--primary-color);
+  background-color: #f0e6ff;
+}
+
+.package h3 {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  color: var(--primary-color);
+}
+
+.package ul {
+  list-style-type: none;
+  padding: 0;
+  margin-bottom: 20px;
+}
+
+.package li {
+  margin-bottom: 10px;
+  position: relative;
+  padding-left: 25px;
+}
+
+.package li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: var(--primary-color);
+}
+
+.price {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: var(--primary-color);
+  margin-bottom: 20px;
+}
+
+
+.resources-section {
   margin-bottom: 80px;
-  text-align: center;
 }
+
 
 .resources {
-  display: flex;
-  justify-content: center;
-  gap: 40px;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+  margin-top: 40px;
 }
+
 
 .resource {
-  background-color: white;
-  border: 1px solid var(--primary-color);
+  background-color: var(--card-background);
   border-radius: 8px;
-  padding: 20px;
-  width: 100%;
-  max-width: 250px;
-  text-align: center;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  padding: 30px;
+  box-shadow: var(--card-shadow);
+  transition: var(--transition);
 }
 
+
 .resource:hover {
-  transform: scale(1.05);
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+
+.resource-title {
+  color: var(--primary-color);
+  margin-bottom: 15px;
+  font-size: 1.3rem;
+}
+
+
+.blog-post p {
+  margin-bottom: 20px;
 }
 
 .resource-image {
@@ -231,107 +232,67 @@ body {
   margin-bottom: 15px;
 }
 
-.resource-title {
-  font-size: 1.2rem;
-  color: var(--primary-color);
-  margin-bottom: 15px;
-}
 
-.job-search {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 20px;
-}
 
-.job-search .input-group {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  width: 100%;
-  max-width: 400px;
-  margin-bottom: 15px;
-}
-
-.input-group label {
-  margin-bottom: 5px;
-  font-weight: bold;
-  color: var(--primary-color);
-}
-
-.input-group input {
-  padding: 10px;
-  width: 100%;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-.job-results {
-  margin-top: 20px;
-  text-align: left;
-  width: 100%;
-  max-width: 800px;
-}
-
-.job-result {
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  padding: 20px;
-  margin-bottom: 20px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.job-result h3 {
-  margin: 0 0 10px 0;
-}
-
-.job-result a {
-  color: var(--primary-color);
-  text-decoration: none;
-  font-weight: bold;
-}
-
-.job-result a:hover {
-  text-decoration: underline;
-}
-
-.error {
-  color: red;
-  margin-top: 20px;
+.faq-section {
+  margin-bottom: 80px;
 }
 
 .faq-list {
   display: flex;
   flex-direction: column;
-  align-items: center;
   gap: 20px;
 }
 
 .faq-item {
-  width: 100%;
-  max-width: 800px;
-  text-align: left;
-  padding: 20px;
-  border: 1px solid var(--primary-color);
+  background-color: var(--card-background);
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  box-shadow: var(--card-shadow);
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: var(--transition);
 }
 
 .faq-item:hover {
-  background-color: #f0f0f0;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.faq-item h3 {
+  color: var(--primary-color);
+  margin-bottom: 10px;
 }
 
 .faq-item p {
-  margin: 0;
-  overflow: hidden;
-  height: 0;
-  transition: height 0.3s ease;
+  display: none;
+  margin-top: 10px;
 }
 
 .faq-item p.open {
-  height: auto;
+  display: block;
+}
+
+.contact-us {
+  text-align: center;
+  margin-bottom: 80px;
+}
+
+.contact-us h2 {
+  color: var(--primary-color);
+  margin-bottom: 20px;
+}
+
+.contact-us p {
+  margin-bottom: 10px;
+}
+
+.contact-us a {
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+.contact-us a:hover {
+  text-decoration: underline;
 }
 
 @media (max-width: 768px) {
@@ -364,17 +325,14 @@ body {
     font-size: 1rem;
   }
 
-  .packages {
-    flex-direction: column;
-    gap: 20px;
-  }
-
   .package {
-    width: 100%;
-    margin: 0 auto 20px auto;
+    max-width: 100%;
   }
 
-  .job-search .input-group {
-    max-width: 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
   }
 }

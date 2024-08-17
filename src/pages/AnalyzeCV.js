@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import './AnalyzeCV.css';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
 
 const API_URL = 'https://credolaygptbackend.azurewebsites.net';
 
@@ -81,90 +83,94 @@ const AnalyzeCV = () => {
   };
 
   return (
-    <div className="analyze-cv">
-      <h2>Analyze Your CV</h2>
-      <div className="input-section">
-        <textarea
-          placeholder="Paste your CV text here..."
-          value={resumeText}
-          onChange={(e) => setResumeText(e.target.value)}
-          rows={10}
-        />
-        <textarea
-          placeholder="Enter the job description here..."
-          value={jobDescription}
-          onChange={(e) => setJobDescription(e.target.value)}
-          rows={5}
-        />
-        <button onClick={handleAnalyze} disabled={loading} className="primary-button">
-          {loading ? 'Analyzing...' : 'Analyze'}
-        </button>
-      </div>
-
-      {error && (
-        <div className="error-message">
-          <p>{error}</p>
+    <>
+      <Header />
+      <div className="analyze-cv">
+        <h2>Analyze Your CV</h2>
+        <div className="input-section">
+          <textarea
+            placeholder="Paste your CV text here..."
+            value={resumeText}
+            onChange={(e) => setResumeText(e.target.value)}
+            rows={10}
+          />
+          <textarea
+            placeholder="Enter the job description here..."
+            value={jobDescription}
+            onChange={(e) => setJobDescription(e.target.value)}
+            rows={5}
+          />
+          <button onClick={handleAnalyze} disabled={loading} className="primary-button">
+            {loading ? 'Analyzing...' : 'Analyze'}
+          </button>
         </div>
-      )}
 
-      {result && (
-        <section className="results-section">
-          <h3>Analysis Results</h3>
-          <div className="result-card match-score">
-            <h4>Job Match Score</h4>
-            <div className="score-display">
-              <span className="percentage">{result.matchScore}%</span>
-              <div className="progress-bar">
-                <div className="progress" style={{width: `${result.matchScore}%`}}></div>
+        {error && (
+          <div className="error-message">
+            <p>{error}</p>
+          </div>
+        )}
+
+        {result && (
+          <section className="results-section">
+            <h3>Analysis Results</h3>
+            <div className="result-card match-score">
+              <h4>Job Match Score</h4>
+              <div className="score-display">
+                <span className="percentage">{result.matchScore}%</span>
+                <div className="progress-bar">
+                  <div className="progress" style={{width: `${result.matchScore}%`}}></div>
+                </div>
               </div>
             </div>
-          </div>
 
-          <div className="result-card skills-analysis">
-            <h4>Skills Analysis</h4>
-            <ul className="skills-list">
-              {result.skills.map((skill, index) => (
-                <li key={index} className={skill.match ? 'match' : 'gap'}>
-                  {skill.match ? '✓' : '✗'}
-                  <span>{skill.name}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
+            <div className="result-card skills-analysis">
+              <h4>Skills Analysis</h4>
+              <ul className="skills-list">
+                {result.skills.map((skill, index) => (
+                  <li key={index} className={skill.match ? 'match' : 'gap'}>
+                    {skill.match ? '✓' : '✗'}
+                    <span>{skill.name}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
 
-          <div className="result-card recommendations">
-            <h4>Recommendations</h4>
-            <ul className="recommendations-list">
-              {result.recommendations.map((rec, index) => (
-                <li key={index}>{rec}</li>
-              ))}
-            </ul>
-          </div>
+            <div className="result-card recommendations">
+              <h4>Recommendations</h4>
+              <ul className="recommendations-list">
+                {result.recommendations.map((rec, index) => (
+                  <li key={index}>{rec}</li>
+                ))}
+              </ul>
+            </div>
 
-          <div className="result-card job-titles">
-            <h4>Suggested Job Titles</h4>
-            <ul className="job-titles-list">
-              {result.suggestedJobTitles.map((title, index) => (
-                <li key={index}>{title}</li>
-              ))}
-            </ul>
-          </div>
+            <div className="result-card job-titles">
+              <h4>Suggested Job Titles</h4>
+              <ul className="job-titles-list">
+                {result.suggestedJobTitles.map((title, index) => (
+                  <li key={index}>{title}</li>
+                ))}
+              </ul>
+            </div>
 
-          <button onClick={handleOptimize} disabled={optimizing} className="secondary-button">
-            {optimizing ? 'Optimizing...' : 'Optimize CV'}
-          </button>
-        </section>
-      )}
+            <button onClick={handleOptimize} disabled={optimizing} className="secondary-button">
+              {optimizing ? 'Optimizing...' : 'Optimize CV'}
+            </button>
+          </section>
+        )}
 
-      {optimizedResume && (
-        <section className="optimized-cv-section">
-          <h3>Optimized CV</h3>
-          <div className="optimized-cv-content">
-            <pre>{optimizedResume}</pre>
-          </div>
-        </section>
-      )}
-    </div>
+        {optimizedResume && (
+          <section className="optimized-cv-section">
+            <h3>Optimized CV</h3>
+            <div className="optimized-cv-content">
+              <pre>{optimizedResume}</pre>
+            </div>
+          </section>
+        )}
+      </div>
+      <Footer />
+    </>
   );
 };
 

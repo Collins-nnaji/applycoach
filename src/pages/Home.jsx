@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import Header from '../components/Header';
-import Footer from '../components/Footer';
 import './Home.css';
 import linkedinPic from '../assets/Linkedinpic.jpg';
 import onlinePresencePic from '../assets/OnlinePresencepic.jpg';
@@ -9,16 +8,8 @@ import resourcePic from '../assets/Resourcepic.jpg';
 function Home() {
   const [faq, setFaq] = useState([
     {
-      question: "Do you offer any discounts or promotions?",
-      answer: `Yes, Credolay occasionally offers discounts and promotions. Please check the website or contact our team for the latest offers.`,
-      open: false
-    },
-    {
       question: "How long does the service take?",
-      answer: `The turnaround time for our services can vary depending on the package and workload. However, we strive to deliver the following:
-      \n\n- **Basic Package**: 5-7 business days
-      \n- **Standard Package**: 7-10 business days
-      \n- **Premium Package**: 10-14 business days`,
+      answer: `The turnaround time for our services can vary depending on the package and workload. However, we strive to deliver within 5-14 business days, depending on the chosen package.`,
       open: false
     },
     {
@@ -28,10 +19,7 @@ function Home() {
     },
     {
       question: "Do you provide any free resources?",
-      answer: `Yes, Credolay offers the following free resources:
-      \n\n- Resume Writing Guide
-      \n- LinkedIn Checklist
-      \n- Interview Preparation Guide`,
+      answer: `Yes, Credolay offers free resources including a Resume Writing Guide, LinkedIn Checklist, and Interview Preparation Guide.`,
       open: false
     },
     {
@@ -42,13 +30,13 @@ function Home() {
   ]);
 
   const toggleFAQ = index => {
-    setFaq(faq.map((faq, i) => {
+    setFaq(faq.map((item, i) => {
       if (i === index) {
-        faq.open = !faq.open;
+        item.open = !item.open;
       } else {
-        faq.open = false;
+        item.open = false;
       }
-      return faq;
+      return item;
     }));
   };
 
@@ -87,44 +75,42 @@ function Home() {
           </div>
         </section>
 
-        <section className="packages-section">
-          <h2>Our Packages</h2>
+        <section className="packages-section" id="packages-section">
+          <h2>Our Services</h2>
           <div className="packages">
             <div className="package">
-              <h3>Basic Package</h3>
-              <p>Resume Enhancement with a Focus on Securing Job Interviews</p>
-              <p>£50</p>
-              <a href="https://buy.stripe.com/cN29CF7aMdJQ30AcMS" className="button">Choose Basic</a>
+              <h3>Resume Enhancement</h3>
+              <ul>
+                <li>Professional resume review</li>
+                <li>ATS-friendly formatting</li>
+                <li>Keyword optimization</li>
+                <li>One round of revisions</li>
+              </ul>
+              <p className="price">£50</p>
+              <a href="https://buy.stripe.com/cN29CF7aMdJQ30AcMS" className="button">Get Started</a>
+            </div>
+            <div className="package featured">
+              <h3>Career Boost Package</h3>
+              <ul>
+                <li>Everything in Resume Enhancement</li>
+                <li>LinkedIn profile optimization</li>
+                <li>Cover letter template</li>
+                <li>Two rounds of revisions</li>
+              </ul>
+              <p className="price">£150</p>
+              <a href="https://buy.stripe.com/bIYaGJ52EcFMdFe007" className="button">Choose This Package</a>
             </div>
             <div className="package">
-              <h3>Standard Package</h3>
-              <p>Comprehensive Resume and LinkedIn Profile Optimization</p>
-              <p>£150</p>
-              <a href="https://buy.stripe.com/bIYaGJ52EcFMdFe007" className="button">Choose Standard</a>
-            </div>
-            <div className="package">
-              <h3>Premium Package</h3>
-              <p>Resume, LinkedIn, and Targeted Content (2 Articles + 5 LinkedIn Posts)</p>
-              <p>£300</p>
-              <a href="https://buy.stripe.com/6oEcORcv6bBIcBaaEM" className="button">Choose Premium</a>
-            </div>
-          </div>
-        </section>
-
-        <section className="testimonials-section">
-          <h2>Testimonials</h2>
-          <div className="testimonials">
-            <div className="testimonial">
-              <p>"Credolay helped me revamp my CV and LinkedIn profile, and I got multiple callbacks within a week!"</p>
-              <p>- John Dickson</p>
-            </div>
-            <div className="testimonial">
-              <p>"The team at Credolay is professional and knowledgeable. They improved my online presence significantly."</p>
-              <p>- Jane Smith</p>
-            </div>
-            <div className="testimonial">
-              <p>"Thanks to Credolay, I found my dream job in no time. Highly recommended!"</p>
-              <p>- Mark Johnson</p>
+              <h3>Executive Presence</h3>
+              <ul>
+                <li>Everything in Career Boost Package</li>
+                <li>Personal branding strategy</li>
+                <li>2 tailored articles for publication</li>
+                <li>5 optimized LinkedIn posts</li>
+                <li>Interview coaching session</li>
+              </ul>
+              <p className="price">£300</p>
+              <a href="https://buy.stripe.com/6oEcORcv6bBIcBaaEM" className="button">Elevate Your Career</a>
             </div>
           </div>
         </section>
@@ -150,6 +136,7 @@ function Home() {
           </div>
         </section>
 
+
         <section className="faq-section">
           <h2>Frequently Asked Questions</h2>
           <div className="faq-list">
@@ -169,7 +156,7 @@ function Home() {
           <p>WhatsApp: <a href="https://wa.me/447918262629">+44 7918 262629</a></p>
         </section>
       </main>
-      <Footer />
+
     </div>
   );
 }
