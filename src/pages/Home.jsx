@@ -3,6 +3,7 @@ import Header from '../components/Header';
 import './Home.css';
 import linkedinPic from '../assets/Linkedinpic.jpg';
 import onlinePresencePic from '../assets/OnlinePresencepic.jpg';
+import cvPic from '../assets/Cvpic.jpg';
 import resourcePic from '../assets/Resourcepic.jpg';
 
 function Home() {
@@ -51,8 +52,17 @@ function Home() {
       </header>
 
       <main className="main-content">
-        <section className="feature-section">
-          <div className="feature-content">
+        <section className="features-section">
+          <div className="feature-item">
+            <img src={cvPic} alt="CV Review" className="feature-image" />
+            <div className="feature-text">
+              <h2>Professional CV Review</h2>
+              <p>
+                Our expert team will thoroughly review and enhance your CV to highlight your strengths and achievements. We ensure your CV is tailored to catch the eye of recruiters and hiring managers in your target industry.
+              </p>
+            </div>
+          </div>
+          <div className="feature-item">
             <img src={linkedinPic} alt="LinkedIn Optimization" className="feature-image" />
             <div className="feature-text">
               <h2>Optimize Your LinkedIn</h2>
@@ -61,10 +71,7 @@ function Home() {
               </p>
             </div>
           </div>
-        </section>
-
-        <section className="feature-section reverse">
-          <div className="feature-content">
+          <div className="feature-item">
             <img src={onlinePresencePic} alt="Online Presence" className="feature-image" />
             <div className="feature-text">
               <h2>Enhance Your Online Presence</h2>
@@ -73,6 +80,19 @@ function Home() {
               </p>
             </div>
           </div>
+        </section>
+
+        <section className="job-search-strategy-section">
+          <h2>Comprehensive Job Search Strategy</h2>
+          <p>At Credolay, we don't just help with your CV and online presence. We provide a holistic approach to your job search:</p>
+          <ul>
+            <li>Personalized job search planning</li>
+            <li>Interview preparation and mock interviews</li>
+            <li>Salary negotiation techniques</li>
+            <li>Career path guidance</li>
+            <li>Networking strategies</li>
+          </ul>
+          <a href="#contact-us" className="button">Get Started Today</a>
         </section>
 
         <section className="packages-section" id="packages-section">
@@ -136,7 +156,6 @@ function Home() {
           </div>
         </section>
 
-
         <section className="faq-section">
           <h2>Frequently Asked Questions</h2>
           <div className="faq-list">
@@ -149,14 +168,13 @@ function Home() {
           </div>
         </section>
 
-        <section className="contact-us">
+        <section className="contact-us" id="contact-us">
           <h2>Contact Us</h2>
           <p>For more information or personalized assistance, reach out to us:</p>
           <p>Email: <a href="mailto:admin@credolay.com">admin@credolay.com</a></p>
           <p>WhatsApp: <a href="https://wa.me/447918262629">+44 7918 262629</a></p>
         </section>
       </main>
-
     </div>
   );
 }
