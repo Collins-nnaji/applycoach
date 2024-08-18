@@ -1,118 +1,89 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import './AnalyzeCV.css';
 import Header from '../components/Header';
+
 
 const API_URL = 'https://credolaygptbackend.azurewebsites.net';
 
 const AnalyzeCV = () => {
   const [resumeText, setResumeText] = useState('');
   const [jobDescription, setJobDescription] = useState('');
-  const [analysis, setAnalysis] = useState('');
-  const [optimizedResume, setOptimizedResume] = useState('');
-  const [isAnalyzing, setIsAnalyzing] = useState(false);
-  const [isOptimizing, setIsOptimizing] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [result, setResult] = useState(null);
   const [error, setError] = useState(null);
-
-  const analysisRef = useRef(null);
-  const optimizedResumeRef = useRef(null);
-
-  useEffect(() => {
-    if (analysisRef.current) {
-      analysisRef.current.scrollTop = analysisRef.current.scrollHeight;
-    }
-    if (optimizedResumeRef.current) {
-      optimizedResumeRef.current.scrollTop = optimizedResumeRef.current.scrollHeight;
-    }
-  }, [analysis, optimizedResume]);
+  const [optimizedResume, setOptimizedResume] = useState(null);
+  const [optimizing, setOptimizing] = useState(false);
 
   const handleAnalyze = async () => {
     if (!resumeText || !jobDescription) {
-      setError('Please provide both CV text and job description.');
+      setError('Please enter your CV text and provide a job description.');
       return;
     }
 
-    setIsAnalyzing(true);
+    setLoading(true);
     setError(null);
-    setAnalysis('');
+    setResult(null);
+    setOptimizedResume(null);
 
-    const eventSource = new EventSource(`${API_URL}/api/analyze`);
+    try {
+      const response = await fetch(`${API_URL}/api/analyze`, {
+        method: 'POST',
+        headers: { 
+          'Content-Type': 'application/json',
+          'Origin': window.location.origin
+        },
+        body: JSON.stringify({ resumeText, jobDescription }),
+      });
 
-    eventSource.onmessage = (event) => {
-      if (event.data === "[DONE]") {
-        eventSource.close();
-        setIsAnalyzing(false);
-      } else {
-        setAnalysis((prev) => prev + event.data);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
-    };
 
-    eventSource.onerror = (error) => {
-      console.error('EventSource failed:', error);
-      eventSource.close();
-      setIsAnalyzing(false);
+      const data = await response.json();
+      setResult(data);
+    } catch (err) {
+      console.error('Error analyzing CV:', err);
       setError('An error occurred while analyzing the CV. Please try again later.');
-    };
-
-    fetch(`${API_URL}/api/analyze`, {
-      method: 'POST',
-      headers: { 
-        'Content-Type': 'application/json',
-        'Origin': window.location.origin
-      },
-      body: JSON.stringify({ resumeText, jobDescription }),
-    }).catch((error) => {
-      console.error('Fetch error:', error);
-      eventSource.close();
-      setIsAnalyzing(false);
-      setError('An error occurred while sending the request. Please try again later.');
-    });
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleOptimize = async () => {
-    if (!analysis) {
+    if (!result) {
       setError('Please analyze the CV first before optimizing.');
       return;
     }
 
-    setIsOptimizing(true);
+    setOptimizing(true);
     setError(null);
-    setOptimizedResume('');
 
-    const eventSource = new EventSource(`${API_URL}/api/optimize`);
+    try {
+      const response = await fetch(`${API_URL}/api/optimize`, {
+        method: 'POST',
+        headers: { 
+          'Content-Type': 'application/json',
+          'Origin': window.location.origin
+        },
+        body: JSON.stringify({ resumeText, jobDescription, analysis: result }),
+      });
 
-    eventSource.onmessage = (event) => {
-      if (event.data === "[DONE]") {
-        eventSource.close();
-        setIsOptimizing(false);
-      } else {
-        setOptimizedResume((prev) => prev + event.data);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
-    };
 
-    eventSource.onerror = (error) => {
-      console.error('EventSource failed:', error);
-      eventSource.close();
-      setIsOptimizing(false);
+      const data = await response.json();
+      setOptimizedResume(data.optimizedResume);
+    } catch (err) {
+      console.error('Error optimizing CV:', err);
       setError('An error occurred while optimizing the CV. Please try again later.');
-    };
-
-    fetch(`${API_URL}/api/optimize`, {
-      method: 'POST',
-      headers: { 
-        'Content-Type': 'application/json',
-        'Origin': window.location.origin
-      },
-      body: JSON.stringify({ resumeText, jobDescription, analysis }),
-    }).catch((error) => {
-      console.error('Fetch error:', error);
-      eventSource.close();
-      setIsOptimizing(false);
-      setError('An error occurred while sending the request. Please try again later.');
-    });
+    } finally {
+      setOptimizing(false);
+    }
   };
 
   return (
-    <div className="analyze-cv-wrapper">
+    <>
       <Header />
       <div className="analyze-cv">
         <h2>Analyze Your CV</h2>
@@ -129,8 +100,8 @@ const AnalyzeCV = () => {
             onChange={(e) => setJobDescription(e.target.value)}
             rows={5}
           />
-          <button onClick={handleAnalyze} disabled={isAnalyzing} className="primary-button">
-            {isAnalyzing ? 'Analyzing...' : 'Analyze'}
+          <button onClick={handleAnalyze} disabled={loading} className="primary-button">
+            {loading ? 'Analyzing...' : 'Analyze'}
           </button>
         </div>
 
@@ -140,16 +111,51 @@ const AnalyzeCV = () => {
           </div>
         )}
 
-        {analysis && (
+        {result && (
           <section className="results-section">
             <h3>Analysis Results</h3>
-            <div className="result-card analysis-content" ref={analysisRef}>
-              {analysis.split('\n').map((line, index) => (
-                <p key={index}>{line}</p>
-              ))}
+            <div className="result-card match-score">
+              <h4>Job Match Score</h4>
+              <div className="score-display">
+                <span className="percentage">{result.matchScore}%</span>
+                <div className="progress-bar">
+                  <div className="progress" style={{width: `${result.matchScore}%`}}></div>
+                </div>
+              </div>
             </div>
-            <button onClick={handleOptimize} disabled={isOptimizing} className="secondary-button">
-              {isOptimizing ? 'Optimizing...' : 'Optimize CV'}
+
+            <div className="result-card skills-analysis">
+              <h4>Skills Analysis</h4>
+              <ul className="skills-list">
+                {result.skills.map((skill, index) => (
+                  <li key={index} className={skill.match ? 'match' : 'gap'}>
+                    {skill.match ? '✓' : '✗'}
+                    <span>{skill.name}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="result-card recommendations">
+              <h4>Recommendations</h4>
+              <ul className="recommendations-list">
+                {result.recommendations.map((rec, index) => (
+                  <li key={index}>{rec}</li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="result-card job-titles">
+              <h4>Suggested Job Titles</h4>
+              <ul className="job-titles-list">
+                {result.suggestedJobTitles.map((title, index) => (
+                  <li key={index}>{title}</li>
+                ))}
+              </ul>
+            </div>
+
+            <button onClick={handleOptimize} disabled={optimizing} className="secondary-button">
+              {optimizing ? 'Optimizing...' : 'Optimize CV'}
             </button>
           </section>
         )}
@@ -157,15 +163,14 @@ const AnalyzeCV = () => {
         {optimizedResume && (
           <section className="optimized-cv-section">
             <h3>Optimized CV</h3>
-            <div className="optimized-cv-content" ref={optimizedResumeRef}>
-              {optimizedResume.split('\n').map((line, index) => (
-                <p key={index}>{line}</p>
-              ))}
+            <div className="optimized-cv-content">
+              <pre>{optimizedResume}</pre>
             </div>
           </section>
         )}
       </div>
-    </div>
+
+    </>
   );
 };
 
