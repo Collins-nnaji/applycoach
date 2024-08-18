@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import './AnalyzeCV.css';
 import Header from '../components/Header';
 
-
 const API_URL = 'https://credolaygptbackend.azurewebsites.net';
 
 const AnalyzeCV = () => {
@@ -36,14 +35,15 @@ const AnalyzeCV = () => {
       });
 
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        const errorData = await response.json();
+        throw new Error(errorData.error || `HTTP error! status: ${response.status}`);
       }
 
       const data = await response.json();
       setResult(data);
     } catch (err) {
       console.error('Error analyzing CV:', err);
-      setError('An error occurred while analyzing the CV. Please try again later.');
+      setError(`An error occurred while analyzing the CV: ${err.message}. Please try again later.`);
     } finally {
       setLoading(false);
     }
@@ -69,14 +69,15 @@ const AnalyzeCV = () => {
       });
 
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        const errorData = await response.json();
+        throw new Error(errorData.error || `HTTP error! status: ${response.status}`);
       }
 
       const data = await response.json();
       setOptimizedResume(data.optimizedResume);
     } catch (err) {
       console.error('Error optimizing CV:', err);
-      setError('An error occurred while optimizing the CV. Please try again later.');
+      setError(`An error occurred while optimizing the CV: ${err.message}. Please try again later.`);
     } finally {
       setOptimizing(false);
     }
@@ -169,7 +170,6 @@ const AnalyzeCV = () => {
           </section>
         )}
       </div>
-
     </>
   );
 };
