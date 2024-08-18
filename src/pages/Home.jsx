@@ -3,7 +3,7 @@ import Header from '../components/Header';
 import './Home.css';
 import linkedinPic from '../assets/Linkedinpic.jpg';
 import onlinePresencePic from '../assets/OnlinePresencepic.jpg';
-import cvPic from '../assets/Cvpic.jpg';
+import cvPic from '../assets/CVpic.jpg';
 import resourcePic from '../assets/Resourcepic.jpg';
 
 function Home() {
