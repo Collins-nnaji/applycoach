@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './AnalyzeCV.css';
 import Header from '../components/Header';
-
 
 const API_URL = 'https://credolaygptbackend.azurewebsites.net';
 
@@ -13,6 +13,7 @@ const AnalyzeCV = () => {
   const [error, setError] = useState(null);
   const [optimizedResume, setOptimizedResume] = useState(null);
   const [optimizing, setOptimizing] = useState(false);
+  const navigate = useNavigate();
 
   const handleAnalyze = async () => {
     if (!resumeText || !jobDescription) {
@@ -41,6 +42,7 @@ const AnalyzeCV = () => {
 
       const data = await response.json();
       setResult(data);
+      localStorage.setItem('suggestedJobTitles', JSON.stringify(data.suggestedJobTitles));
     } catch (err) {
       console.error('Error analyzing CV:', err);
       setError('An error occurred while analyzing the CV. Please try again later.');
@@ -80,6 +82,10 @@ const AnalyzeCV = () => {
     } finally {
       setOptimizing(false);
     }
+  };
+
+  const handleViewJobVacancies = () => {
+    navigate('/job-vacancies');
   };
 
   return (
@@ -157,6 +163,9 @@ const AnalyzeCV = () => {
             <button onClick={handleOptimize} disabled={optimizing} className="secondary-button">
               {optimizing ? 'Optimizing...' : 'Optimize CV'}
             </button>
+            <button onClick={handleViewJobVacancies} className="secondary-button">
+              View Job Vacancies
+            </button>
           </section>
         )}
 
@@ -169,7 +178,6 @@ const AnalyzeCV = () => {
           </section>
         )}
       </div>
-
     </>
   );
 };

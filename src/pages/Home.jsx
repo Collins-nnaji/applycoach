@@ -9,23 +9,18 @@ import resourcePic from '../assets/Resourcepic.jpg';
 function Home() {
   const [faq, setFaq] = useState([
     {
-      question: "How long does the service take?",
-      answer: `The turnaround time for our services can vary depending on the package and workload. However, we strive to deliver within 5-14 business days, depending on the chosen package.`,
+      question: "Why choose Credolay as your career growth and job placement partner?",
+      answer: `Credolay offers a unique advantage as your career partner. Our team consists of expert HR professionals with CIPD qualifications and extensive industry experience. We work closely with various companies across multiple sectors, giving us insider knowledge of current hiring trends and expectations. This allows us to provide you with tailored, up-to-date advice that aligns with what employers are really looking for. Our personalized approach ensures that your career goals are met with strategic planning and expert guidance.`,
       open: false
     },
     {
-      question: "Can I customize the packages?",
-      answer: `Yes, we understand that individual needs may vary. We are happy to discuss customized packages to meet your specific requirements. Please contact our team to explore the options.`,
+      question: "How does Credolay's service differ from using AI to write CVs and professional profiles?",
+      answer: `While AI tools can generate content quickly, they often produce generic, buzzword-filled profiles that lack authenticity and fail to showcase your unique experiences and skills. Recruiters and ATS (Applicant Tracking Systems) are increasingly adept at detecting AI-generated content, which can harm your application's credibility. At Credolay, we emphasize creating genuine, compelling narratives that highlight your individual strengths and experiences. Our human experts work with you to craft authentic profiles that resonate with employers and pass through ATS filters, giving you a significant advantage in your job search.`,
       open: false
     },
     {
-      question: "Do you provide any free resources?",
-      answer: `Yes, Credolay offers free resources including a Resume Writing Guide, LinkedIn Checklist, and Interview Preparation Guide.`,
-      open: false
-    },
-    {
-      question: "What is your refund policy?",
-      answer: `Credolay has a 30-day money-back guarantee for all our packages. If you are not satisfied with our services, please contact us, and we will process a full refund.`,
+      question: "What services does Credolay offer and how long do they take?",
+      answer: `Credolay offers a range of services including CV enhancement, LinkedIn profile optimization, and comprehensive career strategy planning. Our turnaround time varies from 5-14 business days depending on the chosen package and current workload. We also offer customizable packages to meet specific needs. For all our services, we provide a 30-day money-back guarantee if you're not satisfied. Additionally, we offer free resources such as a Resume Writing Guide, LinkedIn Checklist, and Interview Preparation Guide to support your career journey.`,
       open: false
     }
   ]);
@@ -47,7 +42,7 @@ function Home() {
       <header className="hero">
         <h1 className="title">Welcome to Credolay</h1>
         <p className="subtitle">
-          Your trusted partner for career growth and job placement. Let us help you find the perfect job, optimize your resume, LinkedIn, and online presence to stand out to employers.
+          Your trusted partner for authentic career growth and strategic job placement. Let us help you stand out to employers with genuine, tailored career solutions.
         </p>
       </header>
 
@@ -56,43 +51,46 @@ function Home() {
           <div className="feature-item">
             <img src={cvPic} alt="CV Review" className="feature-image" />
             <div className="feature-text">
-              <h2>Professional CV Review</h2>
+              <h2>Authentic CV Enhancement</h2>
               <p>
-                Our expert team will thoroughly review and enhance your CV to highlight your strengths and achievements. We ensure your CV is tailored to catch the eye of recruiters and hiring managers in your target industry.
+                Our CIPD-qualified experts craft genuine, impactful CVs that highlight your unique strengths and experiences. We go beyond buzzwords to create a CV that truly represents you and resonates with employers.
               </p>
             </div>
           </div>
           <div className="feature-item">
             <img src={linkedinPic} alt="LinkedIn Optimization" className="feature-image" />
             <div className="feature-text">
-              <h2>Optimize Your LinkedIn</h2>
+              <h2>Strategic LinkedIn Optimization</h2>
               <p>
-                We will enhance your LinkedIn profile to attract recruiters and hiring managers. Our experts guarantee that your profile will stand out, giving you an edge in your job search.
+                We enhance your LinkedIn profile to attract recruiters and hiring managers authentically. Our approach ensures your profile stands out without relying on AI-generated content that could harm your credibility.
               </p>
             </div>
           </div>
           <div className="feature-item">
             <img src={onlinePresencePic} alt="Online Presence" className="feature-image" />
             <div className="feature-text">
-              <h2>Enhance Your Online Presence</h2>
+              <h2>Holistic Online Presence</h2>
               <p>
-                Our team will improve your online visibility and reputation across various platforms. We ensure your online presence is professional and appealing to potential employers.
+                Our team improves your online visibility across platforms, ensuring a consistent and professional image. We focus on creating genuine content that showcases your expertise and appeals to potential employers.
               </p>
             </div>
           </div>
         </section>
 
         <section className="job-search-strategy-section">
-          <h2>Comprehensive Job Search Strategy</h2>
-          <p>At Credolay, we don't just help with your CV and online presence. We provide a holistic approach to your job search:</p>
+          <h2>Comprehensive Career Growth Strategy</h2>
+          <p>At Credolay, we offer more than just CV writing. Our team of CIPD-qualified HR professionals provides a holistic approach to your career development:</p>
           <ul>
-            <li>Personalized job search planning</li>
-            <li>Interview preparation and mock interviews</li>
-            <li>Salary negotiation techniques</li>
-            <li>Career path guidance</li>
-            <li>Networking strategies</li>
+            <li>Personalized job search planning based on current market trends</li>
+            <li>In-depth interview preparation with industry-specific mock interviews</li>
+            <li>Expert salary negotiation techniques</li>
+            <li>Long-term career path guidance</li>
+            <li>Effective networking strategies tailored to your industry</li>
           </ul>
-          <a href="#contact-us" className="button">Get Started Today</a>
+          <p className="ai-warning">
+            <strong>Why avoid AI-generated content:</strong> While AI tools may seem convenient, they often produce generic, easily detectable content that can harm your application. Our human experts ensure your materials are authentic, ATS-friendly, and truly representative of your unique value.
+          </p>
+          <a href="#contact-us" className="button">Start Your Authentic Career Journey</a>
         </section>
 
         <section className="packages-section" id="packages-section">
@@ -136,21 +134,21 @@ function Home() {
         </section>
 
         <section className="resources-section">
-          <h2>Free Resources</h2>
+          <h2>Free Career Resources</h2>
           <div className="resources">
             <div className="resource">
-              <img src={resourcePic} alt="Resume Writing Guide" className="resource-image" />
-              <p className="resource-title">Resume Writing Guide</p>
+              <img src={resourcePic} alt="Authentic Resume Writing Guide" className="resource-image" />
+              <p className="resource-title">Authentic Resume Writing Guide</p>
               <a href="/resume-writing-guide.pdf" className="button" download>Download</a>
             </div>
             <div className="resource">
-              <img src={resourcePic} alt="LinkedIn Checklist" className="resource-image" />
-              <p className="resource-title">LinkedIn Checklist</p>
+              <img src={resourcePic} alt="LinkedIn Optimization Checklist" className="resource-image" />
+              <p className="resource-title">LinkedIn Optimization Checklist</p>
               <a href="/linkedin-checklist.pdf" className="button" download>Download</a>
             </div>
             <div className="resource">
-              <img src={resourcePic} alt="Interview Guide" className="resource-image" />
-              <p className="resource-title">Interview Guide</p>
+              <img src={resourcePic} alt="Comprehensive Interview Guide" className="resource-image" />
+              <p className="resource-title">Comprehensive Interview Guide</p>
               <a href="/interview-guide.pdf" className="button" download>Download</a>
             </div>
           </div>
@@ -169,8 +167,8 @@ function Home() {
         </section>
 
         <section className="contact-us" id="contact-us">
-          <h2>Contact Us</h2>
-          <p>For more information or personalized assistance, reach out to us:</p>
+          <h2>Contact Our Expert Team</h2>
+          <p>For personalized career guidance and authentic profile development, reach out to our CIPD-qualified professionals:</p>
           <p>Email: <a href="mailto:admin@credolay.com">admin@credolay.com</a></p>
           <p>WhatsApp: <a href="https://wa.me/447918262629">+44 7918 262629</a></p>
         </section>

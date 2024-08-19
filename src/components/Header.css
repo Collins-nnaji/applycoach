@@ -23,51 +23,60 @@
 .nav a {
   color: var(--primary-color);
   text-decoration: none;
-  margin: 0 15px;
-  font-size: 1.2rem;
-  font-weight: 700; /* Make the text bold */
-  padding: 10px 15px; /* Add padding for a modern button-like look */
+  margin: 0 10px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  padding: 8px 12px;
   border-radius: 5px;
-  transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transitions */
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .nav a:hover {
-  background-color: var(--primary-color); /* Highlight background on hover */
-  color: white; /* Change text color on hover */
-  text-decoration: none; /* Ensure no underline on hover */
+  background-color: var(--primary-color);
+  color: white;
+  text-decoration: none;
 }
 
 .nav a.active {
-  background-color: var(--primary-color); /* Highlight the active page */
+  background-color: var(--primary-color);
   color: white;
   border-radius: 5px;
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
   .header {
     flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .nav {
-    width: 100%;
-    display: flex;
-    justify-content: space-around;
-    margin-top: 10px;
-    flex-wrap: wrap;
-  }
-
-  .nav a {
-    font-size: 1rem;
-    padding: 8px 12px;
-    margin: 5px 0;
-    width: 100%;
-    text-align: center;
-    border-radius: 8px;
+    align-items: center;
+    padding: 15px;
   }
 
   .logo img {
     height: 40px;
+    margin-bottom: 10px;
+  }
+
+  .nav {
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .nav a {
+    font-size: 0.9rem;
+    padding: 8px 10px;
+    margin: 5px;
+    flex-grow: 1;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .nav {
+    flex-direction: column;
+  }
+
+  .nav a {
+    width: 100%;
+    margin: 5px 0;
   }
 }
