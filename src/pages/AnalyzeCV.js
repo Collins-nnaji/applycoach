@@ -2,38 +2,52 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './AnalyzeCV.css';
 import Header from '../components/Header';
+import { useAppContext } from './AppContext';
 
 const API_URL = 'https://credolaygptbackend.azurewebsites.net';
 
 const AnalyzeCV = () => {
-  const [resumeText, setResumeText] = useState('');
+  const [resumeFile, setResumeFile] = useState(null);
   const [jobDescription, setJobDescription] = useState('');
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState(null);
   const [error, setError] = useState(null);
-  const [optimizedResume, setOptimizedResume] = useState(null);
   const [optimizing, setOptimizing] = useState(false);
   const navigate = useNavigate();
+  const { setSuggestedJobTitles } = useAppContext();
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file && (file.type === 'application/pdf' || file.type === 'application/msword' || file.type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document')) {
+      setResumeFile(file);
+      setError(null);
+    } else {
+      setError('Please upload a PDF or DOC file.');
+      setResumeFile(null);
+    }
+  };
 
   const handleAnalyze = async () => {
-    if (!resumeText || !jobDescription) {
-      setError('Please enter your CV text and provide a job description.');
+    if (!resumeFile || !jobDescription) {
+      setError('Please upload your CV and provide a job description.');
       return;
     }
 
     setLoading(true);
     setError(null);
     setResult(null);
-    setOptimizedResume(null);
+
+    const formData = new FormData();
+    formData.append('resume', resumeFile);
+    formData.append('jobDescription', jobDescription);
 
     try {
       const response = await fetch(`${API_URL}/api/analyze`, {
         method: 'POST',
         headers: { 
-          'Content-Type': 'application/json',
           'Origin': window.location.origin
         },
-        body: JSON.stringify({ resumeText, jobDescription }),
+        body: formData,
       });
 
       if (!response.ok) {
@@ -42,7 +56,7 @@ const AnalyzeCV = () => {
 
       const data = await response.json();
       setResult(data);
-      localStorage.setItem('suggestedJobTitles', JSON.stringify(data.suggestedJobTitles));
+      setSuggestedJobTitles(data.suggestedJobTitles);
     } catch (err) {
       console.error('Error analyzing CV:', err);
       setError('An error occurred while analyzing the CV. Please try again later.');
@@ -67,21 +81,33 @@ const AnalyzeCV = () => {
           'Content-Type': 'application/json',
           'Origin': window.location.origin
         },
-        body: JSON.stringify({ resumeText, jobDescription, analysis: result }),
+        body: JSON.stringify({ resumeText: resumeFile.name, jobDescription, analysis: result }),
       });
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
-      const data = await response.json();
-      setOptimizedResume(data.optimizedResume);
+      const blob = await response.blob();
+      const downloadUrl = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = downloadUrl;
+      link.download = 'optimized_resume.txt';
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
     } catch (err) {
       console.error('Error optimizing CV:', err);
       setError('An error occurred while optimizing the CV. Please try again later.');
     } finally {
       setOptimizing(false);
     }
+  };
+
+  const handleGoogleJobsSearch = (jobTitle) => {
+    const searchQuery = encodeURIComponent(`${jobTitle} jobs`);
+    const googleJobsUrl = `https://www.google.com/search?q=${searchQuery}&ibp=htl;jobs`;
+    window.open(googleJobsUrl, '_blank');
   };
 
   const handleViewJobVacancies = () => {
@@ -94,12 +120,18 @@ const AnalyzeCV = () => {
       <div className="analyze-cv">
         <h2>Analyze Your CV</h2>
         <div className="input-section">
-          <textarea
-            placeholder="Paste your CV text here..."
-            value={resumeText}
-            onChange={(e) => setResumeText(e.target.value)}
-            rows={10}
-          />
+          <div className="file-input-container">
+            <input
+              type="file"
+              accept=".pdf,.doc,.docx"
+              onChange={handleFileChange}
+              id="cv-upload"
+            />
+            <label htmlFor="cv-upload" className="file-input-button">
+              Choose CV File
+            </label>
+            {resumeFile && <div className="file-name">{resumeFile.name}</div>}
+          </div>
           <textarea
             placeholder="Enter the job description here..."
             value={jobDescription}
@@ -155,26 +187,25 @@ const AnalyzeCV = () => {
               <h4>Suggested Job Titles</h4>
               <ul className="job-titles-list">
                 {result.suggestedJobTitles.map((title, index) => (
-                  <li key={index}>{title}</li>
+                  <li key={index}>
+                    {title}
+                    <button 
+                      onClick={() => handleGoogleJobsSearch(title)} 
+                      className="google-jobs-search-button"
+                    >
+                      Search on Google Jobs
+                    </button>
+                  </li>
                 ))}
               </ul>
             </div>
 
             <button onClick={handleOptimize} disabled={optimizing} className="secondary-button">
-              {optimizing ? 'Optimizing...' : 'Optimize CV'}
+              {optimizing ? 'Optimizing...' : 'Optimize and Download CV'}
             </button>
             <button onClick={handleViewJobVacancies} className="secondary-button">
               View Job Vacancies
             </button>
-          </section>
-        )}
-
-        {optimizedResume && (
-          <section className="optimized-cv-section">
-            <h3>Optimized CV</h3>
-            <div className="optimized-cv-content">
-              <pre>{optimizedResume}</pre>
-            </div>
           </section>
         )}
       </div>

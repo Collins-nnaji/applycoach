@@ -1,67 +1,40 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './JobVacancies.css';
 import Header from '../components/Header';
-
-const API_URL = 'https://credolaygptbackend.azurewebsites.net';
+import { useAppContext } from './AppContext';
 
 const JobVacancies = () => {
-  const [jobVacancies, setJobVacancies] = useState([]);
-  const [suggestedJobTitles, setSuggestedJobTitles] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const { 
+    suggestedJobTitles, 
+    jobVacancies, 
+    fetchJobVacancies, 
+    loading, 
+    error 
+  } = useAppContext();
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchJobVacancies = async () => {
-      const storedJobTitles = localStorage.getItem('suggestedJobTitles');
-      if (!storedJobTitles) {
-        setError('No suggested job titles found. Please analyze your CV first.');
-        setLoading(false);
-        return;
-      }
-
-      const parsedJobTitles = JSON.parse(storedJobTitles);
-      setSuggestedJobTitles(parsedJobTitles);
-
-      try {
-        const response = await fetch(`${API_URL}/api/job-vacancies`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Origin': window.location.origin
-          },
-          body: JSON.stringify({ jobTitles: parsedJobTitles }),
-        });
-
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        const data = await response.json();
-        setJobVacancies(data.jobVacancies);
-      } catch (err) {
-        console.error('Error fetching job vacancies:', err);
-        setError('An error occurred while fetching job vacancies. Please try again later.');
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchJobVacancies();
-  }, []);
+    if (suggestedJobTitles.length === 0) {
+      navigate('/analyze-cv');
+    } else {
+      fetchJobVacancies();
+    }
+  }, [suggestedJobTitles, fetchJobVacancies, navigate]);
 
   const handleApply = (jobId) => {
     console.log(`Applying for job with ID: ${jobId}`);
+    // Implement your apply logic here
   };
 
   const handleBackToAnalysis = () => {
     navigate('/analyze-cv');
   };
 
-  const handleLinkedInSearch = (jobTitle) => {
-    const encodedJobTitle = encodeURIComponent(jobTitle);
-    window.open(`https://www.linkedin.com/jobs/search/?keywords=${encodedJobTitle}`, '_blank');
+  const handleGoogleJobsSearch = (jobTitle) => {
+    const searchQuery = encodeURIComponent(`${jobTitle} jobs`);
+    const googleJobsUrl = `https://www.google.com/search?q=${searchQuery}&ibp=htl;jobs`;
+    window.open(googleJobsUrl, '_blank');
   };
 
   if (loading) {
@@ -101,27 +74,31 @@ const JobVacancies = () => {
             {suggestedJobTitles.map((title, index) => (
               <div key={index} className="job-title-item">
                 <span>{title}</span>
-                <button onClick={() => handleLinkedInSearch(title)} className="linkedin-search-button">
-                  Search on LinkedIn
+                <button onClick={() => handleGoogleJobsSearch(title)} className="google-jobs-search-button">
+                  Search on Google Jobs
                 </button>
               </div>
             ))}
           </div>
         </div>
-        <div className="vacancies-list">
-          {jobVacancies.map((job) => (
-            <div key={job.id} className="job-card">
-              <h3>{job.title}</h3>
-              <p><strong>Company:</strong> {job.company}</p>
-              <p><strong>Location:</strong> {job.location}</p>
-              <p><strong>Match Score:</strong> {job.matchScore}%</p>
-              <p>{job.description}</p>
-              <button onClick={() => handleApply(job.id)} className="primary-button">
-                Apply
-              </button>
-            </div>
-          ))}
-        </div>
+        {jobVacancies.length > 0 ? (
+          <div className="vacancies-list">
+            {jobVacancies.map((job) => (
+              <div key={job.id} className="job-card">
+                <h3>{job.title}</h3>
+                <p><strong>Company:</strong> {job.company}</p>
+                <p><strong>Location:</strong> {job.location}</p>
+                <p><strong>Match Score:</strong> {job.matchScore}%</p>
+                <p>{job.description}</p>
+                <button onClick={() => handleApply(job.id)} className="primary-button">
+                  Apply
+                </button>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <p>No job vacancies found matching your profile. Try searching on Google Jobs using the suggested job titles above.</p>
+        )}
         <button onClick={handleBackToAnalysis} className="secondary-button">
           Back to CV Analysis
         </button>
