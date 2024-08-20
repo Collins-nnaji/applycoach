@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import './AnalyzeCV.css';
 import Header from '../components/Header';
-import { useAppContext } from './AppContext';
+import { useAppContext } from '../contexts/AppContext';
 
 const API_URL = 'https://credolaygptbackend.azurewebsites.net';
 
@@ -13,7 +12,6 @@ const AnalyzeCV = () => {
   const [result, setResult] = useState(null);
   const [error, setError] = useState(null);
   const [optimizing, setOptimizing] = useState(false);
-  const navigate = useNavigate();
   const { setSuggestedJobTitles } = useAppContext();
 
   const handleFileChange = (e) => {
@@ -104,14 +102,10 @@ const AnalyzeCV = () => {
     }
   };
 
-  const handleGoogleJobsSearch = (jobTitle) => {
+  const handleBrowseJobs = (jobTitle) => {
     const searchQuery = encodeURIComponent(`${jobTitle} jobs`);
     const googleJobsUrl = `https://www.google.com/search?q=${searchQuery}&ibp=htl;jobs`;
     window.open(googleJobsUrl, '_blank');
-  };
-
-  const handleViewJobVacancies = () => {
-    navigate('/job-vacancies');
   };
 
   return (
@@ -188,12 +182,12 @@ const AnalyzeCV = () => {
               <ul className="job-titles-list">
                 {result.suggestedJobTitles.map((title, index) => (
                   <li key={index}>
-                    {title}
+                    <span>{title}</span>
                     <button 
-                      onClick={() => handleGoogleJobsSearch(title)} 
-                      className="google-jobs-search-button"
+                      onClick={() => handleBrowseJobs(title)} 
+                      className="browse-jobs-button"
                     >
-                      Search on Google Jobs
+                      Browse Jobs
                     </button>
                   </li>
                 ))}
@@ -202,9 +196,6 @@ const AnalyzeCV = () => {
 
             <button onClick={handleOptimize} disabled={optimizing} className="secondary-button">
               {optimizing ? 'Optimizing...' : 'Optimize and Download CV'}
-            </button>
-            <button onClick={handleViewJobVacancies} className="secondary-button">
-              View Job Vacancies
             </button>
           </section>
         )}

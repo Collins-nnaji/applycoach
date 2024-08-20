@@ -375,7 +375,58 @@ textarea:focus {
     height: 10px;
   }
 }
+.job-titles-list {
+  list-style-type: none;
+  padding: 0;
+}
 
+.job-titles-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #eee;
+}
+
+.job-titles-list li:last-child {
+  border-bottom: none;
+}
+
+.job-titles-list li span {
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+.browse-jobs-button {
+  background-color: var(--secondary-color);
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: var(--transition);
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.browse-jobs-button:hover {
+  background-color: #27ae60;
+}
+
+@media (max-width: 768px) {
+  .job-titles-list li {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .job-titles-list li span {
+    margin-bottom: 0.5rem;
+  }
+
+  .browse-jobs-button {
+    width: 100%;
+  }
+}
 /* Accessibility improvements */
 @media (prefers-reduced-motion: reduce) {
   * {

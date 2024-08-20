@@ -1,107 +1,121 @@
-import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import './JobVacancies.css';
+import React, { useState, useEffect, useCallback } from 'react';
 import Header from '../components/Header';
-import { useAppContext } from './AppContext';
+import JobFilter from '../components/JobFilter';
+import JobCard from '../components/JobCard';
+import SalaryChart from '../components/SalaryChart';
+import SkillsMatchChart from '../components/SkillsMatchChart';
+import './JobVacancies.css';
+
+// Mock data
+const mockJobs = [
+  {
+    id: 1,
+    title: "Frontend Developer",
+    company: "Tech Co",
+    salaryRange: { min: 60000, max: 90000 },
+    requiredSkills: ["React", "JavaScript", "CSS"],
+    description: "We're looking for a skilled frontend developer to create responsive and interactive web applications."
+  },
+  {
+    id: 2,
+    title: "Backend Developer",
+    company: "Data Systems Inc",
+    salaryRange: { min: 70000, max: 100000 },
+    requiredSkills: ["Node.js", "Express", "MongoDB"],
+    description: "Seeking an experienced backend developer to build robust server-side applications."
+  },
+  {
+    id: 3,
+    title: "Full Stack Engineer",
+    company: "Innovative Solutions",
+    salaryRange: { min: 80000, max: 120000 },
+    requiredSkills: ["React", "Node.js", "PostgreSQL", "DevOps"],
+    description: "Looking for a versatile full stack engineer to work on cutting-edge projects."
+  },
+  {
+    id: 4,
+    title: "UI/UX Designer",
+    company: "Creative Designs Co",
+    salaryRange: { min: 65000, max: 95000 },
+    requiredSkills: ["Figma", "Adobe XD", "User Research"],
+    description: "Seeking a talented UI/UX designer to create intuitive and visually appealing interfaces."
+  },
+  {
+    id: 5,
+    title: "Data Scientist",
+    company: "Analytics Pro",
+    salaryRange: { min: 90000, max: 130000 },
+    requiredSkills: ["Python", "Machine Learning", "SQL", "Data Visualization"],
+    description: "We need a data scientist to derive insights from complex datasets and build predictive models."
+  }
+];
 
 const JobVacancies = () => {
-  const { 
-    suggestedJobTitles, 
-    jobVacancies, 
-    fetchJobVacancies, 
-    loading, 
-    error 
-  } = useAppContext();
-  const navigate = useNavigate();
+  const [jobs, setJobs] = useState([]);
+  const [filteredJobs, setFilteredJobs] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [filters, setFilters] = useState({
+    salaryMin: 0,
+    salaryMax: 1000000,
+    skills: [],
+    companies: []
+  });
 
   useEffect(() => {
-    if (suggestedJobTitles.length === 0) {
-      navigate('/analyze-cv');
-    } else {
-      fetchJobVacancies();
+    fetchJobs();
+  }, []);
+
+  const fetchJobs = async () => {
+    try {
+      // Simulate API call delay
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      setJobs(mockJobs);
+      setLoading(false);
+    } catch (err) {
+      console.error('Error fetching jobs:', err);
+      setError('An error occurred while fetching jobs. Please try again later.');
+      setLoading(false);
     }
-  }, [suggestedJobTitles, fetchJobVacancies, navigate]);
-
-  const handleApply = (jobId) => {
-    console.log(`Applying for job with ID: ${jobId}`);
-    // Implement your apply logic here
   };
 
-  const handleBackToAnalysis = () => {
-    navigate('/analyze-cv');
+  const applyFilters = useCallback(() => {
+    const filtered = jobs.filter(job => {
+      const salaryInRange = job.salaryRange.min >= filters.salaryMin && job.salaryRange.max <= filters.salaryMax;
+      const skillsMatch = filters.skills.length === 0 || filters.skills.every(skill => job.requiredSkills.includes(skill));
+      const companyMatch = filters.companies.length === 0 || filters.companies.includes(job.company);
+      return salaryInRange && skillsMatch && companyMatch;
+    });
+    setFilteredJobs(filtered);
+  }, [jobs, filters]);
+
+  useEffect(() => {
+    applyFilters();
+  }, [applyFilters]);
+
+  const handleFilterChange = (newFilters) => {
+    setFilters(newFilters);
   };
 
-  const handleGoogleJobsSearch = (jobTitle) => {
-    const searchQuery = encodeURIComponent(`${jobTitle} jobs`);
-    const googleJobsUrl = `https://www.google.com/search?q=${searchQuery}&ibp=htl;jobs`;
-    window.open(googleJobsUrl, '_blank');
-  };
-
-  if (loading) {
-    return (
-      <>
-        <Header />
-        <div className="loading">Loading job vacancies...</div>
-      </>
-    );
-  }
-
-  if (error) {
-    return (
-      <>
-        <Header />
-        <div className="error-message">
-          <p>{error}</p>
-          <button onClick={handleBackToAnalysis} className="secondary-button">
-            Back to CV Analysis
-          </button>
-        </div>
-      </>
-    );
-  }
+  if (loading) return <div className="loading">Loading...</div>;
+  if (error) return <div className="error">{error}</div>;
 
   return (
     <>
       <Header />
-      <div className="job-vacancies">
-        <h2>Tailored Job Vacancies</h2>
-        <p className="disclaimer">
-          These job vacancies are tailored based on your CV analysis. While AI-assisted matching can be helpful, we strongly recommend against using AI to write your CV or professional profiles. Recruiters can easily detect AI-generated content, which may disadvantage your application. Instead, we offer bespoke services to help you create authentic, compelling applications that showcase your unique skills and experiences.
-        </p>
-        <div className="suggested-job-titles">
-          <h3>Suggested Job Titles</h3>
-          <div className="job-titles-list">
-            {suggestedJobTitles.map((title, index) => (
-              <div key={index} className="job-title-item">
-                <span>{title}</span>
-                <button onClick={() => handleGoogleJobsSearch(title)} className="google-jobs-search-button">
-                  Search on Google Jobs
-                </button>
-              </div>
-            ))}
-          </div>
+      <div className="job-vacancies-container">
+        <h1>Open Book Job Board</h1>
+        <JobFilter filters={filters} onFilterChange={handleFilterChange} />
+        <div className="job-stats">
+          <SalaryChart jobs={filteredJobs} />
+          <SkillsMatchChart jobs={filteredJobs} />
         </div>
-        {jobVacancies.length > 0 ? (
-          <div className="vacancies-list">
-            {jobVacancies.map((job) => (
-              <div key={job.id} className="job-card">
-                <h3>{job.title}</h3>
-                <p><strong>Company:</strong> {job.company}</p>
-                <p><strong>Location:</strong> {job.location}</p>
-                <p><strong>Match Score:</strong> {job.matchScore}%</p>
-                <p>{job.description}</p>
-                <button onClick={() => handleApply(job.id)} className="primary-button">
-                  Apply
-                </button>
-              </div>
-            ))}
-          </div>
-        ) : (
-          <p>No job vacancies found matching your profile. Try searching on Google Jobs using the suggested job titles above.</p>
-        )}
-        <button onClick={handleBackToAnalysis} className="secondary-button">
-          Back to CV Analysis
-        </button>
+        <div className="job-list">
+          {filteredJobs.map(job => (
+            <JobCard key={job.id} job={job} />
+          ))}
+        </div>
+        {filteredJobs.length === 0 && <p className="no-results">No jobs match your current filters. Try adjusting your criteria.</p>}
       </div>
     </>
   );

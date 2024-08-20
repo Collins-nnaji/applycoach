@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
-import { AppProvider } from './pages/AppContext'; // Import the AppProvider
+import { AppProvider } from './contexts/AppContext'; // Import the AppProvider
 import Home from './pages/Home';
 import AnalyzeCV from './pages/AnalyzeCV';
 import JobVacancies from './pages/JobVacancies';
