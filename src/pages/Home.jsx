@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Header from '../components/Header';
+import Footer from '../components/Footer';
 import './Home.css';
 import linkedinPic from '../assets/Linkedinpic.jpg';
 import onlinePresencePic from '../assets/OnlinePresencepic.jpg';
@@ -165,14 +166,8 @@ function Home() {
             ))}
           </div>
         </section>
-
-        <section className="contact-us" id="contact-us">
-          <h2>Contact Our Expert Team</h2>
-          <p>For personalized career guidance and authentic profile development, reach out to our CIPD-qualified professionals:</p>
-          <p>Email: <a href="mailto:admin@credolay.com">admin@credolay.com</a></p>
-          <p>WhatsApp: <a href="https://wa.me/447918262629">+44 7918 262629</a></p>
-        </section>
       </main>
+      <Footer />
     </div>
   );
 }

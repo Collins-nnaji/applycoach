@@ -390,7 +390,15 @@ body {
 .contact-us {
   background: linear-gradient(135deg, #f0e6ff, #ffffff);
 }
+.home, .job-matching-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
 
+.main-content, .job-matching-content {
+  flex: 1;
+}
 @media (max-width: 768px) {
   .ai-warning {
     font-size: 1rem;

@@ -1,22 +1,19 @@
 import React from 'react';
 import './JobCard.css';
 
-const JobCard = ({ job }) => {
+const JobCard = ({ job, onInterest }) => {
   return (
     <div className="job-card">
       <h2>{job.title}</h2>
-      <p className="company">{job.company}</p>
-      <p className="salary-range">Salary Range: ${job.salaryRange.min} - ${job.salaryRange.max}</p>
-      <div className="skills">
-        <h3>Required Skills:</h3>
-        <ul>
-          {job.requiredSkills.map((skill, index) => (
-            <li key={index}>{skill}</li>
-          ))}
-        </ul>
-      </div>
-      <p className="description">{job.description}</p>
-      <button className="apply-btn">Apply Now</button>
+      <p>{job.company}</p>
+      <p>Compatibility: {job.compatibilityScore.toFixed(2)}%</p>
+      <ul>
+        {job.requiredSkills.map((skill, index) => (
+          <li key={index}>{skill}</li>
+        ))}
+      </ul>
+      <p>Salary: ${job.salaryRange.min} - ${job.salaryRange.max}</p>
+      <button onClick={onInterest}>Express Interest</button>
     </div>
   );
 };
