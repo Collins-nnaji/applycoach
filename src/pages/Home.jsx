@@ -73,7 +73,7 @@ function Home() {
         <PackagesSection />
         <ResourcesSection />
         <FAQSection faq={faq} toggleFAQ={toggleFAQ} />
-        <SubscriptionSignup />
+
       </main>
       <Footer />
     </div>
@@ -413,37 +413,5 @@ const FAQSection = ({ faq, toggleFAQ }) => (
   </section>
 );
 
-const SubscriptionSignup = () => (
-  <section id="subscription" className="subscription-signup">
-    <h2 className="section-title">Start Your Journey to Career Success</h2>
-    <p>Subscribe now to access our advanced CV analysis and job matching services for just £4 per month.</p>
-    <motion.ul 
-      className="subscription-benefits"
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.3 }}
-      transition={{ duration: 0.5, staggerChildren: 0.1 }}
-    >
-      <motion.li variants={{ hidden: { opacity: 0, y: 10 }, visible: { opacity: 1, y: 0 } }}>
-        Unlimited CV analysis
-      </motion.li>
-      <motion.li variants={{ hidden: { opacity: 0, y: 10 }, visible: { opacity: 1, y: 0 } }}>
-        Personalized job matches
-      </motion.li>
-      <motion.li variants={{ hidden: { opacity: 0, y: 10 }, visible: { opacity: 1, y: 0 } }}>
-        Career insights and tips
-      </motion.li>
-    </motion.ul>
-    <motion.a 
-      href="/subscribe" 
-      className="cta-button"
-      whileHover={{ scale: 1.05 }}
-      whileTap={{ scale: 0.95 }}
-    >
-      Start Your 7-Day Free Trial
-    </motion.a>
-    <p className="subscription-note">No commitment required. Cancel anytime.</p>
-  </section>
-);
 
 export default Home;

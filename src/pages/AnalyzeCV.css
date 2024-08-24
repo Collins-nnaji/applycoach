@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&display=swap');
+
 :root {
   --background-color: #f8f9fa;
   --primary-color: #6200ee;
@@ -11,6 +13,10 @@
   --card-background: #ffffff;
   --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   --transition: all 0.3s ease;
+}
+
+body, button, input, select, textarea {
+  font-family: 'Cormorant Garamond', Georgia, serif;
 }
 
 .analyze-cv-container {
@@ -35,26 +41,28 @@
 }
 
 .analyze-cv h2 {
-  font-size: 2.5rem;
-  color: var(--primary-color);
+  font-size: 3rem;
+  color: #6b3d8f;
   text-align: center;
   margin-bottom: 2rem;
   font-weight: 700;
 }
 
 .analyze-cv h3 {
-  font-size: 1.5rem;
-  color: var(--primary-color);
+  font-size: 2rem;
+  color: #6b3d8f;
   border-bottom: 2px solid var(--primary-color);
   padding-bottom: 0.5rem;
   margin-top: 2rem;
   margin-bottom: 1rem;
+  font-weight: 600;
 }
 
 .analyze-cv h4 {
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   color: var(--secondary-color);
   margin-bottom: 1rem;
+  font-weight: 600;
 }
 
 .input-section {
@@ -83,10 +91,10 @@
 .file-input-button {
   display: inline-block;
   padding: 0.75rem 1.5rem;
-  font-size: 1rem;
+  font-size: 1.2rem;
   font-weight: 600;
   color: var(--button-text);
-  background-color: var(--button-background);
+  background-color: #6b3d8f;
   border: none;
   border-radius: 50px;
   cursor: pointer;
@@ -99,7 +107,7 @@
 
 .file-name {
   margin-top: 0.5rem;
-  font-size: 0.9rem;
+  font-size: 1rem;
   color: var(--text-color);
 }
 
@@ -108,13 +116,15 @@ textarea {
   padding: 1rem;
   border: 2px solid #e0e0e0;
   border-radius: 8px;
-  font-size: 1rem;
+  font-size: 1.2rem;
   resize: vertical;
   transition: var(--transition);
-  min-height: 150px;
+  min-height: 200px; /* Increased from 150px */
+  max-height: 400px; /* Added max-height */
   box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
   background-color: #ffffff;
-  font-family: inherit;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  box-sizing: border-box; /* Ensure padding is included in width */
 }
 
 textarea:focus {
@@ -126,7 +136,7 @@ textarea:focus {
 .primary-button,
 .secondary-button {
   padding: 0.75rem 1.5rem;
-  font-size: 1rem;
+  font-size: 1.2rem;
   font-weight: 600;
   border: none;
   border-radius: 50px;
@@ -137,12 +147,12 @@ textarea:focus {
 }
 
 .primary-button {
-  background-color: var(--button-background);
+  background-color: #6b3d8f;
   color: var(--button-text);
 }
 
 .secondary-button {
-  background-color: var(--secondary-color);
+  background-color: #6b3d8f;
   color: var(--text-color);
 }
 
@@ -172,6 +182,7 @@ textarea:focus {
   margin-bottom: 1.5rem;
   font-weight: 500;
   border-left: 4px solid #e74c3c;
+  font-size: 1.1rem;
 }
 
 .result-card {
@@ -195,7 +206,7 @@ textarea:focus {
 }
 
 .percentage {
-  font-size: 2rem;
+  font-size: 2.5rem;
   font-weight: 700;
   color: var(--primary-color);
 }
@@ -218,6 +229,7 @@ textarea:focus {
   color: var(--primary-light);
   font-style: italic;
   margin-top: 0.5rem;
+  font-size: 1.1rem;
 }
 
 .skills-list,
@@ -234,6 +246,7 @@ textarea:focus {
   padding: 0.75rem 0;
   border-bottom: 1px solid #eee;
   transition: var(--transition);
+  font-size: 1.1rem;
 }
 
 .skills-list li:hover,
@@ -251,7 +264,7 @@ textarea:focus {
 .skills-list li::before {
   margin-right: 0.75rem;
   flex-shrink: 0;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
 }
 
 .skills-list li.match::before {
@@ -264,25 +277,19 @@ textarea:focus {
   color: #e74c3c;
 }
 
-.skills-list li span,
-.recommendations-list li,
-.job-titles-list li {
-  font-size: 0.9rem;
-}
-
 .recommendations-list li {
   flex-direction: column;
   align-items: flex-start;
 }
 
 .recommendations-list li strong {
-  font-size: 1rem;
+  font-size: 1.2rem;
   color: var(--text-color);
   margin-bottom: 0.25rem;
 }
 
 .time-estimate {
-  font-size: 0.8rem;
+  font-size: 1rem;
   color: var(--text-color);
   font-style: italic;
 }
@@ -292,6 +299,7 @@ textarea:focus {
   flex-direction: column;
   padding: 0.75rem 0;
   border-bottom: 1px solid #eee;
+  font-size: 1.1rem;
 }
 
 .job-titles-list li:last-child {
@@ -301,12 +309,12 @@ textarea:focus {
 .job-title {
   font-weight: 600;
   color: var(--primary-color);
-  font-size: 1rem;
+  font-size: 1.3rem;
   margin-bottom: 0.25rem;
 }
 
 .job-explanation {
-  font-size: 0.9rem;
+  font-size: 1.1rem;
   color: var(--primary-light);
   margin-bottom: 0.5rem;
 }
@@ -319,7 +327,7 @@ textarea:focus {
   border-radius: 50px;
   cursor: pointer;
   transition: var(--transition);
-  font-size: 0.9rem;
+  font-size: 1rem;
   font-weight: 500;
   align-self: flex-start;
 }
@@ -343,6 +351,7 @@ textarea:focus {
 .optimization-category h4 {
   color: var(--primary-color);
   margin-bottom: 1rem;
+  font-size: 1.5rem;
 }
 
 .optimization-category ul {
@@ -354,6 +363,7 @@ textarea:focus {
   margin-bottom: 0.5rem;
   position: relative;
   padding-left: 1.5rem;
+  font-size: 1.1rem;
 }
 
 .optimization-category li::before {
@@ -381,36 +391,36 @@ textarea:focus {
   }
 
   .analyze-cv h2 {
-    font-size: 2rem;
+    font-size: 2.5rem;
   }
 
   .analyze-cv h3 {
-    font-size: 1.4rem;
+    font-size: 1.8rem;
   }
 
   .analyze-cv h4 {
-    font-size: 1.1rem;
+    font-size: 1.3rem;
   }
 
   .file-input-button {
     padding: 0.6rem 1.2rem;
-    font-size: 0.9rem;
+    font-size: 1rem;
   }
 
   textarea {
     padding: 0.75rem;
-    font-size: 0.9rem;
+    font-size: 1rem;
     min-height: 120px;
   }
 
   .primary-button,
   .secondary-button {
     padding: 0.6rem 1.2rem;
-    font-size: 0.9rem;
+    font-size: 1rem;
   }
 
   .percentage {
-    font-size: 1.8rem;
+    font-size: 2rem;
   }
 
   .progress-bar {
@@ -438,36 +448,36 @@ textarea:focus {
   }
 
   .analyze-cv h2 {
-    font-size: 1.8rem;
+    font-size: 2rem;
   }
 
   .analyze-cv h3 {
-    font-size: 1.3rem;
+    font-size: 1.5rem;
   }
 
   .analyze-cv h4 {
-    font-size: 1rem;
+    font-size: 1.2rem;
   }
 
   .file-input-button {
     padding: 0.5rem 1rem;
-    font-size: 0.8rem;
+    font-size: 0.9rem;
   }
 
   textarea {
     padding: 0.6rem;
-    font-size: 0.8rem;
+    font-size: 0.9rem;
     min-height: 100px;
   }
 
   .primary-button,
   .secondary-button {
     padding: 0.5rem 1rem;
-    font-size: 0.8rem;
+    font-size: 0.9rem;
   }
 
   .percentage {
-    font-size: 1.6rem;
+    font-size: 1.8rem;
   }
 
   .progress-bar {
