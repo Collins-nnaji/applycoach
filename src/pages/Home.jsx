@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import './Home.css';
@@ -33,198 +34,416 @@ function Home() {
   ]);
 
   const [scrollY, setScrollY] = useState(0);
+  const [activeSection, setActiveSection] = useState('hero');
 
-  useEffect(() => {
-    const handleScroll = () => setScrollY(window.scrollY);
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+  const handleScroll = useCallback(() => {
+    setScrollY(window.scrollY);
+    const sections = ['hero', 'cv-analysis', 'features', 'job-search', 'packages', 'resources', 'faq', 'subscription'];
+    const currentSection = sections.find(section => {
+      const element = document.getElementById(section);
+      if (element) {
+        const rect = element.getBoundingClientRect();
+        return rect.top <= 100 && rect.bottom >= 100;
+      }
+      return false;
+    });
+    if (currentSection) setActiveSection(currentSection);
   }, []);
 
-  const toggleFAQ = index => {
-    setFaq(faq.map((item, i) => {
-      if (i === index) {
-        item.open = !item.open;
-      } else {
-        item.open = false;
-      }
-      return item;
-    }));
-  };
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [handleScroll]);
+
+  const toggleFAQ = useCallback((index) => {
+    setFaq(prevFaq => prevFaq.map((item, i) => ({
+      ...item,
+      open: i === index ? !item.open : false
+    })));
+  }, []);
 
   return (
     <div className="home">
-      <Header />
+      <Header activeSection={activeSection} />
       <main className="main-content">
-        <section className="hero" style={{backgroundPositionY: scrollY * 0.5}}>
-          <div className="hero-content">
-            <h1 className="title">Welcome to Credolay</h1>
-            <p className="subtitle">
-              Your trusted partner for authentic career growth and strategic job placement.
-            </p>
-            <a href="#cv-analysis-section" className="cta-button">Try Our CV Analysis</a>
-          </div>
-        </section>
-
-        <section id="cv-analysis-section" className="cv-analysis-section">
-          <h2 className="section-title">Advanced CV Analysis Service</h2>
-          <div className="cv-analysis-content">
-            <img src={cvAnalysisPic} alt="CV Analysis" className="cv-analysis-image" />
-            <div className="cv-analysis-text">
-              <h3>Unlock Your Career Potential</h3>
-              <p>
-                Our advanced CV analysis service goes beyond traditional reviews. Using cutting-edge AI technology combined with expert human insight, we provide a comprehensive evaluation of your CV, tailored to your industry and career goals.
-              </p>
-              <h4>Why Choose Our CV Analysis?</h4>
-              <ul>
-                <li>In-depth assessment of your skills and experience</li>
-                <li>Personalized recommendations for improvement</li>
-                <li>Industry-specific insights and keyword optimization</li>
-                <li>ATS (Applicant Tracking System) compatibility check</li>
-                <li>Tailored job matches based on your CV content</li>
-              </ul>
-              <p>
-                For just £4 per month, you'll receive ongoing CV analysis and job matching services, keeping your professional profile up-to-date and aligned with the latest industry trends.
-              </p>
-              <a href="#subscription-signup" className="button">Start Your 7-Day Free Trial</a>
-            </div>
-          </div>
-        </section>
-
-        <section className="features-section">
-          <h2 className="section-title">Our Services</h2>
-          <div className="feature-item">
-            <img src={cvPic} alt="CV Review" className="feature-image" />
-            <div className="feature-text">
-              <h3>Authentic CV Enhancement</h3>
-              <p>
-                Our CIPD-qualified experts craft genuine, impactful CVs that highlight your unique strengths and experiences. We go beyond buzzwords to create a CV that truly represents you and resonates with employers.
-              </p>
-            </div>
-          </div>
-          <div className="feature-item">
-            <img src={linkedinPic} alt="LinkedIn Optimization" className="feature-image" />
-            <div className="feature-text">
-              <h3>Strategic LinkedIn Optimization</h3>
-              <p>
-                We enhance your LinkedIn profile to attract recruiters and hiring managers authentically. Our approach ensures your profile stands out without relying on AI-generated content that could harm your credibility.
-              </p>
-            </div>
-          </div>
-          <div className="feature-item">
-            <img src={onlinePresencePic} alt="Online Presence" className="feature-image" />
-            <div className="feature-text">
-              <h3>Holistic Online Presence</h3>
-              <p>
-                Our team improves your online visibility across platforms, ensuring a consistent and professional image. We focus on creating genuine content that showcases your expertise and appeals to potential employers.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        <section className="job-search-strategy-section">
-          <h2 className="section-title">Comprehensive Career Growth Strategy</h2>
-          <p>At Credolay, we offer more than just CV writing. Our team of CIPD-qualified HR professionals provides a holistic approach to your career development:</p>
-          <ul>
-            <li>Personalized job search planning based on current market trends</li>
-            <li>In-depth interview preparation with industry-specific mock interviews</li>
-            <li>Expert salary negotiation techniques</li>
-            <li>Long-term career path guidance</li>
-            <li>Effective networking strategies tailored to your industry</li>
-          </ul>
-          <div className="ai-warning">
-            <strong>Why avoid AI-generated content:</strong> While AI tools may seem convenient, they often produce generic, easily detectable content that can harm your application. Our human experts ensure your materials are authentic, ATS-friendly, and truly representative of your unique value.
-          </div>
-        </section>
-
-        <section className="packages-section" id="packages-section">
-          <h2 className="section-title">Our Packages</h2>
-          <div className="packages">
-            <div className="package">
-              <h3>Resume Enhancement</h3>
-              <ul>
-                <li>Professional resume review</li>
-                <li>ATS-friendly formatting</li>
-                <li>Keyword optimization</li>
-                <li>One round of revisions</li>
-              </ul>
-              <p className="price">£50</p>
-              <a href="https://buy.stripe.com/cN29CF7aMdJQ30AcMS" className="button">Get Started</a>
-            </div>
-            <div className="package featured">
-              <h3>Career Boost Package</h3>
-              <ul>
-                <li>Everything in Resume Enhancement</li>
-                <li>LinkedIn profile optimization</li>
-                <li>Cover letter template</li>
-                <li>Two rounds of revisions</li>
-              </ul>
-              <p className="price">£150</p>
-              <a href="https://buy.stripe.com/bIYaGJ52EcFMdFe007" className="button">Choose This Package</a>
-            </div>
-            <div className="package">
-              <h3>Executive Presence</h3>
-              <ul>
-                <li>Everything in Career Boost Package</li>
-                <li>Personal branding strategy</li>
-                <li>2 tailored articles for publication</li>
-                <li>5 optimized LinkedIn posts</li>
-                <li>Interview coaching session</li>
-              </ul>
-              <p className="price">£300</p>
-              <a href="https://buy.stripe.com/6oEcORcv6bBIcBaaEM" className="button">Elevate Your Career</a>
-            </div>
-          </div>
-        </section>
-
-        <section className="resources-section">
-          <h2 className="section-title">Free Career Resources</h2>
-          <div className="resources">
-            <div className="resource">
-              <img src={resourcePic} alt="Authentic Resume Writing Guide" className="resource-image" />
-              <p className="resource-title">Authentic Resume Writing Guide</p>
-              <a href="/resume-writing-guide.pdf" className="button" download>Download</a>
-            </div>
-            <div className="resource">
-              <img src={resourcePic} alt="LinkedIn Optimization Checklist" className="resource-image" />
-              <p className="resource-title">LinkedIn Optimization Checklist</p>
-              <a href="/linkedin-checklist.pdf" className="button" download>Download</a>
-            </div>
-            <div className="resource">
-              <img src={resourcePic} alt="Comprehensive Interview Guide" className="resource-image" />
-              <p className="resource-title">Comprehensive Interview Guide</p>
-              <a href="/interview-guide.pdf" className="button" download>Download</a>
-            </div>
-          </div>
-        </section>
-
-        <section className="faq-section">
-          <h2 className="section-title">Frequently Asked Questions</h2>
-          <div className="faq-list">
-            {faq.map((item, index) => (
-              <div key={index} className={`faq-item ${item.open ? 'open' : ''}`} onClick={() => toggleFAQ(index)}>
-                <h3>{item.question}</h3>
-                <p>{item.answer}</p>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        <section className="subscription-signup" id="subscription-signup">
-          <h2 className="section-title">Start Your Journey to Career Success</h2>
-          <p>Subscribe now to access our advanced CV analysis and job matching services for just £4 per month.</p>
-          <ul className="subscription-benefits">
-            <li>Unlimited CV analyses</li>
-            <li>Personalized job matches</li>
-            <li>Regular career insights and tips</li>
-            <li>Priority customer support</li>
-          </ul>
-          <a href="/subscribe" className="cta-button">Start Your 7-Day Free Trial</a>
-          <p className="subscription-note">No commitment required. Cancel anytime.</p>
-        </section>
+        <HeroSection scrollY={scrollY} />
+        <CVAnalysisSection />
+        <FeaturesSection />
+        <JobSearchStrategySection />
+        <PackagesSection />
+        <ResourcesSection />
+        <FAQSection faq={faq} toggleFAQ={toggleFAQ} />
+        <SubscriptionSignup />
       </main>
       <Footer />
     </div>
   );
 }
+
+const HeroSection = ({ scrollY }) => (
+  <motion.section 
+    id="hero"
+    className="hero" 
+    style={{backgroundPositionY: scrollY * 0.5}}
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
+    transition={{ duration: 0.5 }}
+  >
+    <div className="hero-content">
+      <div className="hero-text">
+        <motion.h1 
+          className="title"
+          initial={{ y: -50, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ delay: 0.2, duration: 0.5 }}
+        >
+          <span className="purple">Enhance</span> Your Profile<br/>
+          <span className="purple">Achieve</span> Your Professional Goals<br/>
+          <span className="purple">Secure</span> the Perfect Job
+        </motion.h1>
+        <motion.p 
+          className="subtitle"
+          initial={{ y: 50, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ delay: 0.4, duration: 0.5 }}
+        >
+          Expert-driven career services tailored for the modern professional
+        </motion.p>
+      </div>
+      <div className="cta-container">
+        <motion.a 
+          href="#cv-analysis-section" 
+          className="cta-button"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.6, duration: 0.5 }}
+        >
+          Try Our CV Analysis
+        </motion.a>
+      </div>
+    </div>
+  </motion.section>
+);
+
+const CVAnalysisSection = () => (
+  <section id="cv-analysis" className="cv-analysis-section">
+    <h2 className="section-title">Advanced CV Analysis Service</h2>
+    <div className="cv-analysis-content">
+      <motion.img 
+        src={cvAnalysisPic} 
+        alt="CV Analysis" 
+        className="cv-analysis-image"
+        whileHover={{ scale: 1.05 }}
+        transition={{ duration: 0.3 }}
+      />
+      <div className="cv-analysis-text">
+        <h3>Unlock Your Career Potential</h3>
+        <p>
+          Our advanced CV analysis service goes beyond traditional reviews. Using cutting-edge AI technology combined with expert human insight, we provide a comprehensive evaluation of your CV, tailored to your industry and career goals.
+        </p>
+        <h4>Why Choose Our CV Analysis?</h4>
+        <ul>
+          <li>In-depth assessment of your skills and experience</li>
+          <li>Personalized recommendations for improvement</li>
+          <li>Industry-specific insights and keyword optimization</li>
+          <li>ATS (Applicant Tracking System) compatibility check</li>
+          <li>Tailored job matches based on your CV content</li>
+        </ul>
+        <p>
+          For just £4 per month, you'll receive ongoing CV analysis and job matching services, keeping your professional profile up-to-date and aligned with the latest industry trends.
+        </p>
+        <motion.a 
+          href="#subscription-signup" 
+          className="button"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          Start Your 7-Day Free Trial
+        </motion.a>
+      </div>
+    </div>
+  </section>
+);
+const FeaturesSection = () => (
+  <section id="features" className="features-section">
+    <h2 className="section-title">Our Services</h2>
+    <FeatureItem 
+      image={cvPic} 
+      alt="CV Review" 
+      title="Tailored CV Enhancement"
+      description="Our CIPD-qualified experts craft genuine, impactful CVs that highlight your unique strengths and experiences. We go beyond buzzwords to create a CV that truly represents you and resonates with employers."
+    />
+    <FeatureItem 
+      image={linkedinPic} 
+      alt="LinkedIn Optimization" 
+      title="Effective LinkedIn Profile Boost"
+      description="We enhance your LinkedIn profile to attract recruiters and hiring managers authentically. Our approach ensures your profile stands out without relying on AI-generated content that could harm your credibility."
+      reverse
+    />
+    <FeatureItem 
+      image={onlinePresencePic} 
+      alt="Online Presence" 
+      title="Holistic Online Presence"
+      description="Our team improves your online visibility across platforms, ensuring a consistent and professional image. We focus on creating genuine content that showcases your expertise and appeals to potential employers."
+    />
+  </section>
+);
+
+const FeatureItem = ({ image, alt, title, description, reverse }) => (
+  <motion.div 
+    className={`feature-item ${reverse ? 'reverse' : ''}`}
+    initial={{ opacity: 0, y: 50 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true, amount: 0.3 }}
+    transition={{ duration: 0.5 }}
+  >
+    <motion.img 
+      src={image} 
+      alt={alt} 
+      className="feature-image"
+      whileHover={{ scale: 1.05 }}
+      transition={{ duration: 0.3 }}
+    />
+    <div className="feature-text">
+      <h3>{title}</h3>
+      <p>{description}</p>
+    </div>
+  </motion.div>
+);
+
+const JobSearchStrategySection = () => (
+  <section id="job-search" className="job-search-strategy-section">
+    <h2 className="section-title">Comprehensive Career Growth Strategy</h2>
+    <p>At Credolay, we offer more than just CV writing. Our team of CIPD-qualified HR professionals provides a holistic approach to your career development:</p>
+    <motion.ul
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.3 }}
+      transition={{ duration: 0.5, staggerChildren: 0.1 }}
+    >
+      <motion.li variants={{ hidden: { opacity: 0, y: 10 }, visible: { opacity: 1, y: 0 } }}>
+        Personalized job search planning based on current market trends
+      </motion.li>
+      <motion.li variants={{ hidden: { opacity: 0, y: 10 }, visible: { opacity: 1, y: 0 } }}>
+        In-depth interview preparation with industry-specific mock interviews
+      </motion.li>
+      <motion.li variants={{ hidden: { opacity: 0, y: 10 }, visible: { opacity: 1, y: 0 } }}>
+        Expert salary negotiation techniques
+      </motion.li>
+      <motion.li variants={{ hidden: { opacity: 0, y: 10 }, visible: { opacity: 1, y: 0 } }}>
+        Long-term career path guidance
+      </motion.li>
+      <motion.li variants={{ hidden: { opacity: 0, y: 10 }, visible: { opacity: 1, y: 0 } }}>
+        Effective networking strategies tailored to your industry
+      </motion.li>
+    </motion.ul>
+    <motion.div 
+      className="ai-warning"
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.3 }}
+      transition={{ duration: 0.5 }}
+    >
+      <strong>Why avoid AI-generated content:</strong> While AI tools may seem convenient, they often produce generic, easily detectable content that can harm your application. Our human experts ensure your materials are authentic, ATS-friendly, and truly representative of your unique value.
+    </motion.div>
+  </section>
+);
+
+const PackagesSection = () => (
+  <section id="packages" className="packages-section">
+    <h2 className="section-title">Our Packages</h2>
+    <div className="packages">
+      <PackageCard
+        title="Resume Enhancement"
+        features={[
+          "Professional resume review",
+          "ATS-friendly formatting",
+          "Keyword optimization",
+          "One round of revisions"
+        ]}
+        price="£50"
+        link="https://buy.stripe.com/cN29CF7aMdJQ30AcMS"
+        buttonText="Get Started"
+      />
+      <PackageCard
+        title="Career Boost Package"
+        features={[
+          "Everything in Resume Enhancement",
+          "LinkedIn profile optimization",
+          "Cover letter template",
+          "Two rounds of revisions"
+        ]}
+        price="£150"
+        link="https://buy.stripe.com/bIYaGJ52EcFMdFe007"
+        buttonText="Choose This Package"
+        featured
+      />
+      <PackageCard
+        title="Executive Presence"
+        features={[
+          "Everything in Career Boost Package",
+          "Personal branding strategy",
+          "2 tailored articles for publication",
+          "5 optimized LinkedIn posts",
+          "Interview coaching session"
+        ]}
+        price="£300"
+        link="https://buy.stripe.com/6oEcORcv6bBIcBaaEM"
+        buttonText="Elevate Your Career"
+      />
+    </div>
+  </section>
+);
+
+const PackageCard = ({ title, features, price, link, buttonText, featured }) => (
+  <motion.div 
+    className={`package ${featured ? 'featured' : ''}`}
+    initial={{ opacity: 0, y: 50 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true, amount: 0.3 }}
+    transition={{ duration: 0.5 }}
+    whileHover={{ y: -10 }}
+  >
+    <h3>{title}</h3>
+    <ul>
+      {features.map((feature, index) => (
+        <li key={index}>{feature}</li>
+      ))}
+    </ul>
+    <p className="price">{price}</p>
+    <motion.a 
+      href={link} 
+      className="button"
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.95 }}
+    >
+      {buttonText}
+    </motion.a>
+  </motion.div>
+);
+
+const ResourcesSection = () => (
+  <section id="resources" className="resources-section">
+    <h2 className="section-title">Free Career Resources</h2>
+    <div className="resources">
+      <ResourceCard
+        image={resourcePic}
+        alt="Authentic Resume Writing Guide"
+        title="Authentic Resume Writing Guide"
+        downloadLink="/resume-writing-guide.pdf"
+      />
+      <ResourceCard
+        image={resourcePic}
+        alt="LinkedIn Optimization Checklist"
+        title="LinkedIn Optimization Checklist"
+        downloadLink="/linkedin-checklist.pdf"
+      />
+      <ResourceCard
+        image={resourcePic}
+        alt="Comprehensive Interview Guide"
+        title="Comprehensive Interview Guide"
+        downloadLink="/interview-guide.pdf"
+      />
+    </div>
+  </section>
+);
+
+const ResourceCard = ({ image, alt, title, downloadLink }) => (
+  <motion.div 
+    className="resource"
+    initial={{ opacity: 0, y: 50 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true, amount: 0.3 }}
+    transition={{ duration: 0.5 }}
+    whileHover={{ y: -10 }}
+  >
+    <motion.img 
+      src={image} 
+      alt={alt} 
+      className="resource-image"
+      whileHover={{ scale: 1.05 }}
+      transition={{ duration: 0.3 }}
+    />
+    <p className="resource-title">{title}</p>
+    <motion.a 
+      href={downloadLink} 
+      className="button" 
+      download
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.95 }}
+    >
+      Download
+    </motion.a>
+  </motion.div>
+);
+
+const FAQSection = ({ faq, toggleFAQ }) => (
+  <section id="faq" className="faq-section">
+    <h2 className="section-title">Frequently Asked Questions</h2>
+    <div className="faq-list">
+      <AnimatePresence>
+        {faq.map((item, index) => (
+          <motion.div 
+            key={index} 
+            className={`faq-item ${item.open ? 'open' : ''}`} 
+            onClick={() => toggleFAQ(index)}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3, delay: index * 0.1 }}
+          >
+            <h3>{item.question}</h3>
+            <AnimatePresence>
+              {item.open && (
+                <motion.p
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: 'auto' }}
+                  exit={{ opacity: 0, height: 0 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  {item.answer}
+                </motion.p>
+              )}
+            </AnimatePresence>
+          </motion.div>
+        ))}
+      </AnimatePresence>
+    </div>
+  </section>
+);
+
+const SubscriptionSignup = () => (
+  <section id="subscription" className="subscription-signup">
+    <h2 className="section-title">Start Your Journey to Career Success</h2>
+    <p>Subscribe now to access our advanced CV analysis and job matching services for just £4 per month.</p>
+    <motion.ul 
+      className="subscription-benefits"
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.3 }}
+      transition={{ duration: 0.5, staggerChildren: 0.1 }}
+    >
+      <motion.li variants={{ hidden: { opacity: 0, y: 10 }, visible: { opacity: 1, y: 0 } }}>
+        Unlimited CV analysis
+      </motion.li>
+      <motion.li variants={{ hidden: { opacity: 0, y: 10 }, visible: { opacity: 1, y: 0 } }}>
+        Personalized job matches
+      </motion.li>
+      <motion.li variants={{ hidden: { opacity: 0, y: 10 }, visible: { opacity: 1, y: 0 } }}>
+        Career insights and tips
+      </motion.li>
+    </motion.ul>
+    <motion.a 
+      href="/subscribe" 
+      className="cta-button"
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.95 }}
+    >
+      Start Your 7-Day Free Trial
+    </motion.a>
+    <p className="subscription-note">No commitment required. Cancel anytime.</p>
+  </section>
+);
 
 export default Home;
