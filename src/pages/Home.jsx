@@ -6,7 +6,6 @@ import './Home.css';
 import linkedinPic from '../assets/Linkedinpic.jpg';
 import onlinePresencePic from '../assets/OnlinePresencepic.jpg';
 import cvPic from '../assets/CVpic.jpg';
-import resourcePic from '../assets/Resourcepic.jpg';
 import cvAnalysisPic from '../assets/CVAnalysispic.jpg';
 
 function Home() {
@@ -71,7 +70,6 @@ function Home() {
         <FeaturesSection />
         <JobSearchStrategySection />
         <PackagesSection />
-        <ResourcesSection />
         <FAQSection faq={faq} toggleFAQ={toggleFAQ} />
 
       </main>
@@ -208,7 +206,7 @@ const FeatureItem = ({ image, alt, title, description, reverse }) => (
     />
     <div className="feature-text">
       <h3>{title}</h3>
-      <p>{description}</p>
+      <p className="feature-description">{description}</p>
     </div>
   </motion.div>
 );
@@ -324,60 +322,6 @@ const PackageCard = ({ title, features, price, link, buttonText, featured }) => 
   </motion.div>
 );
 
-const ResourcesSection = () => (
-  <section id="resources" className="resources-section">
-    <h2 className="section-title">Free Career Resources</h2>
-    <div className="resources">
-      <ResourceCard
-        image={resourcePic}
-        alt="Authentic Resume Writing Guide"
-        title="Authentic Resume Writing Guide"
-        downloadLink="/resume-writing-guide.pdf"
-      />
-      <ResourceCard
-        image={resourcePic}
-        alt="LinkedIn Optimization Checklist"
-        title="LinkedIn Optimization Checklist"
-        downloadLink="/linkedin-checklist.pdf"
-      />
-      <ResourceCard
-        image={resourcePic}
-        alt="Comprehensive Interview Guide"
-        title="Comprehensive Interview Guide"
-        downloadLink="/interview-guide.pdf"
-      />
-    </div>
-  </section>
-);
-
-const ResourceCard = ({ image, alt, title, downloadLink }) => (
-  <motion.div 
-    className="resource"
-    initial={{ opacity: 0, y: 50 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true, amount: 0.3 }}
-    transition={{ duration: 0.5 }}
-    whileHover={{ y: -10 }}
-  >
-    <motion.img 
-      src={image} 
-      alt={alt} 
-      className="resource-image"
-      whileHover={{ scale: 1.05 }}
-      transition={{ duration: 0.3 }}
-    />
-    <p className="resource-title">{title}</p>
-    <motion.a 
-      href={downloadLink} 
-      className="button" 
-      download
-      whileHover={{ scale: 1.05 }}
-      whileTap={{ scale: 0.95 }}
-    >
-      Download
-    </motion.a>
-  </motion.div>
-);
 
 const FAQSection = ({ faq, toggleFAQ }) => (
   <section id="faq" className="faq-section">
