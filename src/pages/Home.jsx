@@ -110,7 +110,7 @@ const HeroSection = ({ scrollY }) => (
       </div>
       <div className="cta-container">
         <motion.a 
-          href="#cv-analysis-section" 
+          href="/analyze-cv" 
           className="cta-button"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}

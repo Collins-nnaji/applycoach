@@ -135,8 +135,8 @@ const AnalyzeCV = () => {
                   onChange={handleFileChange}
                   id="cv-upload"
                 />
-                <label htmlFor="cv-upload" className="file-input-button">
-                  Choose CV File
+                <label htmlFor="cv-upload" className={`file-input-button ${resumeFile ? 'file-selected' : ''}`}>
+                  {resumeFile ? 'CV Uploaded' : 'Choose CV File'}
                 </label>
                 {resumeFile && <div className="file-name">{resumeFile.name}</div>}
               </div>
@@ -146,8 +146,15 @@ const AnalyzeCV = () => {
                 onChange={(e) => setJobDescription(e.target.value)}
                 rows={5}
               />
-              <button onClick={handleAnalyze} disabled={loading} className="primary-button">
-                {loading ? 'Analyzing...' : 'Analyze'}
+              <button onClick={handleAnalyze} disabled={loading} className={`primary-button ${loading ? 'loading' : ''}`}>
+                {loading ? (
+                  <>
+                    <span className="loading-spinner"></span>
+                    Analyzing...
+                  </>
+                ) : (
+                  'Analyze'
+                )}
               </button>
             </div>
 

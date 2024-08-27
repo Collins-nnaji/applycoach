@@ -102,13 +102,20 @@ body, button, input, select, textarea {
 .file-input-button:hover {
   background-color: var(--hover-background);
 }
-
+.file-input-button.file-selected {
+  background-color: #27ae60;
+}
 .file-name {
   margin-top: 0.5rem;
   font-size: 1.1rem;
   color: var(--text-color);
+  font-weight: 600;
+  animation: fadeIn 0.5s ease-out;
 }
-
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
 textarea {
   width: 100%;
   padding: 1rem;
@@ -147,6 +154,29 @@ textarea:focus {
 .primary-button {
   background-color: var(--button-background);
   color: var(--button-text);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Add these new classes for the loading state */
+.primary-button.loading {
+  background-color: var(--hover-background);
+  cursor: not-allowed;
+}
+
+.loading-spinner {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: #ffffff;
+  animation: spin 1s ease-in-out infinite;
+  margin-right: 10px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
 }
 
 .secondary-button {
