@@ -14,9 +14,3 @@ export const msalConfig = {
 export const loginRequest = {
   scopes: ["openid", "profile", "offline_access", "https://credolay.onmicrosoft.com/524dd1a6-c123-4ce9-aaf8-89149eefd9fb/profile.read"]
 };
-
-// Add this new configuration for sign-up
-export const signUpRequest = {
-  ...loginRequest,
-  prompt: 'create',
-};

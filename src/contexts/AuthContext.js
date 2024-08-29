@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { useMsal } from "@azure/msal-react";
-import { loginRequest, signUpRequest } from "../config/msal-config";
+import { loginRequest, msalConfig } from "../config/msal-config";
 
 const AuthContext = createContext();
 
@@ -19,31 +19,28 @@ export const AuthProvider = ({ children }) => {
     }
   }, [accounts]);
 
-  const login = async () => {
+  const handleAuth = async (isLogin) => {
     try {
       const result = await instance.loginPopup(loginRequest);
-      console.log("Login result:", result);
+      console.log(`${isLogin ? 'Login' : 'Signup'} result:`, result);
+      setUser({
+        name: result.account.name,
+        username: result.account.username,
+      });
       return result;
     } catch (error) {
-      console.error("Login failed", error);
+      console.error(`${isLogin ? 'Login' : 'Signup'} failed`, error);
       throw error;
     }
   };
 
-  const signup = async () => {
-    try {
-      const result = await instance.loginPopup(signUpRequest);
-      console.log("Signup result:", result);
-      return result;
-    } catch (error) {
-      console.error("Signup failed", error);
-      throw error;
-    }
-  };
+  const login = () => handleAuth(true);
+  const signup = () => handleAuth(false);
 
   const logout = async () => {
     try {
       await instance.logoutPopup();
+      setUser(null);
     } catch (error) {
       console.error("Logout failed", error);
     }

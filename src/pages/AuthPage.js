@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useMsal } from "@azure/msal-react";
 import { useAuth } from '../contexts/AuthContext';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -11,31 +10,20 @@ const AuthPage = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [error, setError] = useState('');
   const navigate = useNavigate();
-  const { login, signup } = useAuth();
-  const { accounts } = useMsal();
+  const { user, login, signup } = useAuth();
 
   useEffect(() => {
-    if (accounts.length > 0) {
+    if (user) {
       navigate('/profile');
     }
-  }, [accounts, navigate]);
+  }, [user, navigate]);
 
-  const handleAuth = async (e) => {
-    e.preventDefault();
+  const handleAuth = async () => {
     setError('');
-
     try {
-      let result;
-      if (isLogin) {
-        result = await login();
-      } else {
-        result = await signup();
-      }
-
-      if (result) {
-        console.log(`${isLogin ? 'Login' : 'Signup'} successful:`, result);
-        navigate('/profile');
-      }
+      const authFunction = isLogin ? login : signup;
+      await authFunction();
+      navigate('/profile');
     } catch (err) {
       console.error('Authentication error:', err);
       setError(`Failed to ${isLogin ? 'login' : 'sign up'}. ${err.message || 'Please try again.'}`);
