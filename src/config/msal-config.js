@@ -1,16 +1,16 @@
 export const msalConfig = {
   auth: {
-    clientId: "524dd1a6-c123-4ce9-aaf8-89149eefd9fb",
-    authority: "https://credolay.b2clogin.com/credolay.onmicrosoft.com/B2C_1_signupsignin",
-    knownAuthorities: ["credolay.b2clogin.com"],
+    clientId: process.env.REACT_APP_CLIENT_ID,
+    authority: `https://${process.env.REACT_APP_B2C_TENANT_NAME}.b2clogin.com/${process.env.REACT_APP_B2C_TENANT_NAME}.onmicrosoft.com/${process.env.REACT_APP_B2C_POLICY}`,
+    knownAuthorities: [`${process.env.REACT_APP_B2C_TENANT_NAME}.b2clogin.com`],
     redirectUri: "https://credolay.com/auth",
   },
-  cache: {
+ cache: {
     cacheLocation: "sessionStorage",
     storeAuthStateInCookie: false,
   },
 };
 
 export const loginRequest = {
-  scopes: ["openid", "profile", "offline_access", "https://credolay.onmicrosoft.com/524dd1a6-c123-4ce9-aaf8-89149eefd9fb/profile.read"]
+  scopes: ["openid", "profile", "offline_access", `https://${process.env.REACT_APP_B2C_TENANT_NAME}.onmicrosoft.com/api/user.read`, `https://${process.env.REACT_APP_B2C_TENANT_NAME}.onmicrosoft.com/api/user.write`]
 };

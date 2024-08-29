@@ -1,17 +1,16 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { useAuth } from '../contexts/AuthContext';
+import { useMsal } from "@azure/msal-react";
+import { loginRequest } from "../config/msal-config";
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { User, Mail, Briefcase, BookOpen, Save, X } from 'lucide-react';
 import './Profile.css';
 
-const API_URL = 'https://credolay-profilebackend.vercel.app';
-
 const Profile = () => {
-  const { user, getAccessToken, logout } = useAuth();
+  const { instance, accounts } = useMsal();
   const [profile, setProfile] = useState({
     name: '',
-    email: user?.username || '',
+    email: '',
     jobTitle: '',
     bio: '',
   });
@@ -23,43 +22,30 @@ const Profile = () => {
   const fetchProfile = useCallback(async () => {
     setIsLoading(true);
     try {
-      const token = await getAccessToken();
-      if (!token) {
-        setError('Unable to acquire access token. Please try logging in again.');
-        return;
-      }
+      if (accounts.length > 0) {
+        const response = await instance.acquireTokenSilent({
+          ...loginRequest,
+          account: accounts[0]
+        });
 
-      const response = await fetch(`${API_URL}/api/profile`, {
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      });
-
-      if (response.ok) {
-        const profileData = await response.json();
-        setProfile(prevProfile => ({
-          ...prevProfile,
-          ...profileData,
-          email: user?.username || '', // Ensure email is always set
-        }));
-        setError('');
-      } else {
-        const errorData = await response.json();
-        console.error('Failed to fetch profile:', errorData);
-        setError(`Failed to fetch profile: ${errorData.error || response.statusText}`);
+        setProfile({
+          name: response.account.name,
+          email: response.account.username,
+          jobTitle: response.idTokenClaims.jobTitle || '',
+          bio: response.idTokenClaims.bio || '',
+        });
       }
     } catch (error) {
       console.error('Error fetching profile:', error);
-      setError(`An error occurred while fetching your profile: ${error.message}`);
+      setError('Failed to fetch profile. Please try again.');
     } finally {
       setIsLoading(false);
     }
-  }, [getAccessToken, user]);
+  }, [accounts, instance]);
 
   useEffect(() => {
     fetchProfile();
   }, [fetchProfile]);
-
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -73,30 +59,49 @@ const Profile = () => {
     e.preventDefault();
     setIsSaving(true);
     try {
-      const token = await getAccessToken();
-      if (!token) {
-        setError('Unable to authenticate. Please try logging in again.');
-        return;
-      }
+      const token = await instance.acquireTokenSilent(loginRequest);
 
-      const response = await fetch(`${API_URL}/api/profile`, {
+      const response = await fetch(`https://${process.env.REACT_APP_B2C_TENANT_NAME}.b2clogin.com/${process.env.REACT_APP_B2C_TENANT_NAME}.onmicrosoft.com/${process.env.REACT_APP_B2C_POLICY}/oauth2/v2.0/token`, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
+          'Content-Type': 'application/x-www-form-urlencoded',
         },
-        body: JSON.stringify(profile)
+        body: new URLSearchParams({
+          grant_type: 'urn:ietf:params:oauth:grant-type:jwt-bearer',
+          client_id: process.env.REACT_APP_CLIENT_ID,
+          scope: 'https://graph.microsoft.com/.default',
+          assertion: token.accessToken,
+          requested_token_use: 'on_behalf_of',
+          client_secret: process.env.REACT_APP_CLIENT_SECRET,
+        })
       });
 
-      if (response.ok) {
-        setIsEditing(false);
-        setError('');
-        // Refresh the profile to ensure we have the latest data
-        fetchProfile();
-      } else {
-        console.error('Failed to update profile');
-        setError('Failed to update profile. Please try again.');
+      if (!response.ok) {
+        throw new Error('Failed to acquire Graph token');
       }
+
+      const data = await response.json();
+      const graphToken = data.access_token;
+
+      const graphResponse = await fetch(`https://graph.microsoft.com/v1.0/me`, {
+        method: 'PATCH',
+        headers: {
+          'Authorization': `Bearer ${graphToken}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          jobTitle: profile.jobTitle,
+          aboutMe: profile.bio,
+        })
+      });
+
+      if (!graphResponse.ok) {
+        throw new Error('Failed to update profile');
+      }
+
+      setIsEditing(false);
+      setError('');
+      fetchProfile();
     } catch (error) {
       console.error('Error updating profile:', error);
       setError('An error occurred while updating your profile.');
@@ -141,6 +146,7 @@ const Profile = () => {
                     value={profile.name}
                     onChange={handleChange}
                     required
+                    readOnly
                   />
                 </div>
                 <div className="form-group">
@@ -211,7 +217,6 @@ const Profile = () => {
             )}
           </div>
         </div>
-        <button onClick={logout} className="logout-btn">Logout</button>
       </main>
       <Footer />
     </div>
