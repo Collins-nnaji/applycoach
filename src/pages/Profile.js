@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { useMsal } from "@azure/msal-react";
 import { useAuth } from '../contexts/AuthContext';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -9,34 +8,19 @@ import './Profile.css';
 const API_URL = 'https://credolay-profilebackend.vercel.app';
 
 const Profile = () => {
-  const { instance, accounts } = useMsal();
-  const { user } = useAuth();
+  const { user, getAccessToken, logout } = useAuth();
   const [profile, setProfile] = useState({
     name: '',
-    email: user?.email || '',
+    email: user?.username || '',
     jobTitle: '',
     bio: '',
   });
   const [isEditing, setIsEditing] = useState(false);
   const [error, setError] = useState('');
 
-  const getToken = useCallback(async (scope) => {
-    try {
-      const token = await instance.acquireTokenSilent({
-        scopes: [scope],
-        account: accounts[0]
-      });
-      return token.accessToken;
-    } catch (error) {
-      console.error('Error acquiring token:', error);
-      setError('Failed to authenticate. Please try logging in again.');
-      return null;
-    }
-  }, [instance, accounts]);
-
   const fetchProfile = useCallback(async () => {
     try {
-      const token = await getToken("profile.read");
+      const token = await getAccessToken();
       if (!token) return;
 
       const response = await fetch(`${API_URL}/api/profile`, {
@@ -59,7 +43,7 @@ const Profile = () => {
       console.error('Error fetching profile:', error);
       setError('An error occurred while fetching your profile.');
     }
-  }, [getToken]);
+  }, [getAccessToken]);
 
   useEffect(() => {
     fetchProfile();
@@ -76,7 +60,7 @@ const Profile = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const token = await getToken("profile.write");
+      const token = await getAccessToken();
       if (!token) return;
 
       const response = await fetch(`${API_URL}/api/profile`, {
@@ -116,6 +100,7 @@ const Profile = () => {
               Edit Profile
             </button>
           )}
+          <button onClick={logout} className="logout-btn">Logout</button>
         </div>
         <div className="profile-body">
           {isEditing ? (
