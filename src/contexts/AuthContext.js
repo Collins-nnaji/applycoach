@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { useMsal } from "@azure/msal-react";
-import { loginRequest, msalConfig } from "../config/msal-config";
+import { loginRequest } from "../config/msal-config";
 
 const AuthContext = createContext();
 
