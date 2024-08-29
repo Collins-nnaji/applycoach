@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './AnalyzeCV.css';
 import Header from '../components/Header';
+import Footer from '../components/Footer';
 import { useAppContext } from '../contexts/AppContext';
 
 const API_URL = 'https://credolaygptbackend.azurewebsites.net';
@@ -249,6 +250,7 @@ const AnalyzeCV = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </>
   );
 };
