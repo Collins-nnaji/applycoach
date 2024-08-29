@@ -1,11 +1,11 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { useMsal } from "@azure/msal-react";
-import { loginRequest } from "../config/msal-config";
+import { loginRequest, signUpRequest } from "../config/msal-config";
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const { instance, accounts, inProgress } = useMsal();
+  const { instance, accounts } = useMsal();
   const [user, setUser] = useState(null);
 
   useEffect(() => {
@@ -21,20 +21,23 @@ export const AuthProvider = ({ children }) => {
 
   const login = async () => {
     try {
-      await instance.loginPopup(loginRequest);
+      const result = await instance.loginPopup(loginRequest);
+      console.log("Login result:", result);
+      return result;
     } catch (error) {
       console.error("Login failed", error);
+      throw error;
     }
   };
 
   const signup = async () => {
     try {
-      await instance.loginPopup({
-        ...loginRequest,
-        prompt: 'create',
-      });
+      const result = await instance.loginPopup(signUpRequest);
+      console.log("Signup result:", result);
+      return result;
     } catch (error) {
       console.error("Signup failed", error);
+      throw error;
     }
   };
 
@@ -60,7 +63,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, signup, logout, getAccessToken, inProgress }}>
+    <AuthContext.Provider value={{ user, login, signup, logout, getAccessToken }}>
       {children}
     </AuthContext.Provider>
   );

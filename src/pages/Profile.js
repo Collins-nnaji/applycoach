@@ -25,7 +25,7 @@ const Profile = () => {
     try {
       const token = await getAccessToken();
       if (!token) {
-        setError('Unable to authenticate. Please try logging in again.');
+        setError('Unable to acquire access token. Please try logging in again.');
         return;
       }
 
@@ -44,12 +44,13 @@ const Profile = () => {
         }));
         setError('');
       } else {
-        console.error('Failed to fetch profile');
-        setError('Failed to fetch profile. Please try again.');
+        const errorData = await response.json();
+        console.error('Failed to fetch profile:', errorData);
+        setError(`Failed to fetch profile: ${errorData.error || response.statusText}`);
       }
     } catch (error) {
       console.error('Error fetching profile:', error);
-      setError('An error occurred while fetching your profile.');
+      setError(`An error occurred while fetching your profile: ${error.message}`);
     } finally {
       setIsLoading(false);
     }
@@ -58,6 +59,7 @@ const Profile = () => {
   useEffect(() => {
     fetchProfile();
   }, [fetchProfile]);
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
