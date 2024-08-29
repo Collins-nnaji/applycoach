@@ -37,10 +37,18 @@ const AuthPage = () => {
     }
 
     try {
-      const result = await instance.loginPopup({
-        ...loginRequest,
-        prompt: isLogin ? "select_account" : "create",
-      });
+      let result;
+      if (isLogin) {
+        result = await instance.loginPopup(loginRequest);
+      } else {
+        // For sign-up, we use a specific request object
+        const signUpRequest = {
+          ...loginRequest,
+          prompt: 'create',
+        };
+        result = await instance.loginPopup(signUpRequest);
+      }
+
       if (result) {
         login({ email: result.account.username });
         navigate('/profile');
