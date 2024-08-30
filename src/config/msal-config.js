@@ -1,10 +1,11 @@
-// msal-config.js
+import { PublicClientApplication } from "@azure/msal-browser";
+
 export const msalConfig = {
   auth: {
     clientId: process.env.REACT_APP_CLIENT_ID,
     authority: `https://${process.env.REACT_APP_B2C_TENANT_NAME}.b2clogin.com/${process.env.REACT_APP_B2C_TENANT_NAME}.onmicrosoft.com/${process.env.REACT_APP_B2C_POLICY}`,
     knownAuthorities: [`${process.env.REACT_APP_B2C_TENANT_NAME}.b2clogin.com`],
-    redirectUri: "https://credolay.com/auth",
+    redirectUri: window.location.origin,
   },
   cache: {
     cacheLocation: "sessionStorage",
@@ -30,3 +31,5 @@ export const b2cPolicies = {
     }
   }
 };
+
+export const msalInstance = new PublicClientApplication(msalConfig);

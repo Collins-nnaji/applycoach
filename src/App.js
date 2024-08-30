@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route, useLocation, useNavigate } from
 import { Helmet } from 'react-helmet';
 import { MsalProvider, MsalAuthenticationTemplate, useMsal } from "@azure/msal-react";
 import { PublicClientApplication, EventType } from "@azure/msal-browser";
-import { msalConfig, b2cPolicies } from "./config/msal-config";
+import { msalConfig, b2cPolicies, loginRequest } from "./config/msal-config";
 import { AppProvider } from './contexts/AppContext';
 import { AuthProvider } from './contexts/AuthContext';
 import Home from './pages/Home';
@@ -67,10 +67,6 @@ const App = () => {
     initGA('G-7S4ETVNPPJ');
   }, []);
 
-  const authRequest = {
-    scopes: ["openid", "profile"]
-  };
-
   return (
     <MsalProvider instance={msalInstance}>
       <AuthProvider>
@@ -92,7 +88,7 @@ const App = () => {
                   element={
                     <MsalAuthenticationTemplate 
                       interactionType="redirect" 
-                      authenticationRequest={authRequest}
+                      authenticationRequest={loginRequest}
                     >
                       <PrivateRoute>
                         <ProfileContent />
