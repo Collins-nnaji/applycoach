@@ -5,12 +5,18 @@ export const msalConfig = {
     knownAuthorities: [`${process.env.REACT_APP_B2C_TENANT_NAME}.b2clogin.com`],
     redirectUri: "https://credolay.com/auth",
   },
- cache: {
+  cache: {
     cacheLocation: "sessionStorage",
     storeAuthStateInCookie: false,
   },
 };
 
 export const loginRequest = {
-  scopes: ["openid", "profile", "offline_access", `https://${process.env.REACT_APP_B2C_TENANT_NAME}.onmicrosoft.com/api/user.read`, `https://${process.env.REACT_APP_B2C_TENANT_NAME}.onmicrosoft.com/api/user.write`]
+  scopes: [
+    "openid",
+    "profile",
+    "offline_access",
+    "https://graph.microsoft.com/User.Read",
+    "https://graph.microsoft.com/User.ReadWrite"
+  ]
 };

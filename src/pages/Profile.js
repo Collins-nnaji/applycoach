@@ -3,7 +3,7 @@ import { useMsal } from "@azure/msal-react";
 import { loginRequest } from "../config/msal-config";
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import { User, Mail, Briefcase, BookOpen, Save, X } from 'lucide-react';
+import { User, Mail, Briefcase, BookOpen, GraduationCap, MapPin, Phone, Save, X } from 'lucide-react';
 import './Profile.css';
 
 const Profile = () => {
@@ -13,6 +13,11 @@ const Profile = () => {
     email: '',
     jobTitle: '',
     bio: '',
+    education: '',
+    location: '',
+    phone: '',
+    skills: '',
+    experience: '',
   });
   const [isEditing, setIsEditing] = useState(false);
   const [error, setError] = useState('');
@@ -28,11 +33,18 @@ const Profile = () => {
           account: accounts[0]
         });
 
+        const userDetails = await getUserDetails(response.accessToken);
+
         setProfile({
-          name: response.account.name,
-          email: response.account.username,
-          jobTitle: response.idTokenClaims.jobTitle || '',
-          bio: response.idTokenClaims.bio || '',
+          name: userDetails.displayName || '',
+          email: userDetails.userPrincipalName || '',
+          jobTitle: userDetails.jobTitle || '',
+          bio: userDetails.aboutMe || '',
+          education: userDetails.schools ? userDetails.schools.map(s => s.description).join(', ') : '',
+          location: userDetails.city || '',
+          phone: userDetails.mobilePhone || '',
+          skills: userDetails.skills ? userDetails.skills.join(', ') : '',
+          experience: userDetails.pastProjects ? userDetails.pastProjects.join(', ') : '',
         });
       }
     } catch (error) {
@@ -60,45 +72,7 @@ const Profile = () => {
     setIsSaving(true);
     try {
       const token = await instance.acquireTokenSilent(loginRequest);
-
-      const response = await fetch(`https://${process.env.REACT_APP_B2C_TENANT_NAME}.b2clogin.com/${process.env.REACT_APP_B2C_TENANT_NAME}.onmicrosoft.com/${process.env.REACT_APP_B2C_POLICY}/oauth2/v2.0/token`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: new URLSearchParams({
-          grant_type: 'urn:ietf:params:oauth:grant-type:jwt-bearer',
-          client_id: process.env.REACT_APP_CLIENT_ID,
-          scope: 'https://graph.microsoft.com/.default',
-          assertion: token.accessToken,
-          requested_token_use: 'on_behalf_of',
-          client_secret: process.env.REACT_APP_CLIENT_SECRET,
-        })
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to acquire Graph token');
-      }
-
-      const data = await response.json();
-      const graphToken = data.access_token;
-
-      const graphResponse = await fetch(`https://graph.microsoft.com/v1.0/me`, {
-        method: 'PATCH',
-        headers: {
-          'Authorization': `Bearer ${graphToken}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          jobTitle: profile.jobTitle,
-          aboutMe: profile.bio,
-        })
-      });
-
-      if (!graphResponse.ok) {
-        throw new Error('Failed to update profile');
-      }
-
+      await updateUserDetails(token.accessToken, profile);
       setIsEditing(false);
       setError('');
       fetchProfile();
@@ -107,6 +81,43 @@ const Profile = () => {
       setError('An error occurred while updating your profile.');
     } finally {
       setIsSaving(false);
+    }
+  };
+
+  const getUserDetails = async (accessToken) => {
+    const response = await fetch('https://graph.microsoft.com/v1.0/me', {
+      headers: {
+        'Authorization': `Bearer ${accessToken}`
+      }
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to fetch user details');
+    }
+
+    return response.json();
+  };
+
+  const updateUserDetails = async (accessToken, userProfile) => {
+    const response = await fetch('https://graph.microsoft.com/v1.0/me', {
+      method: 'PATCH',
+      headers: {
+        'Authorization': `Bearer ${accessToken}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        jobTitle: userProfile.jobTitle,
+        aboutMe: userProfile.bio,
+        city: userProfile.location,
+        mobilePhone: userProfile.phone,
+        skills: userProfile.skills.split(',').map(skill => skill.trim()),
+        pastProjects: userProfile.experience.split(',').map(exp => exp.trim()),
+        schools: [{ description: userProfile.education }]
+      })
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to update user details');
     }
   };
 
@@ -188,6 +199,71 @@ const Profile = () => {
                     rows="4"
                   ></textarea>
                 </div>
+                <div className="form-group">
+                  <label htmlFor="education">
+                    <GraduationCap size={20} />
+                    Education
+                  </label>
+                  <input
+                    type="text"
+                    id="education"
+                    name="education"
+                    value={profile.education}
+                    onChange={handleChange}
+                  />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="location">
+                    <MapPin size={20} />
+                    Location
+                  </label>
+                  <input
+                    type="text"
+                    id="location"
+                    name="location"
+                    value={profile.location}
+                    onChange={handleChange}
+                  />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="phone">
+                    <Phone size={20} />
+                    Phone
+                  </label>
+                  <input
+                    type="tel"
+                    id="phone"
+                    name="phone"
+                    value={profile.phone}
+                    onChange={handleChange}
+                  />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="skills">
+                    <BookOpen size={20} />
+                    Skills (comma-separated)
+                  </label>
+                  <textarea
+                    id="skills"
+                    name="skills"
+                    value={profile.skills}
+                    onChange={handleChange}
+                    rows="3"
+                  ></textarea>
+                </div>
+                <div className="form-group">
+                  <label htmlFor="experience">
+                    <Briefcase size={20} />
+                    Experience (comma-separated)
+                  </label>
+                  <textarea
+                    id="experience"
+                    name="experience"
+                    value={profile.experience}
+                    onChange={handleChange}
+                    rows="3"
+                  ></textarea>
+                </div>
                 <div className="form-actions">
                   <button type="submit" className="save-profile-btn" disabled={isSaving}>
                     {isSaving ? 'Saving...' : 'Save Profile'}
@@ -212,6 +288,26 @@ const Profile = () => {
                 <div className="info-group">
                   <BookOpen size={20} />
                   <p>{profile.bio || 'No bio available'}</p>
+                </div>
+                <div className="info-group">
+                  <GraduationCap size={20} />
+                  <p>{profile.education || 'No education information'}</p>
+                </div>
+                <div className="info-group">
+                  <MapPin size={20} />
+                  <p>{profile.location || 'No location set'}</p>
+                </div>
+                <div className="info-group">
+                  <Phone size={20} />
+                  <p>{profile.phone || 'No phone number set'}</p>
+                </div>
+                <div className="info-group">
+                  <BookOpen size={20} />
+                  <p>{profile.skills || 'No skills listed'}</p>
+                </div>
+                <div className="info-group">
+                  <Briefcase size={20} />
+                  <p>{profile.experience || 'No experience listed'}</p>
                 </div>
               </div>
             )}
