@@ -1,3 +1,4 @@
+// msal-config.js
 export const msalConfig = {
   auth: {
     clientId: process.env.REACT_APP_CLIENT_ID,
@@ -12,11 +13,20 @@ export const msalConfig = {
 };
 
 export const loginRequest = {
-  scopes: [
-    "openid",
-    "profile",
-    "offline_access",
-    "https://graph.microsoft.com/User.Read",
-    "https://graph.microsoft.com/User.ReadWrite"
-  ]
+  scopes: ["openid", "profile", "email"]
+};
+
+export const b2cPolicies = {
+  names: {
+    signUpSignIn: process.env.REACT_APP_B2C_POLICY,
+    editProfile: process.env.REACT_APP_B2C_EDIT_PROFILE_POLICY
+  },
+  authorities: {
+    signUpSignIn: {
+      authority: `https://${process.env.REACT_APP_B2C_TENANT_NAME}.b2clogin.com/${process.env.REACT_APP_B2C_TENANT_NAME}.onmicrosoft.com/${process.env.REACT_APP_B2C_POLICY}`
+    },
+    editProfile: {
+      authority: `https://${process.env.REACT_APP_B2C_TENANT_NAME}.b2clogin.com/${process.env.REACT_APP_B2C_TENANT_NAME}.onmicrosoft.com/${process.env.REACT_APP_B2C_EDIT_PROFILE_POLICY}`
+    }
+  }
 };

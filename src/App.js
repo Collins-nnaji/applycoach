@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
-import { MsalProvider } from "@azure/msal-react";
-import { PublicClientApplication } from "@azure/msal-browser";
-import { msalConfig } from "./config/msal-config";
+import { MsalProvider, MsalAuthenticationTemplate, useMsal } from "@azure/msal-react";
+import { PublicClientApplication, EventType } from "@azure/msal-browser";
+import { msalConfig, b2cPolicies } from "./config/msal-config";
 import { AppProvider } from './contexts/AppContext';
 import { AuthProvider } from './contexts/AuthContext';
 import Home from './pages/Home';
@@ -18,6 +18,16 @@ import './App.css';
 
 const msalInstance = new PublicClientApplication(msalConfig);
 
+// Handle redirect after login or profile edit
+msalInstance.addEventCallback((event) => {
+  if (event.eventType === EventType.LOGIN_SUCCESS || 
+      event.eventType === EventType.ACQUIRE_TOKEN_SUCCESS) {
+    if (event.payload.account) {
+      msalInstance.setActiveAccount(event.payload.account);
+    }
+  }
+});
+
 const RouteTracker = () => {
   const location = useLocation();
 
@@ -28,10 +38,38 @@ const RouteTracker = () => {
   return null;
 };
 
+const ProfileContent = () => {
+  const { instance } = useMsal();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const callbackId = instance.addEventCallback((event) => {
+      if (event.eventType === EventType.LOGIN_SUCCESS) {
+        if (event.payload.authority === b2cPolicies.authorities.editProfile.authority) {
+          // Profile has been edited, reload profile data
+          navigate('/profile');
+        }
+      }
+    });
+
+    return () => {
+      if (callbackId) {
+        instance.removeEventCallback(callbackId);
+      }
+    };
+  }, [instance, navigate]);
+
+  return <Profile />;
+};
+
 const App = () => {
   useEffect(() => {
     initGA('G-7S4ETVNPPJ');
   }, []);
+
+  const authRequest = {
+    scopes: ["openid", "profile"]
+  };
 
   return (
     <MsalProvider instance={msalInstance}>
@@ -52,9 +90,14 @@ const App = () => {
                 <Route 
                   path="/profile" 
                   element={
-                    <PrivateRoute>
-                      <Profile />
-                    </PrivateRoute>
+                    <MsalAuthenticationTemplate 
+                      interactionType="redirect" 
+                      authenticationRequest={authRequest}
+                    >
+                      <PrivateRoute>
+                        <ProfileContent />
+                      </PrivateRoute>
+                    </MsalAuthenticationTemplate>
                   } 
                 />
                 <Route path="/error" element={<Error />} />
