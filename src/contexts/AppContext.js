@@ -9,6 +9,7 @@ export const AppProvider = ({ children }) => {
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [suggestedJobTitles, setSuggestedJobTitles] = useState([]);
 
   const fetchJobs = useCallback(async () => {
     setLoading(true);
@@ -72,7 +73,9 @@ export const AppProvider = ({ children }) => {
       fetchJobs,
       updateUserProfile,
       loading,
-      error
+      error,
+      suggestedJobTitles,
+      setSuggestedJobTitles
     }}>
       {children}
     </AppContext.Provider>

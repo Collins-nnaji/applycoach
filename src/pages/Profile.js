@@ -34,18 +34,19 @@ const Profile = () => {
         });
 
         const claims = response.idTokenClaims;
+        console.log("Token claims:", claims); // For debugging
         setProfile({
           givenName: claims.given_name || '',
           surname: claims.family_name || '',
           displayName: claims.name || '',
           email: claims.emails ? claims.emails[0] : '',
           jobTitle: claims.jobTitle || '',
-          bio: claims.extension_Bio || '',
+          bio: claims.bio || '',
           city: claims.city || '',
           country: claims.country || '',
-          skills: claims.extension_Skills || '',
-          experience: claims.extension_Experience || '',
-          education: claims.extension_Education || ''
+          skills: claims.skills || '',
+          experience: claims.experience || '',
+          education: claims.education || ''
         });
       }
     } catch (error) {
@@ -102,7 +103,7 @@ const Profile = () => {
             <div className="profile-avatar">
               <User size={64} />
             </div>
-            <h1>{profile.displayName || 'Your Profile'}</h1>
+            <h1>{profile.displayName || `${profile.givenName} ${profile.surname}` || 'Your Profile'}</h1>
             <button onClick={handleEditProfile} className="edit-profile-btn">
               Edit Profile
               <Edit size={20} />
@@ -118,34 +119,48 @@ const Profile = () => {
                 <Mail size={20} />
                 <p>{profile.email}</p>
               </div>
-              <div className="info-group">
-                <Briefcase size={20} />
-                <p>{profile.jobTitle || 'No job title set'}</p>
-              </div>
-              <div className="info-group">
-                <BookOpen size={20} />
-                <p>{profile.bio || 'No bio available'}</p>
-              </div>
-              <div className="info-group">
-                <MapPin size={20} />
-                <p>{profile.city || 'No city set'}</p>
-              </div>
-              <div className="info-group">
-                <Globe size={20} />
-                <p>{profile.country || 'No country set'}</p>
-              </div>
-              <div className="info-group">
-                <BookOpen size={20} />
-                <p>{profile.skills || 'No skills listed'}</p>
-              </div>
-              <div className="info-group">
-                <Briefcase size={20} />
-                <p>{profile.experience || 'No experience listed'}</p>
-              </div>
-              <div className="info-group">
-                <GraduationCap size={20} />
-                <p>{profile.education || 'No education listed'}</p>
-              </div>
+              {profile.jobTitle && (
+                <div className="info-group">
+                  <Briefcase size={20} />
+                  <p>{profile.jobTitle}</p>
+                </div>
+              )}
+              {profile.bio && (
+                <div className="info-group">
+                  <BookOpen size={20} />
+                  <p>{profile.bio}</p>
+                </div>
+              )}
+              {profile.city && (
+                <div className="info-group">
+                  <MapPin size={20} />
+                  <p>{profile.city}</p>
+                </div>
+              )}
+              {profile.country && (
+                <div className="info-group">
+                  <Globe size={20} />
+                  <p>{profile.country}</p>
+                </div>
+              )}
+              {profile.skills && (
+                <div className="info-group">
+                  <BookOpen size={20} />
+                  <p>{profile.skills}</p>
+                </div>
+              )}
+              {profile.experience && (
+                <div className="info-group">
+                  <Briefcase size={20} />
+                  <p>{profile.experience}</p>
+                </div>
+              )}
+              {profile.education && (
+                <div className="info-group">
+                  <GraduationCap size={20} />
+                  <p>{profile.education}</p>
+                </div>
+              )}
             </div>
           </div>
         </div>
