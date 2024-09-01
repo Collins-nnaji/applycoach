@@ -3,23 +3,18 @@ import { useMsal } from "@azure/msal-react";
 import { loginRequest, b2cPolicies } from "../config/msal-config";
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import { User, Mail, Briefcase, BookOpen, GraduationCap, MapPin, Globe, Edit } from 'lucide-react';
+import { User, Mail, Briefcase, BookOpen, Edit } from 'lucide-react';
 import './Profile.css';
 
 const Profile = () => {
   const { instance, accounts, inProgress } = useMsal();
   const [profile, setProfile] = useState({
     givenName: '',
-    surname: '',
-    displayName: '',
+    familyName: '',
     email: '',
     jobTitle: '',
     bio: '',
-    city: '',
-    country: '',
-    skills: '',
-    experience: '',
-    education: ''
+
   });
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(true);
@@ -34,19 +29,14 @@ const Profile = () => {
         });
 
         const claims = response.idTokenClaims;
-        console.log("Token claims:", claims); // For debugging
+        console.log("Token claims:", claims);
         setProfile({
           givenName: claims.given_name || '',
-          surname: claims.family_name || '',
-          displayName: claims.name || '',
+          familyName: claims.family_name || '',
           email: claims.emails ? claims.emails[0] : '',
           jobTitle: claims.jobTitle || '',
-          bio: claims.bio || '',
-          city: claims.city || '',
-          country: claims.country || '',
-          skills: claims.skills || '',
-          experience: claims.experience || '',
-          education: claims.education || ''
+          bio: claims.extension_Bio || '',
+
         });
       }
     } catch (error) {
@@ -103,7 +93,7 @@ const Profile = () => {
             <div className="profile-avatar">
               <User size={64} />
             </div>
-            <h1>{profile.displayName || `${profile.givenName} ${profile.surname}` || 'Your Profile'}</h1>
+            <h1>{`${profile.givenName} ${profile.familyName}`}</h1>
             <button onClick={handleEditProfile} className="edit-profile-btn">
               Edit Profile
               <Edit size={20} />
@@ -113,52 +103,22 @@ const Profile = () => {
             <div className="profile-info">
               <div className="info-group">
                 <User size={20} />
-                <p>{`${profile.givenName} ${profile.surname}`}</p>
+                <p><strong>Name:</strong> {`${profile.givenName} ${profile.familyName}`}</p>
               </div>
               <div className="info-group">
                 <Mail size={20} />
-                <p>{profile.email}</p>
+                <p><strong>Email:</strong> {profile.email}</p>
               </div>
               {profile.jobTitle && (
                 <div className="info-group">
                   <Briefcase size={20} />
-                  <p>{profile.jobTitle}</p>
+                  <p><strong>Job Title:</strong> {profile.jobTitle}</p>
                 </div>
               )}
               {profile.bio && (
                 <div className="info-group">
                   <BookOpen size={20} />
-                  <p>{profile.bio}</p>
-                </div>
-              )}
-              {profile.city && (
-                <div className="info-group">
-                  <MapPin size={20} />
-                  <p>{profile.city}</p>
-                </div>
-              )}
-              {profile.country && (
-                <div className="info-group">
-                  <Globe size={20} />
-                  <p>{profile.country}</p>
-                </div>
-              )}
-              {profile.skills && (
-                <div className="info-group">
-                  <BookOpen size={20} />
-                  <p>{profile.skills}</p>
-                </div>
-              )}
-              {profile.experience && (
-                <div className="info-group">
-                  <Briefcase size={20} />
-                  <p>{profile.experience}</p>
-                </div>
-              )}
-              {profile.education && (
-                <div className="info-group">
-                  <GraduationCap size={20} />
-                  <p>{profile.education}</p>
+                  <p><strong>Bio:</strong> {profile.bio}</p>
                 </div>
               )}
             </div>
