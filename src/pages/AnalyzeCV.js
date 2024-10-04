@@ -4,7 +4,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { useAppContext } from '../contexts/AppContext';
 
-const API_URL = 'https://credolaygptbackend.azurewebsites.net';
+const API_URL = 'https://credolaybackend.azurewebsites.net';
 
 const AnalyzeCV = () => {
   const [resumeFile, setResumeFile] = useState(null);
