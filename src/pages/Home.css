@@ -3,17 +3,17 @@
 
 :root {
   --background-color: #f8f9fa;
-  --gradient-start: #391558; /* Deep purple */
-  --gradient-end: #2e8d57; /* Sea green */
+  --gradient-start: #2d588b; /* Deep purple */
+  --gradient-end: #427b5b; /* Sea green */
   --primary-gradient: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
-  --primary-color: #6b3d8f;/* Keeping the purple as primary for non-gradient uses */
-  --primary-light: #6b3d8f;
-  --secondary-color: #3cb371; /* Medium sea green, complementing the gradient */
+  --primary-color: #344b76; /* Keeping the purple as primary for non-gradient uses */
+  --primary-light: #2b6076;
+  --secondary-color: #406a53; /* Medium sea green, complementing the gradient */
   --text-color: #333333;
   --text-color-light: #ffffff;
   --button-background: var(--primary-gradient);
   --button-text: #ffffff;
-  --hover-background: #3a184f;
+  --hover-background: #344d88;
   --card-background: #ffffff;
   --card-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
   --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
@@ -30,13 +30,11 @@ body {
   font-weight: 600; /* Make all text semi-bold by default */
 }
 
-/* Apply Cormorant Garamond to all text elements */
 body, h1, h2, h3, h4, h5, h6, p, a, li, span, button, input, select, textarea {
   font-family: 'Cormorant Garamond', Georgia, serif;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Cormorant Garamond', Georgia, serif;
   font-weight: 700;
 }
 
@@ -44,62 +42,10 @@ p, li, span {
   text-shadow: 0.5px 0.5px 1px rgba(0, 0, 0, 0.1);
 }
 
-/* Increase weight for links to improve visibility */
 a {
   font-weight: 700;
 }
-/* ... (previous styles remain unchanged) ... */
 
-/* ... (previous styles remain unchanged) ... */
-
-.feature-text h3 {
-  font-size: 2.3rem;
-  color: #6b3d8f;
-  margin-bottom: 20px;
-  font-weight: 700;
-}
-
-.feature-description {
-  font-size: 1.4rem;
-  line-height: 1.6;
-  font-weight: 600;
-  color: var(--text-color);
-}
-
-/* ... (remaining styles unchanged) ... */
-
-/* Update media queries to ensure responsiveness */
-@media (max-width: 1024px) {
-  /* ... (other media query styles remain unchanged) ... */
-  
-  .feature-text h3 {
-    font-size: 2rem;
-  }
-
-  .feature-description {
-    font-size: 1.3rem;
-  }
-}
-
-@media (max-width: 768px) {
-  /* ... (other media query styles remain unchanged) ... */
-  
-  .feature-description {
-    font-size: 1.2rem;
-  }
-}
-
-@media (max-width: 480px) {
-  /* ... (other media query styles remain unchanged) ... */
-  
-  .feature-text h3 {
-    font-size: 1.8rem;
-  }
-
-  .feature-description {
-    font-size: 1.1rem;
-  }
-}
 header {
   margin-top: 0;
   padding-top: 0;
@@ -143,7 +89,7 @@ header {
 }
 
 .title {
-  font-size: 4rem; /* Increased from 3.5rem */
+  font-size: 4rem;
   color: var(--text-color-light);
   font-weight: 700;
   line-height: 1.2;
@@ -151,17 +97,16 @@ header {
 }
 
 .subtitle {
-  font-size: 1.8rem; /* Increased from 1.5rem */
+  font-size: 1.8rem;
   color: var(--text-color-light);
   max-width: 600px;
   margin-bottom: 25px;
   font-weight: 600;
 }
 
-
 .section-title {
-  font-size: 3rem; /* Increased from 2.5rem */
-  color: #6b3d8f;
+  font-size: 3rem;
+  color: #235b7e;
   text-align: center;
   margin-bottom: 30px;
   position: relative;
@@ -182,20 +127,7 @@ header {
   justify-content: center;
 }
 
-.button {
-  display: inline-block;
-  background: #6b3d8f;
-  color: var(--text-color-light);
-  padding: 12px 25px;
-  font-size: 1.3rem; /* Increased from 1.1rem */
-  text-decoration: none;
-  border-radius: 50px;
-  font-weight: 700; /* Changed from 600 to 700 */
-  transition: all 0.3s ease;
-  border: none;
-  cursor: pointer;
-}
-.cta-button {
+.button, .cta-button {
   display: inline-block;
   background: var(--button-background);
   color: var(--text-color-light);
@@ -204,7 +136,7 @@ header {
   text-decoration: none;
   border-radius: 50px;
   font-weight: 700;
-  transition: all 0.3s ease;
+  transition: var(--transition);
   border: none;
   cursor: pointer;
   text-align: center;
@@ -212,87 +144,10 @@ header {
   text-transform: uppercase;
   letter-spacing: 1px;
 }
-.cta-button:hover, .button:hover {
+.button:hover, .cta-button:hover {
   opacity: 0.9;
   transform: translateY(-3px);
   box-shadow: 0 7px 14px rgba(0, 0, 0, 0.2);
-}
-
-.cv-analysis-section,
-.features-section,
-.job-search-strategy-section,
-.packages-section,
-.resources-section,
-.faq-section,
-.subscription-signup {
-  margin-bottom: 40px;
-}
-
-.cv-analysis-section {
-  background-color: var(--card-background);
-  border-radius: 20px;
-  padding: 40px;
-  box-shadow: var(--card-shadow);
-}
-
-.cv-analysis-content {
-  display: flex;
-  align-items: center;
-  gap: 40px;
-}
-
-.cv-analysis-image {
-  width: 50%;
-  max-width: 600px;
-  height: auto;
-  border-radius: 15px;
-  box-shadow: var(--card-shadow);
-  transition: var(--transition);
-}
-
-.cv-analysis-image:hover {
-  transform: scale(1.05);
-}
-
-.cv-analysis-text {
-  flex: 1;
-}
-
-.cv-analysis-text h3 {
-  font-size: 2.3rem; /* Increased from 2rem */
-  color: #6b3d8f;
-  margin-bottom: 20px;
-  font-weight: 700;
-}
-
-.cv-analysis-text h4 {
-  font-size: 1.8rem; /* Increased from 1.5rem */
-  color: #6b3d8f;
-  margin-top: 25px;
-  margin-bottom: 15px;
-  font-weight: 700;
-}
-
-
-.cv-analysis-text ul {
-  list-style-type: none;
-  padding-left: 0;
-  margin-bottom: 25px;
-}
-
-.cv-analysis-text li {
-  margin-bottom: 10px;
-  position: relative;
-  padding-left: 25px;
-  font-size: 1.4rem; /* Increased from 1.2rem */
-}
-
-.cv-analysis-text li::before {
-  content: '✓';
-  position: absolute;
-  left: 0;
-  color: var(--secondary-color);
-  font-weight: bold;
 }
 
 .features-section {
@@ -337,19 +192,15 @@ header {
   transform: scale(1.05);
 }
 
-.feature-text {
-  flex: 1;
-}
-
 .feature-text h3 {
-  font-size: 2.3rem; /* Increased from 2rem */
-  color: #6b3d8f;
+  font-size: 2.3rem;
+  color: #235b7e;
   margin-bottom: 20px;
   font-weight: 700;
 }
 
 .feature-text p {
-  font-size: 1.4rem; /* Increased from 1.2rem */
+  font-size: 1.4rem;
   line-height: 1.6;
 }
 
@@ -370,7 +221,7 @@ header {
   margin-bottom: 12px;
   position: relative;
   padding-left: 30px;
-  font-size: 1.4rem; /* Increased from 1.2rem */
+  font-size: 1.4rem;
 }
 
 .job-search-strategy-section li::before {
@@ -382,17 +233,6 @@ header {
   font-weight: bold;
 }
 
-.ai-warning {
-  background-color: #fff3cd;
-  border-left: 5px solid #ffeeba;
-  padding: 15px;
-  margin-top: 25px;
-  border-radius: 8px;
-  font-size: 1.3rem; /* Increased from 1.1rem */
-  line-height: 1.5;
-}
-
-
 .packages-section {
   text-align: center;
 }
@@ -400,6 +240,7 @@ header {
 .packages {
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
   gap: 20px;
   margin-top: 30px;
 }
@@ -428,9 +269,9 @@ header {
 }
 
 .package h3 {
-  font-size: 2rem; /* Increased from 1.7rem */
+  font-size: 2rem;
   margin-bottom: 20px;
-  color: #6b3d8f;
+  color: #235b7e;
   font-weight: 700;
 }
 
@@ -444,7 +285,7 @@ header {
   margin-bottom: 12px;
   position: relative;
   padding-left: 25px;
-  font-size: 1.3rem; /* Increased from 1.1rem */
+  font-size: 1.3rem;
 }
 
 .package li::before {
@@ -456,54 +297,10 @@ header {
 }
 
 .price {
-  font-size: 2.3rem; /* Increased from 2rem */
+  font-size: 2.3rem;
   font-weight: bold;
   color: #6b3d8f;
   margin-bottom: 25px;
-}
-
-.resources-section {
-  margin-bottom: 60px;
-}
-
-.resources {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 30px;
-  margin-top: 40px;
-}
-
-.resource {
-  background-color: var(--card-background);
-  border-radius: 20px;
-  padding: 25px;
-  box-shadow: var(--card-shadow);
-  text-align: center;
-  transition: var(--transition);
-}
-
-.resource:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
-}
-
-.resource-title {
-  color: var(--primary-color);
-  margin: 15px 0;
-  font-size: 1.6rem; /* Increased from 1.4rem */
-  font-weight: 700;
-}
-
-.resource-image {
-  width: 100%;
-  height: auto;
-  border-radius: 12px;
-  margin-bottom: 15px;
-  transition: var(--transition);
-}
-
-.resource-image:hover {
-  transform: scale(1.05);
 }
 
 .faq-section {
@@ -531,15 +328,14 @@ header {
 }
 
 .faq-item h3 {
-  color: #6b3d8f;
+  color: #235b7e;
   margin-bottom: 12px;
-  font-size: 1.5rem; /* Increased from 1.3rem */
+  font-size: 1.5rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
   font-weight: 700;
 }
-
 
 .faq-item h3::after {
   content: '+';
@@ -554,7 +350,7 @@ header {
 .faq-item p {
   display: none;
   margin-top: 12px;
-  font-size: 1.3rem; /* Increased from 1.1rem */
+  font-size: 1.3rem;
   line-height: 1.5;
 }
 
@@ -562,77 +358,15 @@ header {
   display: block;
 }
 
-.subscription-signup {
-  background: var(--primary-gradient);
-  border-radius: 20px;
-  padding: 40px;
-  box-shadow: var(--card-shadow);
-  text-align: center;
-  color: var(--text-color-light);
-}
-
-.subscription-benefits {
-  list-style-type: none;
-  padding-left: 0;
-  margin: 25px 0;
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 15px;
-}
-
-.subscription-benefits li {
-  background-color: rgba(255, 255, 255, 0.2);
-  color: var(--text-color-light);
-  padding: 8px 16px;
-  border-radius: 50px;
-  font-weight: 600; /* Changed from 500 to 600 */
-  font-size: 1.2rem; /* Increased from 1rem */
-}
-
-.subscription-note {
-  font-size: 1.1rem; /* Increased from 0.9rem */
-  color: var(--text-color-light);
-  margin-top: 15px;
-}
-
-/* Ensure proper spacing between sections */
 .main-content > section:not(:last-child) {
   margin-bottom: 60px;
 }
 
-/* Improve button aesthetics */
-.cta-button, .button {
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-
-/* Enhance section titles */
-.section-title {
-  letter-spacing: 1px;
-  text-transform: uppercase;
-}
-
-/* Add subtle animations for a more dynamic feel */
-/* Add subtle animations for a more dynamic feel */
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-.hero, .cv-analysis-section, .feature-item, .package, .resource {
-  animation: fadeIn 1s ease-out;
-}
-
-/* Media Queries */
 @media (max-width: 1200px) {
-  .cv-analysis-content,
   .feature-item {
     flex-direction: column !important;
     padding: 30px;
   }
-
-  .cv-analysis-image,
   .feature-image {
     width: 100%;
     margin-bottom: 20px;
@@ -693,14 +427,6 @@ header {
   .price {
     font-size: 1.8rem;
   }
-
-  .resource-title {
-    font-size: 1.2rem;
-  }
-
-  .faq-item h3 {
-    font-size: 1.2rem;
-  }
 }
 
 @media (max-width: 768px) {
@@ -721,29 +447,10 @@ header {
     font-size: 1.2rem;
   }
   
-  .cv-analysis-section,
-  .feature-item,
-  .job-search-strategy-section,
-  .subscription-signup {
-    padding: 25px;
-    margin-left: -15px;
-    margin-right: -15px;
-    border-radius: 0;
-  }
-
-  .package {
-    flex-basis: 100%;
-  }
-
   .feature-text p,
-  .cv-analysis-text li,
   .job-search-strategy-section li,
   .package li {
     font-size: 1.1rem;
-  }
-
-  .ai-warning {
-    font-size: 1rem;
   }
 }
 
@@ -780,99 +487,5 @@ header {
 
   .price {
     font-size: 1.6rem;
-  }
-
-  .resource-title {
-    font-size: 1.1rem;
-  }
-
-  .faq-item h3 {
-    font-size: 1rem;
-  }
-
-  .feature-text p,
-  .cv-analysis-text li,
-  .job-search-strategy-section li,
-  .package li,
-  .faq-item p {
-    font-size: 1rem;
-  }
-
-  .subscription-benefits li {
-    font-size: 0.9rem;
-    padding: 6px 12px;
-  }
-
-  .subscription-note {
-    font-size: 0.8rem;
-  }
-}
-
-/* Ensure all headers are bold */
-h1, h2, h3, h4, h5, h6 {
-  font-family: 'Cormorant Garamond', Georgia, serif;
-  font-weight: 700;
-}
-
-/* Gradient text effect for special emphasis */
-.gradient-text {
-  background: var(--primary-gradient);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-
-/* Gradient border effect */
-.gradient-border {
-  border: 4px solid;
-  border-image: var(--primary-gradient);
-  border-image-slice: 1;
-}
-
-/* Hover effect for gradient buttons */
-.gradient-button {
-  background: var(--primary-gradient);
-  color: var(--text-color-light);
-  transition: all 0.3s ease;
-}
-
-.gradient-button:hover {
-  background: var(--primary-gradient);
-  opacity: 0.9;
-  transform: translateY(-3px);
-  box-shadow: 0 7px 14px rgba(0, 0, 0, 0.2);
-}
-
-/* Accessibility improvements */
-@media (prefers-reduced-motion: reduce) {
-  * {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
-}
-
-/* High contrast mode adjustments */
-@media (prefers-contrast: high) {
-  :root {
-    --primary-color: #000000;
-    --secondary-color: #ffffff;
-    --text-color: #000000;
-    --text-color-light: #ffffff;
-    --card-background: #ffffff;
-    --card-shadow: 0 0 0 2px #000000;
-  }
-
-  .gradient-text {
-    background: none;
-    -webkit-text-fill-color: currentColor;
-  }
-
-  .gradient-border,
-  .gradient-button {
-    border: 2px solid #000000;
-    background: #ffffff;
-    color: #000000;
   }
 }
