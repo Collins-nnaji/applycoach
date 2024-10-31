@@ -198,7 +198,7 @@ const PackagesSection = () => (
         buttonText="Choose This Package"
       />
       <PackageCard
-        title="NHS Supporting Statement Guide & Landing 3 Interviews"
+        title="Job Supporting Statement Guide & Landing 3 Interviews"
         features={[
           "CV Writing",
           "Supporting statement guide",
@@ -232,10 +232,10 @@ const PackagesSection = () => (
         buttonText="Optimize My Profile"
       />
       <PackageCard
-        title="Personal Branding & NHS Job Coaching"
+        title="Personal Branding & Job Coaching"
         features={[
           "Full career support",
-          "Guidance until landing NHS job",
+          "Guidance until landing job",
           "Personal branding strategy",
           "LinkedIn & CV optimization"
         ]}
@@ -246,6 +246,7 @@ const PackagesSection = () => (
     </div>
   </section>
 );
+
 
 const PackageCard = ({ title, features, price, link, buttonText, featured }) => (
   <motion.div 
