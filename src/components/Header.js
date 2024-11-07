@@ -37,8 +37,8 @@ const Header = () => {
         {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
       </button>
       <nav className={`nav ${mobileMenuOpen ? 'mobile-open' : ''}`} ref={mobileMenuRef}>
-        <Link to="/" className={location.pathname === '/' ? 'active' : ''} onClick={handleLinkClick}>Home</Link>
-        <Link to="/resources" className={location.pathname === '/resources' ? 'active' : ''} onClick={handleLinkClick}>Resources</Link>
+        <Link to="/" className={location.pathname === '/' ? 'active' : ''} onClick={handleLinkClick}>ApplycoachPro</Link>
+
       </nav>
     </header>
   );

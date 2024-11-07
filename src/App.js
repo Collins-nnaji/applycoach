@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import Home from './pages/Home';
-import Resources from './pages/Resources';
+
 import './App.css';
 
 const App = () => {
@@ -15,7 +15,7 @@ const App = () => {
         </Helmet>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/resources" element={<Resources />} />
+
         </Routes>
       </div>
     </Router>

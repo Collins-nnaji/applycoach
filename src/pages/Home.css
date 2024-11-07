@@ -26,8 +26,8 @@ body {
   padding: 0;
   line-height: 1.6;
   color: var(--text-color);
-  font-size: 20px; /* Increased base font size */
-  font-weight: 600; /* Make all text semi-bold by default */
+  font-size: 20px;
+  font-weight: 600;
 }
 
 body, h1, h2, h3, h4, h5, h6, p, a, li, span, button, input, select, textarea {
@@ -257,7 +257,7 @@ header {
 
 .package.featured {
   border: 3px solid var(--primary-color);
-  background-color: #f9f4ff; /* Light background for featured */
+  background-color: #f9f4ff;
 }
 
 .package:hover {
@@ -300,7 +300,6 @@ header {
   margin: 15px 0;
   text-align: center;
 }
-
 
 .faq-section {
   margin-bottom: 60px;
@@ -361,130 +360,275 @@ header {
   margin-bottom: 60px;
 }
 
-@media (max-width: 1200px) {
-  .feature-item {
-    flex-direction: column !important;
-    padding: 30px;
-  }
-  .feature-image {
-    width: 100%;
-    margin-bottom: 20px;
-  }
+/* Resources Page Styles */
+
+.resources-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
 }
 
-@media (max-width: 1024px) {
-  .hero-content {
-    flex-direction: column;
-    text-align: center;
-  }
+.resources-content h1 {
+  font-size: 3rem;
+  color: #235b7e;
+  margin-bottom: 20px;
+  text-align: center;
+  font-weight: 700;
+}
 
-  .hero-text, .cta-container {
-    width: 100%;
-  }
+.resources-content > p {
+  font-size: 1.4rem;
+  color: #555;
+  margin-bottom: 30px;
+  text-align: center;
+  font-weight: 600;
+}
 
-  .cta-container {
-    justify-content: center;
-    margin-top: 20px;
-  }
+.resource-filters {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+}
 
-  .title {
-    font-size: 2.8rem;
-  }
+.resource-filters button {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  padding: 12px 24px;
+  margin: 0 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
 
-  .main-content {
-    padding: 30px 5%;
-  }
+.resource-filters button:hover,
+.resource-filters button.active {
+  background-color: #235b7e;
+  color: #fff;
+}
 
-  .section-title {
-    font-size: 2rem;
-  }
+.resource-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 30px;
+  margin-bottom: 50px;
+}
 
-  .feature-text h3 {
-    font-size: 1.8rem;
-  }
+.resource-card {
+  background-color: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
 
-  .feature-text p {
-    font-size: 1.1rem;
-  }
+.resource-card:hover {
+  transform: translateY(-5px);
+}
 
-  .job-search-strategy-section {
-    padding: 30px;
-  }
+.resource-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
 
-  .packages {
-    flex-wrap: wrap;
-  }
+.resource-content {
+  padding: 20px;
+}
 
-  .package {
-    flex-basis: calc(50% - 10px);
-  }
+.resource-content h3 {
+  font-size: 1.6rem;
+  margin-bottom: 10px;
+  color: #235b7e;
+  font-weight: 700;
+}
 
-  .package h3 {
-    font-size: 1.5rem;
-  }
+.resource-content p {
+  font-size: 1.2rem;
+  color: #555;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
 
-  .price {
-    font-size: 1.8rem;
-  }
+.resource-link {
+  display: inline-block;
+  background-color: #235b7e;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 4px;
+  text-decoration: none;
+  font-size: 1.1rem;
+  transition: background-color 0.3s ease;
+  font-weight: 600;
+}
+
+.resource-link:hover {
+  background-color: #562f73;
+}
+
+.featured-resource {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 30px;
+  margin-bottom: 50px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.featured-resource h2 {
+  font-size: 2.4rem;
+  color: #235b7e;
+  margin-bottom: 20px;
+  font-weight: 700;
+}
+
+.featured-content {
+  display: flex;
+  align-items: center;
+}
+
+.featured-content img {
+  width: 300px;
+  height: auto;
+  margin-right: 30px;
+  border-radius: 8px;
+}
+
+.featured-text h3 {
+  font-size: 1.8rem;
+  color: #235b7e;
+  margin-bottom: 15px;
+  font-weight: 700;
+}
+
+.featured-text p {
+  font-size: 1.3rem;
+  color: #555;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+.download-button {
+  display: inline-block;
+  background-color: #235b7e;
+  color: #fff;
+  padding: 12px 24px;
+  border-radius: 4px;
+  text-decoration: none;
+  font-size: 1.2rem;
+  transition: background-color 0.3s ease;
+  font-weight: 600;
+}
+
+.download-button:hover {
+  background-color: #562f73;
+}
+
+.resource-newsletter {
+  background-color: #235b7e;
+  color: #ffffff;
+  padding: 40px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.resource-newsletter h2 {
+  font-size: 2.4rem;
+  margin-bottom: 15px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.resource-newsletter p {
+  font-size: 1.3rem;
+  margin-bottom: 20px;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.newsletter-form {
+  display: flex;
+  justify-content: center;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.newsletter-form input {
+  flex-grow: 1;
+  padding: 12px;
+  border: none;
+  border-radius: 4px 0 0 4px;
+  font-size: 1.1rem;
+}
+
+.newsletter-form button {
+  background-color: #0b3854;
+  color: #fff;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 0 4px 4px 0;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.newsletter-form button:hover {
+  background-color: #4a2862;
 }
 
 @media (max-width: 768px) {
-  .main-content {
-    padding: 20px 15px;
+  .resources-content h1 {
+    font-size: 2.5rem;
   }
-  
-  .hero {
-    padding: 30px 15px;
-    min-height: auto;
-  }
-  
-  .title {
-    font-size: 2.2rem;
-  }
-  
-  .subtitle {
+
+  .resources-content > p {
     font-size: 1.2rem;
   }
-  
-  .feature-text p,
-  .job-search-strategy-section li,
-  .package li {
-    font-size: 1.1rem;
-  }
-}
 
-@media (max-width: 480px) {
-  .title {
-    font-size: 1.8rem;
-  }
-  
-  .subtitle {
-    font-size: 1.1rem;
-  }
-
-  .cta-button, .button {
+  .resource-filters button {
+    font-size: 1rem;
     padding: 10px 20px;
-    font-size: 0.9rem;
   }
 
-  .section-title {
-    font-size: 1.6rem;
+  .featured-content {
+    flex-direction: column;
+  }
+
+  .featured-content img {
+    width: 100%;
+    margin-right: 0;
     margin-bottom: 20px;
   }
 
-  .feature-text h3 {
-    font-size: 1.4rem;
+  .featured-resource h2 {
+    font-size: 2rem;
   }
 
-  .job-search-strategy-section {
-    padding: 20px;
+  .featured-text h3 {
+    font-size: 1.5rem;
   }
 
-  .package h3 {
-    font-size: 1.3rem;
+  .featured-text p {
+    font-size: 1.1rem;
   }
 
-  .price {
-    font-size: 1.6rem;
+  .newsletter-form {
+    flex-direction: column;
+  }
+
+  .newsletter-form input,
+  .newsletter-form button {
+    width: 100%;
+    border-radius: 4px;
+    margin-bottom: 10px;
+  }
+
+  .resource-newsletter h2 {
+    font-size: 2rem;
+  }
+
+  .resource-newsletter p {
+    font-size: 1.1rem;
   }
 }
+

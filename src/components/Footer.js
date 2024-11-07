@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+
 import './Footer.css';
 import linkedinIcon from '../assets/linkedin.png';
 import whatsappIcon from '../assets/whatsapp.png';
@@ -12,12 +12,6 @@ const Footer = () => {
         <div className="footer-section">
           <h3>ApplyCoachPro</h3>
           <p>Your trusted partner for authentic career growth and strategic job placement.</p>
-        </div>
-        <div className="footer-section">
-          <h3>Quick Links</h3>
-          <ul>
-            <li><Link to="/">Home</Link></li>
-          </ul>
         </div>
         <div className="footer-section">
           <h3>Contact Us</h3>
@@ -33,7 +27,7 @@ const Footer = () => {
               </a>
             </li>
             <li>
-              <a href="https://www.linkedin.com/company/applycoachpro" target="_blank" rel="noopener noreferrer">
+              <a href="https://www.linkedin.com/company/apply-coachpro/about/" target="_blank" rel="noopener noreferrer">
                 <img src={linkedinIcon} alt="LinkedIn" className="icon" /> ApplyCoachPro
               </a>
             </li>
