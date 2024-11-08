@@ -17,7 +17,7 @@ const Footer = () => {
           <h3>Contact Us</h3>
           <ul className="contact-links">
             <li>
-              <a href="mailto:admin@applycoachpro.co.uk" target="_blank" rel="noopener noreferrer">
+              <a href="mailto:admin@applycoachpro.com" target="_blank" rel="noopener noreferrer">
                 admin@applycoachpro.co.uk
               </a>
             </li>

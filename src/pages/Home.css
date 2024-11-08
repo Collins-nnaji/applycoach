@@ -631,4 +631,199 @@ header {
     font-size: 1.1rem;
   }
 }
+/* Mobile Responsiveness */
+
+/* General adjustments for small screens (up to 768px) */
+@media (max-width: 768px) {
+  .main-content {
+    padding: 0 15px;
+  }
+
+  .hero {
+    flex-direction: column;
+    text-align: center;
+    padding: 20px 15px;
+  }
+
+  .hero-text, .cta-container {
+    width: 100%;
+  }
+
+  .title {
+    font-size: 2.5rem;
+  }
+
+  .subtitle {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+  }
+
+  .button, .cta-button {
+    padding: 10px 20px;
+    font-size: 1rem;
+  }
+
+  .features-section {
+    gap: 30px;
+  }
+
+  .feature-item {
+    flex-direction: column;
+    padding: 20px;
+  }
+
+  .feature-item.reverse {
+    flex-direction: column;
+  }
+
+  .feature-image {
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .feature-text h3 {
+    font-size: 1.8rem;
+  }
+
+  .feature-text p {
+    font-size: 1.2rem;
+  }
+
+  .packages {
+    grid-template-columns: 1fr;
+  }
+
+  .package h3 {
+    font-size: 1.6rem;
+  }
+
+  .price {
+    font-size: 1.5rem;
+  }
+
+  .faq-item h3 {
+    font-size: 1.3rem;
+  }
+
+  .faq-item p {
+    font-size: 1.1rem;
+  }
+
+  .resources-content h1 {
+    font-size: 2rem;
+  }
+
+  .resources-content > p {
+    font-size: 1.2rem;
+  }
+
+  .resource-filters button {
+    font-size: 1rem;
+    padding: 10px 20px;
+  }
+
+  .resource-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .featured-content {
+    flex-direction: column;
+  }
+
+  .featured-content img {
+    width: 100%;
+    margin-right: 0;
+    margin-bottom: 20px;
+  }
+
+  .featured-resource h2 {
+    font-size: 1.8rem;
+  }
+
+  .featured-text h3 {
+    font-size: 1.5rem;
+  }
+
+  .featured-text p {
+    font-size: 1.1rem;
+  }
+
+  .newsletter-form {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .newsletter-form input,
+  .newsletter-form button {
+    width: 100%;
+    border-radius: 4px;
+    margin-bottom: 10px;
+  }
+
+  .resource-newsletter h2 {
+    font-size: 1.8rem;
+  }
+
+  .resource-newsletter p {
+    font-size: 1.1rem;
+  }
+}
+
+/* Extra Small Screens (up to 480px) */
+@media (max-width: 480px) {
+  .title {
+    font-size: 2rem;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+  }
+
+  .button, .cta-button {
+    padding: 8px 16px;
+    font-size: 0.9rem;
+  }
+
+  .feature-text h3 {
+    font-size: 1.6rem;
+  }
+
+  .feature-text p {
+    font-size: 1rem;
+  }
+
+  .package h3 {
+    font-size: 1.4rem;
+  }
+
+  .price {
+    font-size: 1.3rem;
+  }
+
+  .faq-item h3 {
+    font-size: 1.2rem;
+  }
+
+  .faq-item p {
+    font-size: 1rem;
+  }
+
+  .resources-content h1 {
+    font-size: 1.8rem;
+  }
+
+  .resource-filters button {
+    font-size: 0.9rem;
+    padding: 8px 16px;
+  }
+
+  .resource-newsletter h2 {
+    font-size: 1.6rem;
+  }
+
+  .resource-newsletter p {
+    font-size: 1rem;
+  }
+}
 
