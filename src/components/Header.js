@@ -30,7 +30,7 @@ const Header = () => {
     <header className="header">
       <div className="logo">
         <Link to="/">
-          <img src={logo} alt="Credolay Logo" />
+          <img src={logo} alt="Logo" />
         </Link>
       </div>
       <button className="mobile-menu-toggle" onClick={() => setMobileMenuOpen(!mobileMenuOpen)} aria-label="Toggle menu">

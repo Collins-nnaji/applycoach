@@ -18,12 +18,12 @@ const Footer = () => {
           <ul className="contact-links">
             <li>
               <a href="mailto:admin@applycoachpro.com" target="_blank" rel="noopener noreferrer">
-                admin@applycoachpro.co.uk
+              hr@applycoachpro.com
               </a>
             </li>
             <li>
-              <a href="https://wa.me/447918262629" target="_blank" rel="noopener noreferrer">
-                <img src={whatsappIcon} alt="WhatsApp" className="icon" /> +44 7918 262629
+              <a href="https://wa.me/447776736657" target="_blank" rel="noopener noreferrer">
+                <img src={whatsappIcon} alt="WhatsApp" className="icon" /> +44 7776 736657
               </a>
             </li>
             <li>
