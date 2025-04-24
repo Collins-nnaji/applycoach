@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import Home from './pages/Home';
 import Contact from './pages/Contact';
+import Workshops from './pages/Workshops';
 
 import './App.css';
 
@@ -17,6 +18,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/workshops" element={<Workshops />} />
         </Routes>
       </div>
     </Router>

@@ -1,0 +1,475 @@
+/* Workshops Page Specific Styles */
+.workshops-page {
+  background-color: #f5f7fa; /* Lighter background */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.workshops-page .main-content {
+  flex: 1;
+}
+
+/* Hero Section */
+.workshops-hero {
+  background: linear-gradient(135deg, #2a3f5f 0%, #1f4d7e 100%);
+  color: white;
+  padding: 80px 0 60px;
+  text-align: center;
+}
+
+.workshops-hero .page-title {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: white;
+}
+
+.workshops-hero .page-subtitle {
+  font-size: 1.3rem;
+  max-width: 800px;
+  margin: 0 auto;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.6;
+}
+
+/* Featured Workshop Section */
+.featured-workshop-section {
+  padding: 60px 0;
+  background-color: white;
+}
+
+.featured-workshop {
+  display: flex;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 20px;
+  gap: 40px;
+  align-items: center;
+}
+
+.featured-content {
+  flex: 3;
+}
+
+.featured-image {
+  flex: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Style for workshop images */
+.workshop-img, 
+.featured-image img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Image styling for workshop cards */
+.workshop-image {
+  margin-bottom: 15px;
+  overflow: hidden;
+  border-radius: 8px 8px 0 0;
+  height: 180px;
+}
+
+.workshop-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.workshop-card:hover .workshop-image img {
+  transform: scale(1.05);
+}
+
+/* Image styling for webinar cards */
+.webinar-image {
+  margin-bottom: 15px;
+  overflow: hidden;
+  border-radius: 6px;
+  height: 140px;
+}
+
+.webinar-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.webinar-card:hover .webinar-image img {
+  transform: scale(1.05);
+}
+
+.featured-tag {
+  display: inline-block;
+  background-color: #406a53;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.featured-workshop h2 {
+  font-size: 2.2rem;
+  color: #2a3f5f;
+  margin-bottom: 12px;
+  line-height: 1.3;
+}
+
+.workshop-highlights {
+  margin: 20px 0;
+  padding-left: 20px;
+}
+
+.workshop-highlights li {
+  margin-bottom: 8px;
+  position: relative;
+  padding-left: 5px;
+}
+
+.workshop-highlights li::before {
+  content: "•";
+  color: #406a53;
+  font-weight: bold;
+  display: inline-block;
+  width: 1em;
+  margin-left: -1em;
+}
+
+.workshop-pricing {
+  margin: 25px 0;
+}
+
+.workshop-price {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #2a3f5f;
+  margin-right: 10px;
+}
+
+.workshop-price-note {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.large-button {
+  padding: 12px 30px;
+  font-size: 1.1rem;
+}
+
+/* Tabs Section */
+.workshops-tabs-section {
+  padding: 60px 0;
+  background-color: #f5f7fa;
+}
+
+.tabs-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.tabs-header {
+  display: flex;
+  border-bottom: 2px solid #e0e0e0;
+  margin-bottom: 30px;
+}
+
+.tab-button {
+  background: none;
+  border: none;
+  padding: 15px 25px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #666;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.tab-button:hover {
+  color: #2a3f5f;
+}
+
+.tab-button.active {
+  color: #2a3f5f;
+}
+
+.tab-button.active::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background-color: #2a3f5f;
+}
+
+/* Workshops Container (already existed but enhanced) */
+.workshops-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 30px;
+}
+
+.workshop-card {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 0 0 25px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  overflow: hidden;
+}
+
+.workshop-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+}
+
+.workshop-date {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #406a53;
+  margin: 0 25px 8px;
+  text-transform: uppercase;
+}
+
+.workshop-title {
+  font-size: 1.3rem;
+  color: #2a3f5f;
+  margin: 0 25px 12px;
+  line-height: 1.4;
+}
+
+.workshop-description {
+  font-size: 0.95rem;
+  color: #555;
+  margin: 0 25px 15px;
+  flex-grow: 1;
+}
+
+.workshop-meta {
+  display: flex;
+  justify-content: space-between;
+  margin: 15px 25px;
+  font-size: 0.95rem;
+}
+
+.workshop-spots {
+  color: #d35400;
+  font-weight: 500;
+}
+
+.workshop-button {
+  margin: 10px 25px 0;
+  align-self: flex-start;
+}
+
+/* Webinar Cards */
+.webinars-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 25px;
+}
+
+.webinar-card {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 0 0 22px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+  display: flex;
+  flex-direction: column;
+  border-left: 4px solid #406a53;
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+.webinar-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.09);
+}
+
+.webinar-title {
+  font-size: 1.2rem;
+  color: #2a3f5f;
+  margin: 0 22px 12px;
+}
+
+.webinar-description {
+  font-size: 0.9rem;
+  color: #555;
+  margin: 0 22px 15px;
+  flex-grow: 1;
+}
+
+.webinar-meta {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 22px 15px;
+  font-size: 0.85rem;
+}
+
+.webinar-duration {
+  color: #555;
+}
+
+.webinar-price {
+  font-weight: 600;
+  color: #2a3f5f;
+}
+
+.webinar-button {
+  margin: 0 22px;
+  align-self: flex-start;
+}
+
+/* Registration Section */
+.registration-section {
+  padding: 70px 0;
+  background-color: white;
+}
+
+.registration-section .section-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.registration-section .section-title {
+  font-size: 2.2rem;
+  text-align: center;
+  margin-bottom: 40px;
+  color: #2a3f5f;
+}
+
+.registration-form {
+  background-color: #f8f9fa;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+}
+
+.form-row {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  flex: 1;
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: #333;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+.form-group textarea {
+  height: 120px;
+  resize: vertical;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: #2a3f5f;
+  outline: none;
+}
+
+.form-actions {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.form-actions button {
+  padding: 12px 30px;
+}
+
+.success-message {
+  background-color: #d4edda;
+  color: #155724;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  margin: 20px 0;
+}
+
+.success-message p {
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 968px) {
+  .featured-workshop {
+    flex-direction: column;
+  }
+  
+  .featured-image {
+    order: -1;
+    margin-bottom: 30px;
+  }
+  
+  .featured-image img {
+    max-height: 250px;
+  }
+  
+  .workshops-hero .page-title {
+    font-size: 2.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .workshops-hero .page-title {
+    font-size: 2.2rem;
+  }
+  
+  .workshops-hero .page-subtitle {
+    font-size: 1.1rem;
+  }
+  
+  .featured-workshop h2 {
+    font-size: 1.8rem;
+  }
+  
+  .tabs-header {
+    flex-direction: column;
+  }
+  
+  .tab-button {
+    width: 100%;
+    text-align: center;
+  }
+  
+  .form-row {
+    flex-direction: column;
+    gap: 0;
+  }
+} 

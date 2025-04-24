@@ -417,16 +417,16 @@ const PackageCard = ({ title, features, price, buttonText, featured }) => {
   return (
     <motion.div 
       className={`package-card ${featured ? 'featured' : ''}`}
-      initial={{ opacity: 0, y: 50 }}
+      initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5 }}
-      whileHover={{ y: -10 }}
+      whileHover={{ y: -8 }}
     >
       {featured && <div className="featured-tag">Popular Choice</div>}
       <h3>{title}</h3>
       <div className="price">{price}</div>
-      <ul>
+      <ul className="package-features">
         {features.map((feature, index) => (
           <li key={index}>{feature}</li>
         ))}
@@ -466,106 +466,102 @@ const PackagesSection = () => (
       </motion.p>
       
       <div className="packages-container">
-        <PackageCard
-          title="Essential CV Package"
-          price="£50"
-          features={[
-            "Complete CV review by professionals",
-            "ATS-compatible formatting and keywords",
-            "In-depth skills and experience analysis",
-            "Professional editing and formatting",
-            "One revision round included"
-          ]}
-          buttonText="Book Now"
-        />
+
+      {/* NEW Combined Foundation Package */}
+      <PackageCard
+        title="Career Foundation Package"
+        price="£99" // Combined price (adjust as needed)
+        features={[
+          "Complete CV review & enhancement",
+          "ATS-compatible formatting & keywords",
+          "LinkedIn profile audit & optimization",
+          "Professional headline & summary editing",
+          "Custom cover letter template",
+          "Professional editing for all documents",
+          "Two revision rounds included"
+        ]}
+        buttonText="Get Started"
+        featured={true} // Make this popular choice
+      />
         
-        <PackageCard
-          title="LinkedIn Profile Optimization"
-          price="£50"
-          features={[
-            "Profile audit and improvement suggestions",
-            "Keyword optimization for visibility",
-            "Strategies for connection-building",
-            "Professional headline and summary editing",
-            "Guided networking tips"
-          ]}
-          buttonText="Book Now"
-        />
+      {/* Removed Essential CV Package */}
+      {/* Removed LinkedIn Profile Optimization */}
+      {/* Removed CV + Cover Letter Essentials */}
         
-        <PackageCard
-          title="CV + Cover Letter Essentials"
-          price="£60"
-          features={[
-            "Everything in Essential CV Package",
-            "Custom cover letter template",
-            "Professional editing for a polished look",
-            "Formatting for modern job market",
-            "Two revision rounds included"
-          ]}
-          buttonText="Book Now"
-          featured={true}
-        />
-        
-        <PackageCard
-          title="Interview Coaching Package"
+      <PackageCard
+        title="Interview Coaching Package"
           price="£300"
-          features={[
-            "Mock interviews with expert feedback",
-            "Techniques for answering tough questions",
-            "Industry-specific interview preparation",
-            "Three guaranteed interview invitations",
-            "Tailored interview follow-up guidance"
-          ]}
-          buttonText="Book Now"
-        />
+        features={[
+          "Mock interviews with expert feedback",
+          "Techniques for answering tough questions",
+          "Industry-specific interview preparation",
+          "Three guaranteed interview invitations",
+          "Tailored interview follow-up guidance"
+        ]}
+        buttonText="Book Now"
+      />
         
-        <PackageCard
-          title="Guaranteed Interview Package"
+      <PackageCard
+        title="Guaranteed Interview Package"
           price="£350"
-          features={[
-            "Personalized CV and statement writing",
-            "Interview invitation guarantee (up to 3)",
-            "Mock interview sessions included",
-            "Comprehensive interview preparation",
-            "Professional support until placement"
-          ]}
-          buttonText="Book Now"
-        />
+        features={[
+          "Personalized CV and statement writing",
+          "Interview invitation guarantee (up to 3)",
+          "Mock interview sessions included",
+          "Comprehensive interview preparation",
+          "Professional support until placement"
+        ]}
+        buttonText="Book Now"
+      />
         
-        <PackageCard
-          title="Comprehensive Branding & Coaching"
+      <PackageCard
+        title="Targeted Job Application Service"
+        price="£450" 
+        features={[
+          "Personalized job market analysis",
+          "Identification of 5-10 suitable roles",
+          "Tailoring of CV & Cover Letter per role",
+          "Assistance with application submission (optional)",
+          "Direct application tracking support"
+        ]}
+        buttonText="Enquire Now"
+      />
+        
+      <PackageCard
+        title="Comprehensive Branding & Coaching"
           price="£2,000"
-          features={[
-            "Complete job coaching and branding support",
-            "LinkedIn and CV optimization included",
-            "Personal branding strategy development",
-            "Guided support through the hiring process",
-            "Professional follow-up and branding tips"
-          ]}
-          buttonText="Book Now"
-        />
-      </div>
-      
-      <motion.div 
-        className="custom-package"
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5, delay: 0.6 }}
+        features={[
+          "Complete job coaching and branding support",
+          "LinkedIn and CV optimization included",
+          "Personal branding strategy development",
+          "Guided support through the hiring process",
+          "Professional follow-up and branding tips"
+        ]}
+        buttonText="Book Now"
+      />
+    </div>
+
+  {/* Custom Package Section remains */}
+  <motion.div 
+    className="custom-package"
+    initial={{ opacity: 0, y: 30 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true }}
+    transition={{ duration: 0.5, delay: 0.6 }}
+  >
+    <div className="custom-package-content">
+      <h3>Need a Custom Solution?</h3>
+      <p>We offer bespoke packages tailored to your specific career goals and challenges.</p>
+      <motion.button 
+        onClick={() => document.getElementById('contact').scrollIntoView({ behavior: 'smooth' })}
+        className="primary-button"
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
       >
-        <div className="custom-package-content">
-          <h3>Need a Custom Solution?</h3>
-          <p>We offer bespoke packages tailored to your specific career goals and challenges.</p>
-          <motion.button 
-            onClick={() => document.getElementById('contact').scrollIntoView({ behavior: 'smooth' })}
-            className="primary-button"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            Contact Us
-          </motion.button>
-        </div>
-      </motion.div>
+        Contact Us
+      </motion.button>
+    </div>
+  </motion.div>
     </div>
   </section>
 );
@@ -619,11 +615,31 @@ const FAQSection = ({ faq, toggleFAQ }) => (
 
 const TestimonialsSection = () => {
   const testimonials = [
-    { name: "Adekunle Adebayo", quote: "ApplyCoachPro transformed my CV and LinkedIn. I landed my dream job in weeks!" },
-    { name: "Chiamaka Nwosu", quote: "The interview coaching was invaluable. I felt so confident and prepared." },
-    { name: "Fatima Ibrahim", quote: "Their insights into the UK job market are second to none. Highly recommended." },
-    { name: "Emeka Okafor", quote: "The personalized strategy helped me pivot my career successfully. Thank you!" },
-    { name: "Aisha Bello", quote: "Excellent service! They truly understand how to highlight your strengths." }
+    { 
+      name: "Adekunle Adebayo", 
+      quote: "ApplyCoachPro transformed my CV and LinkedIn. I landed my dream job in weeks!",
+      role: "Software Engineer"
+    },
+    { 
+      name: "Chiamaka Nwosu", 
+      quote: "The interview coaching was invaluable. I felt so confident and prepared.",
+      role: "Marketing Director"
+    },
+    { 
+      name: "Fatima Ibrahim", 
+      quote: "Their insights into the UK job market are second to none. Highly recommended.",
+      role: "Finance Analyst"
+    },
+    { 
+      name: "Emeka Okafor", 
+      quote: "The personalized strategy helped me pivot my career successfully. Thank you!",
+      role: "Project Manager"
+    },
+    { 
+      name: "Aisha Bello", 
+      quote: "Excellent service! They truly understand how to highlight your strengths.",
+      role: "HR Specialist"
+    }
   ];
 
   return (
@@ -632,24 +648,33 @@ const TestimonialsSection = () => {
         <motion.h2 
           className="section-title"
           initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
           transition={{ duration: 0.5 }}
         >
           What Our Clients Say
         </motion.h2>
         
-        <div className="testimonials-scroll-container">
+        <div className="testimonials-grid">
           {testimonials.map((testimonial, index) => (
             <motion.div 
               key={index} 
               className="testimonial-card"
-              initial={{ opacity: 0, x: 50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: index * 0.1 }}
+              whileHover={{ 
+                y: -8,
+                boxShadow: "0 10px 20px rgba(0,0,0,0.1)"
+              }}
             >
-              <p className="testimonial-quote">"{testimonial.quote}"</p>
-              <p className="testimonial-name">- {testimonial.name}</p>
+              <div className="quote-icon">❝</div>
+              <p className="testimonial-quote">{testimonial.quote}</p>
+              <div className="testimonial-author">
+                <p className="author-name">{testimonial.name}</p>
+                <p className="author-role">{testimonial.role}</p>
+              </div>
             </motion.div>
           ))}
         </div>
