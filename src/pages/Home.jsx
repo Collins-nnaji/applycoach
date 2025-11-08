@@ -467,77 +467,72 @@ const PackagesSection = () => (
       
       <div className="packages-container">
 
-      {/* NEW Combined Foundation Package */}
       <PackageCard
         title="Career Foundation Package"
-        price="£99" // Combined price (adjust as needed)
+        price="£150"
         features={[
-          "Complete CV review & enhancement",
-          "ATS-compatible formatting & keywords",
-          "LinkedIn profile audit & optimization",
-          "Professional headline & summary editing",
-          "Custom cover letter template",
-          "Professional editing for all documents",
-          "Two revision rounds included"
+          "CV refresh aligned to your target roles",
+          "LinkedIn tune-up with keyword-rich headline",
+          "Customizable cover letter template",
+          "Interview readiness checklist",
+          "Promo: limited-time introductory price"
         ]}
         buttonText="Get Started"
-        featured={true} // Make this popular choice
+        featured={true}
       />
-        
-      {/* Removed Essential CV Package */}
-      {/* Removed LinkedIn Profile Optimization */}
-      {/* Removed CV + Cover Letter Essentials */}
-        
+
       <PackageCard
         title="Interview Coaching Package"
-          price="£300"
+        price="£500"
         features={[
-          "Mock interviews with expert feedback",
-          "Techniques for answering tough questions",
-          "Industry-specific interview preparation",
-          "Three guaranteed interview invitations",
-          "Tailored interview follow-up guidance"
+          "Two guaranteed interview opportunities",
+          "Personalized coaching before each interview",
+          "Mock interview recordings with expert feedback",
+          "Confidence and mindset coaching toolkit",
+          "Follow-up guidance after every session"
         ]}
         buttonText="Book Now"
       />
-        
+
       <PackageCard
         title="Guaranteed Interview Package"
-          price="£350"
+        price="£500"
         features={[
-          "Personalized CV and statement writing",
-          "Interview invitation guarantee (up to 3)",
-          "Mock interview sessions included",
-          "Comprehensive interview preparation",
-          "Professional support until placement"
+          "Three guaranteed interview opportunities",
+          "Structured preparation calls for every interview",
+          "Employer targeting and outreach on your behalf",
+          "Interview day scripts and follow-up templates",
+          "Promo: flash offer to lock in your interview pipeline"
         ]}
         buttonText="Book Now"
+        featured={true}
       />
-        
+
       <PackageCard
         title="Targeted Job Application Service"
-        price="£450" 
+        price="£1000"
         features={[
-          "Personalized job market analysis",
-          "Identification of 5-10 suitable roles",
-          "Tailoring of CV & Cover Letter per role",
-          "Assistance with application submission (optional)",
-          "Direct application tracking support"
+          "Guaranteed six interview opportunities",
+          "Role sourcing and tailored applications",
+          "CV and cover letter customization per submission",
+          "Weekly progress reporting and analytics",
+          "Priority communication with hiring teams"
         ]}
         buttonText="Enquire Now"
       />
-        
+
       <PackageCard
         title="Comprehensive Branding & Coaching"
-          price="£2,000"
+        price="£3500"
         features={[
-          "Complete job coaching and branding support",
-          "LinkedIn and CV optimization included",
-          "Personal branding strategy development",
-          "Guided support through the hiring process",
-          "Professional follow-up and branding tips"
+          "Full personal brand overhaul across CV, LinkedIn, portfolio",
+          "End-to-end job search strategy and accountability",
+          "Executive interview coaching and salary guidance",
+          "On-demand support throughout your search",
+          "Promo: bundle premium services in one package"
         ]}
         buttonText="Book Now"
+        featured={true}
       />
     </div>
 
